@@ -1,0 +1,13 @@
+<span nz-icon nzType="user" nzTheme="outline" class="user-icon" nz-popover
+      nzPopoverTitle="Title"
+      [(nzPopoverVisible)]="visible"
+      (nzPopoverVisibleChange)="change($event)"
+      nzPopoverTrigger="click"
+      [nzPopoverContent]="contentTemplate"></span>
+
+<ng-template #contentTemplate>
+  <a routerLink="welcome/profil">Mes informations</a>
+  <p>Editer mon profil</p>
+  <p>Se déconnecter</p>
+  <a (click)="clickMe()">Fermer</a>
+</ng-template>

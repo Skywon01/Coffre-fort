@@ -1,0 +1,10 @@
+.user-icon {
+  color: white;
+  border: 2px solid white;
+  padding: 6px;
+  border-radius: 50%;
+  float: right;
+  font-size: 36px;
+  margin-right: 8px;
+  margin-top: 5px;
+}
