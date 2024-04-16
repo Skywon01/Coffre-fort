@@ -83,10 +83,6 @@ nz-header {
     box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
 }
 
-nz-content {
-
-}
-
 .inner-content {
     padding: 24px;
     height: 100%;
@@ -95,9 +91,6 @@ nz-content {
     overflow-y: scroll;
 }
 
-.inner-content {
-
-}
 
 .user-icon {
     color: white;
