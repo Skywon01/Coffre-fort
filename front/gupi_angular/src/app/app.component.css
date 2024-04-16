@@ -139,11 +139,23 @@ nz-content {
 
 .menu-icon-collapsed {
     margin-top: 12px;
+    transition-duration: .3s;
+
+}
+.menu-icon-collapsed:hover {
+    scale: 1.08;
 }
 
 .active-link {
+    filter: grayscale(100%);
     opacity: 0.7;
 }
+
+.active-link-collapsed {
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+}
+
 
 .IMIcon {
     font-size: 64px;
