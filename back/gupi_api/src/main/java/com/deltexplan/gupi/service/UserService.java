@@ -40,7 +40,7 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    //Update à définir
+    //Fonctionnel mais refactor à prévoir
     public User updateUser(Integer id, User newUser) throws Exception {
         User user = this.userRepository.findById(id).orElseThrow(() -> new Exception("Utilisateur non trouvé"));
 
