@@ -3,6 +3,8 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {RouterLink} from "@angular/router";
+import {NzBadgeComponent} from "ng-zorro-antd/badge";
+import {NzAvatarComponent} from "ng-zorro-antd/avatar";
 
 @Component({
   selector: 'app-user-icon',
@@ -11,7 +13,9 @@ import {RouterLink} from "@angular/router";
         NzIconDirective,
         NzButtonComponent,
         NzPopoverDirective,
-        RouterLink
+        RouterLink,
+        NzBadgeComponent,
+        NzAvatarComponent
     ],
   templateUrl: './user-icon.component.html',
   styleUrl: './user-icon.component.css'

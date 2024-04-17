@@ -1,13 +1,18 @@
-<span nz-icon nzType="user" nzTheme="outline" class="user-icon" nz-popover
+<!--Le nzCount servira à binder le nombre de notifications-->
+<nz-badge [nzCount]="5" style="margin-right: 24px;" class="user-icon">
+
+<span nz-icon nzType="user" nzTheme="outline" nz-popover
       nzPopoverTitle="Title"
       [(nzPopoverVisible)]="visible"
       (nzPopoverVisibleChange)="change($event)"
       nzPopoverTrigger="click"
       [nzPopoverContent]="contentTemplate"></span>
+</nz-badge>
 
 <ng-template #contentTemplate>
-  <a routerLink="welcome/profil">Mes informations</a>
-  <p>Editer mon profil</p>
-  <p>Se déconnecter</p>
-  <a (click)="clickMe()">Fermer</a>
+    <a routerLink="welcome/profil">Mes informations</a>
+    <p>Editer mon profil</p>
+    <a routerLink="welcome/**">Notifications</a>
+    <p>Se déconnecter</p>
+    <a (click)="clickMe()">Fermer</a>
 </ng-template>
