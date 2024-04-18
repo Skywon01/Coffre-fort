@@ -1,23 +1,50 @@
-<nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
-    <thead>
-    <tr>
-        <th nzWidth="60px"></th>
-        <th>Nom</th>
-        <th>Age</th>
-        <th>Adresse</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let data of nzTable.data">
+<div>
+    <table>
+        <thead>
         <tr>
-            <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-            <td>{{ data.name }}</td>
-            <td>{{ data.age }}</td>
-            <td>{{ data.address }}</td>
+            <th>Id</th>
+            <th>Name</th>
+            <th>First name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Age</th>
         </tr>
-        <tr [nzExpand]="expandSet.has(data.id)">
-            <span>{{ data.description }}</span>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of tuyauDeUsers">
+            <td style="font-weight: 700">{{ user.user_id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.age }}</td>
         </tr>
-    </ng-container>
-    </tbody>
-</nz-table>
+        </tbody>
+    </table>
+</div>
+<!--<app-single-employee-displayer/>-->
+<!--<nz-table #nzTable [nzData]="tuyauDeUsers" nzTableLayout="fixed">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th nzWidth="60px"></th>-->
+<!--        <th>Nom</th>-->
+<!--        <th>Age</th>-->
+<!--        <th>Adresse</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--        <ng-container>-->
+
+<!--        @for (user of tuyauDeUsers ; track user.user_id ){-->
+<!--            <tr>-->
+<!--                <td>{{ user.firstName }}</td>-->
+<!--                <td>{{ user.name }}</td>-->
+<!--                <td>{{ user.age }}</td>-->
+<!--                <td>{{ user.address }}</td>-->
+<!--            </tr>-->
+<!--            -->
+<!--        }-->
+<!--        </ng-container>-->
+
+<!--    </tbody>-->
+<!--</nz-table>-->
