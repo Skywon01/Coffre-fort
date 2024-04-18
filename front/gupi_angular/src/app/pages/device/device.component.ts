@@ -13,6 +13,6 @@ import {DeviceListComponent} from "../../components/device-list/device-list.comp
 })
 export class DeviceComponent {
     constructor(private pageService: PageService) {
-        this.pageService.setComponentType('assets/media/icons/icon_computer.svg', 'Inventaire', 'Veuillez trouver l\'inventaire de votre matériel');
+        this.pageService.setComponentType('mobile', 'Inventaire', 'Veuillez trouver l\'inventaire de votre matériel');
     }
 }

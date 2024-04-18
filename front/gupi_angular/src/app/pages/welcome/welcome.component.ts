@@ -14,7 +14,7 @@ import {PageService} from "../../services/page/page.component";
 export class WelcomeComponent implements OnInit {
 
     constructor(private pageService: PageService) {
-        this.pageService.setComponentType('assets/media/icons/icon_rh.svg', 'Accueil', 'Bienvenue sur la page d\'accueil, veuillez choisir une section');
+        this.pageService.setComponentType('home', 'Accueil', 'Bienvenue sur la page d\'accueil, veuillez choisir une section');
     }
 
   ngOnInit() { }

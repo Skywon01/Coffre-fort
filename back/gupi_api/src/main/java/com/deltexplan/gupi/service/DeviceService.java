@@ -20,4 +20,8 @@ public class DeviceService {
     public Device getDeviceById(int id){
         return this.deviceRepository.findById(id).orElse(new Device());
     }
+
+    public Device save(Device device){
+        return this.deviceRepository.save(device);
+    }
 }

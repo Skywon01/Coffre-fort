@@ -10,6 +10,6 @@ import {PageService} from "../../services/page/page.component";
 })
 export class NotificationComponent {
     constructor(private pageService: PageService) {
-        this.pageService.setComponentType('assets/media/icons/icon_notif.svg', 'Notifications', 'Veuillez trouver toutes vos notifications');
+        this.pageService.setComponentType('bell', 'Notifications', 'Veuillez trouver toutes vos notifications');
     }
 }
