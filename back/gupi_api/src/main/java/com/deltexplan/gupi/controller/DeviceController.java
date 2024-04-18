@@ -35,4 +35,9 @@ public class DeviceController {
         return this.deviceService.updateDevice(id, device);
     }
 
+    @DeleteMapping("device/{id}")
+    public void deleteDevice(@PathVariable Integer id) throws Exception {
+        this.deviceService.deleteDevice(id);
+    }
+
 }

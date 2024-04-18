@@ -1,7 +1,6 @@
 package com.deltexplan.gupi.service;
 
 import com.deltexplan.gupi.entity.Device;
-import com.deltexplan.gupi.entity.User;
 import com.deltexplan.gupi.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +33,9 @@ public class DeviceService {
         return deviceRepository.save(device);
 
 
+    }
+
+    public void deleteDevice(Integer id) throws Exception {
+        this.deviceRepository.deleteById(id);
     }
 }
