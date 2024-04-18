@@ -24,4 +24,15 @@ public class DeviceService {
     public Device save(Device device){
         return this.deviceRepository.save(device);
     }
+
+    public Device updateDevice(Integer id, Device newDevice) throws Exception {
+        Device device = this.deviceRepository.findById(id).orElseThrow(() -> new Exception("Appareil non trouvé"));
+
+        device.setName(newDevice.getName());
+        device.setPrice(newDevice.getPrice());
+        device.setQr_code(newDevice.getQr_code());
+        return deviceRepository.save(device);
+
+
+    }
 }

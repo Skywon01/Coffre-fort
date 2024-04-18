@@ -38,15 +38,15 @@ public class UserController {
 
 //    Putmapping à mettre en place
 
+    @PutMapping("/user/{id}")
+    public User updateUser(@PathVariable Integer id, @RequestBody User user) throws Exception {
+        return this.userService.updateUser(id, user);
+    }
 
     @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable Integer id) {
         this.userService.deleteById(id);
     }
 
-@PutMapping("/user/{id}")
-    public User updateUser(@PathVariable Integer id, @RequestBody User user) throws Exception {
-        return this.userService.updateUser(id, user);
-}
 
 }
