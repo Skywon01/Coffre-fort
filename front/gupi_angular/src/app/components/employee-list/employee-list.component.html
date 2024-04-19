@@ -1,50 +1,57 @@
-<div>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>First name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Age</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of tuyauDeUsers">
-            <td style="font-weight: 700">{{ user.user_id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.address }}</td>
-            <td>{{ user.age }}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<!--<div>-->
+<!--    <table>-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Id</th>-->
+<!--            <th>Name</th>-->
+<!--            <th>First name</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Address</th>-->
+<!--            <th>Age</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--            @for (user of tuyauDeUsers; track user.user_id){-->
+<!--        <tr>-->
+
+<!--            <td style="font-weight: 700">{{ user.user_id }}</td>-->
+<!--            <td>{{ user.name }}</td>-->
+<!--            <td>{{ user.firstName }}</td>-->
+<!--            <td>{{ user.email }}</td>-->
+<!--            <td>{{ user.address }}</td>-->
+<!--            <td>{{ user.age }}</td>-->
+<!--        </tr>-->
+<!--            }-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
 <!--<app-single-employee-displayer/>-->
-<!--<nz-table #nzTable [nzData]="tuyauDeUsers" nzTableLayout="fixed">-->
-<!--    <thead>-->
-<!--    <tr>-->
+<nz-table #nzTable [nzData]="tuyauDeUsers" nzTableLayout="fixed">
+    <thead>
+    <tr>
 <!--        <th nzWidth="60px"></th>-->
-<!--        <th>Nom</th>-->
-<!--        <th>Age</th>-->
-<!--        <th>Adresse</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--        <ng-container>-->
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Age</th>
+        <th>Adresse</th>
+        <th>Envoyer</th>
+    </tr>
+    </thead>
+    <tbody>
+        <ng-container>
 
-<!--        @for (user of tuyauDeUsers ; track user.user_id ){-->
-<!--            <tr>-->
-<!--                <td>{{ user.firstName }}</td>-->
-<!--                <td>{{ user.name }}</td>-->
-<!--                <td>{{ user.age }}</td>-->
-<!--                <td>{{ user.address }}</td>-->
-<!--            </tr>-->
-<!--            -->
-<!--        }-->
-<!--        </ng-container>-->
+        @for (user of tuyauDeUsers ; track user.user_id ){
+            <tr>
 
-<!--    </tbody>-->
-<!--</nz-table>-->
+                <td>{{ user.name }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.age }}</td>
+                <td>{{ user.address }}</td>
+                <td><input type="file"> </td>
+            </tr>
+
+        }
+        </ng-container>
+
+    </tbody>
+</nz-table>
