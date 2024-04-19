@@ -1,35 +1,7 @@
-<!--<div>-->
-<!--    <table>-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>Id</th>-->
-<!--            <th>Name</th>-->
-<!--            <th>First name</th>-->
-<!--            <th>Email</th>-->
-<!--            <th>Address</th>-->
-<!--            <th>Age</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--            @for (user of tuyauDeUsers; track user.user_id){-->
-<!--        <tr>-->
-
-<!--            <td style="font-weight: 700">{{ user.user_id }}</td>-->
-<!--            <td>{{ user.name }}</td>-->
-<!--            <td>{{ user.firstName }}</td>-->
-<!--            <td>{{ user.email }}</td>-->
-<!--            <td>{{ user.address }}</td>-->
-<!--            <td>{{ user.age }}</td>-->
-<!--        </tr>-->
-<!--            }-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
-<!--<app-single-employee-displayer/>-->
 <nz-table #nzTable [nzData]="tuyauDeUsers" nzTableLayout="fixed">
     <thead>
     <tr>
-<!--        <th nzWidth="60px"></th>-->
+        <!--        <th nzWidth="60px"></th>-->
         <th>Nom</th>
         <th>Prénom</th>
         <th>Age</th>
@@ -38,20 +10,35 @@
     </tr>
     </thead>
     <tbody>
-        <ng-container>
+    <ng-container>
 
-        @for (user of tuyauDeUsers ; track user.user_id ){
+        @for (user of tuyauDeUsers; track user.user_id) {
             <tr>
 
                 <td>{{ user.name }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.age }}</td>
                 <td>{{ user.address }}</td>
-                <td><input type="file"> </td>
+                <td>
+                    <nz-upload
+                        nzType="drag"
+                        [nzMultiple]="true"
+                        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        (nzChange)="handleChange($event)"
+                    >
+                        <p class="ant-upload-drag-icon">
+                            <span nz-icon nzType="inbox"></span>
+                            Déposer fichier
+                        </p>
+
+
+                    </nz-upload>
+                </td>
             </tr>
 
+
         }
-        </ng-container>
+    </ng-container>
 
     </tbody>
 </nz-table>
