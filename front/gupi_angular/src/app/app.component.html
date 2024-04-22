@@ -1,98 +1,209 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a routerLink="welcome">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>GUPI</h1>
-      </a>
-    </div>
-<!-- Nom du profil à changer en dynamique -->
-    <h2 class="profil-menu">Sylvie Dupont</h2>
-    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" class="color-menu" >
-        @if (!isCollapsed) {
-      <div routerLink="/welcome/files" class="menu-item" routerLinkActive="active-link" style="background-color: #6087E2" >
-        <img src="assets/media/icons/icon_file.svg" alt="Icône fichier" width="48">
+    <nz-sider class="menu-sidebar"
+              nzCollapsible
+              nzWidth="256px"
+              nzBreakpoint="md"
+              [(nzCollapsed)]="isCollapsed"
+              [nzTrigger]="null">
+        <div class="sidebar-logo">
+            <a routerLink="welcome">
+                <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+                <h1>GUPI</h1>
+            </a>
+        </div>
+        <!-- Nom du profil à changer en dynamique -->
+        <h2 class="profil-menu">Sylvie Dupont</h2>
+        <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" class="color-menu">
+            @if (!isCollapsed) {
+                <div routerLink="/welcome/files" class="menu-item" routerLinkActive="active-link"
+                     style="background-color: #6087E2">
+                    <img src="assets/media/icons/icon_file.svg" alt="Icône fichier" width="48">
 
-        <a  class="menu-icon" >Mes fichiers</a>
-        <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
-      </div>
-        } @else {
-          <a class="menu-icon-collapsed" routerLink="/welcome/files" ><img src="assets/media/icons/icon_file.svg" alt="Icône fichier" routerLinkActive="active-link active-link-collapsed" width="36"></a>
-        }
-        @if (!isCollapsed){
-      <div routerLink="/welcome/notification" class="menu-item" routerLinkActive="active-link" style="background-color: #3CFA46">
-        <img src="assets/media/icons/icon_notif.svg" alt="Icône notifications" width="48">
+                    <a class="menu-icon">Mes fichiers</a>
+                    <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
+                </div>
+            } @else {
+                <a class="menu-icon-collapsed" routerLink="/welcome/files"><img src="assets/media/icons/icon_file.svg"
+                                                                                alt="Icône fichier"
+                                                                                routerLinkActive="active-link active-link-collapsed"
+                                                                                width="36"></a>
+            }
+            @if (!isCollapsed) {
+                <div routerLink="/welcome/notification" class="menu-item" routerLinkActive="active-link"
+                     style="background-color: #3CFA46">
+                    <img src="assets/media/icons/icon_notif.svg" alt="Icône notifications" width="48">
 
-        <a  class="menu-icon" >Notifications</a>
-        <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
-      </div>
-        } @else {
-          <a class="menu-icon-collapsed" routerLink="/welcome/notification" ><img src="assets/media/icons/icon_notif.svg" alt="Icône notifications" width="36" routerLinkActive="active-link active-link-collapsed"></a>
-        }
-        @if (!isCollapsed) {
-      <div routerLink="/welcome/materiel" class="menu-item" routerLinkActive="active-link" style="background-color: #FA3C89">
-        <img src="assets/media/icons/icon_computer.svg" alt="Icône matériel" width="48">
+                    <a class="menu-icon">Notifications</a>
+                    <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
+                </div>
+            } @else {
+                <a class="menu-icon-collapsed" routerLink="/welcome/notification"><img
+                    src="assets/media/icons/icon_notif.svg" alt="Icône notifications" width="36"
+                    routerLinkActive="active-link active-link-collapsed"></a>
+            }
+            @if (!isCollapsed) {
+                <div routerLink="/welcome/materiel" class="menu-item" routerLinkActive="active-link"
+                     style="background-color: #FA3C89">
+                    <img src="assets/media/icons/icon_computer.svg" alt="Icône matériel" width="48">
 
-        <a  class="menu-icon" >Matériel</a>
-        <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
-      </div>
-        } @else {
-          <a class="menu-icon-collapsed" routerLink="/welcome/materiel" routerLinkActive="active-link"><img src="assets/media/icons/icon_computer.svg" alt="Icône matériel" width="36" routerLinkActive="active-link active-link-collapsed"></a>
-        }
-        @if (!isCollapsed) {
-      <div routerLink="/welcome/rh" class="menu-item" routerLinkActive="active-link" style="background-color: #FAC23C">
-        <img src="assets/media/icons/icon_rh.svg" alt="Icône rh" width="48">
+                    <a class="menu-icon">Matériel</a>
+                    <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
+                </div>
+            } @else {
+                <a class="menu-icon-collapsed" routerLink="/welcome/materiel" routerLinkActive="active-link"><img
+                    src="assets/media/icons/icon_computer.svg" alt="Icône matériel" width="36"
+                    routerLinkActive="active-link active-link-collapsed"></a>
+            }
+            @if (!isCollapsed) {
+                <div routerLink="/welcome/rh" class="menu-item" routerLinkActive="active-link"
+                     style="background-color: #FAC23C">
+                    <img src="assets/media/icons/icon_rh.svg" alt="Icône rh" width="48">
 
-        <a  class="menu-icon" >Gestion RH</a>
-        <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
-      </div>
-        } @else {
-          <a class="menu-icon-collapsed" routerLink="/welcome/rh" routerLinkActive="active-link"><img src="assets/media/icons/icon_rh.svg" alt="Icône rh" width="36" routerLinkActive="active-link active-link-collapsed"></a>
-        }
-        @if (!isCollapsed) {
-      <div routerLink="/welcome/profil" class="menu-item" routerLinkActive="active-link" style="background-color: #A55F7B">
-        <img src="assets/media/icons/icon_profile.svg" alt="Icône profil" width="48">
+                    <a class="menu-icon">Gestion RH</a>
+                    <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
+                </div>
+            } @else {
+                <a class="menu-icon-collapsed" routerLink="/welcome/rh" routerLinkActive="active-link"><img
+                    src="assets/media/icons/icon_rh.svg" alt="Icône rh" width="36"
+                    routerLinkActive="active-link active-link-collapsed"></a>
+            }
+            @if (!isCollapsed) {
+                <div routerLink="/welcome/profil" class="menu-item" routerLinkActive="active-link"
+                     style="background-color: #A55F7B">
+                    <img src="assets/media/icons/icon_profile.svg" alt="Icône profil" width="48">
 
-        <a  class="menu-icon" >Mon profil</a>
-        <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
-      </div>
-        } @else {
-          <a class="menu-icon-collapsed" routerLink="/welcome/profil" routerLinkActive="active-link"><img src="assets/media/icons/icon_profile.svg" alt="Icône profil" width="36" routerLinkActive="active-link active-link-collapsed"></a>
-        }
+                    <a class="menu-icon">Mon profil</a>
+                    <img src="assets/media/icons/arrow_right.svg" alt="Icône flèche" class="menu-item-arrow">
+                </div>
+            } @else {
+                <a class="menu-icon-collapsed" routerLink="/welcome/profil" routerLinkActive="active-link"><img
+                    src="assets/media/icons/icon_profile.svg" alt="Icône profil" width="36"
+                    routerLinkActive="active-link active-link-collapsed"></a>
+            }
 
 
-
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div class="app-header">
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <span class="trigger"
                   nz-icon
                   [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></span>
         </span>
-      <app-user-icon/>
+                <app-user-icon/>
 
-      </div>
-    </nz-header>
+            </div>
+        </nz-header>
 
 
-      <app-breadcrumb></app-breadcrumb>
+        <app-breadcrumb></app-breadcrumb>
 
-    <nz-content>
-<!--        <app-single-employee-displayer/>-->
-<!--        <app-employee-list/>-->
-      <div class="inner-content">
-        <router-outlet></router-outlet>
-          <span nz-icon nzType="message" nzTheme="fill" class="IMIcon"></span>
-      </div>
-    </nz-content>
-  </nz-layout>
+        <nz-content>
+
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+                <!-- Messagerie instantanée  -->
+                <span nz-icon nzType="message" nzTheme="fill" class="IMIcon" (click)="chatIsOpen = !chatIsOpen"></span>
+                @if (chatIsOpen) {
+                    <nz-card style="width:300px;" nzTitle="Discussion" [nzExtra]="extraTemplate" class="chat">
+                        <div class="chat-history">
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="message-data align-right">
+                                        <span class="message-data-time" >10:10 AM, Aujourd'hui</span> &nbsp; &nbsp;
+                                        <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+
+                                    </div>
+                                    <div class="message other-message float-right">
+                                        Hi Vincent, how are you? How is the project coming along?
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="message-data">
+                                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                                        <span class="message-data-time">10:12 AM, Aujourd'hui</span>
+                                    </div>
+                                    <div class="message my-message">
+                                        Are we meeting Aujourd'hui? Project has been already finished and I have results to show you.
+                                    </div>
+                                </li>
+
+                                <li class="clearfix">
+                                    <div class="message-data align-right">
+                                        <span class="message-data-time" >10:14 AM, Aujourd'hui</span> &nbsp; &nbsp;
+                                        <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+
+                                    </div>
+                                    <div class="message other-message float-right">
+                                        Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="message-data">
+                                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                                        <span class="message-data-time">10:20 AM, Aujourd'hui</span>
+                                    </div>
+                                    <div class="message my-message">
+                                        Actually everything was fine. I'm very excited to show this to our team.
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="message-data">
+                                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                                        <span class="message-data-time">10:31 AM, Aujourd'hui</span>
+                                    </div>
+                                    <i class="fa fa-circle online"></i>
+                                    <i class="fa fa-circle online" style="color: #AED2A6"></i>
+                                    <i class="fa fa-circle online" style="color:#DAE9DA"></i>
+                                </li>
+
+                            </ul>
+
+                        </div> <!-- end chat-history -->
+                        <div class="chat-message clearfix">
+                            <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+
+                            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-file-image-o"></i>
+
+                            <button>Send</button>
+                        </div>
+<!--                        <div>-->
+
+
+<!--                            <div class="chat-container message">-->
+<!--                            <p class="">Je suis l'expéditeur, je t'envoie un message qui devrait bien s'afficher</p>-->
+<!--                            <p> {{ currentDate | date }} </p>-->
+<!--                            </div>-->
+<!--                        <div class="chat-container message">-->
+
+<!--                            <p class="">Je suis le destinataire</p>-->
+<!--                            <p> {{ currentDate | date }} </p>-->
+<!--                        </div>-->
+<!--                        </div>-->
+<!--                            <div nz-flex nzJustify="stretch">-->
+
+<!--                                <input type="text" name="" id="" nz-input>-->
+<!--                                <span nz-icon nzType="send" nzTheme="outline"-->
+<!--                                      style="font-size: 24px; color: #08c;"></span>-->
+<!--                            </div>-->
+
+
+                    </nz-card>
+                    <ng-template #extraTemplate>
+                        <span nz-icon nzType="close" nzTheme="outline" class="chat-cross"
+                              (click)="chatIsOpen = !chatIsOpen"></span>
+
+                    </ng-template>
+
+                }
+            </div>
+        </nz-content>
+    </nz-layout>
 </nz-layout>

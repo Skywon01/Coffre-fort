@@ -13,16 +13,21 @@ import {
 import {UserModel} from "./model/user.model";
 import {UserService} from "./services/user.service";
 import {EmployeeListComponent} from "./components/employee-list/employee-list.component";
+import {NzCardComponent} from "ng-zorro-antd/card";
+import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzFlexDirective} from "ng-zorro-antd/flex";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent],
+    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent, NzCardComponent, NzInputGroupComponent, NzInputDirective, NzFlexDirective],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    currentDate = new Date();
   isCollapsed = false;
+  chatIsOpen = false;
     public users: UserModel[] = []
     constructor(
         private readonly userService: UserService,
