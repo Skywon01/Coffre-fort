@@ -12,7 +12,6 @@
     scale: 1.08;
 }
 
-
 .chat {
     position: absolute;
     bottom: 128px;
@@ -23,8 +22,6 @@
 }
 
 .chat-content {
-
-
 
 }
 
@@ -64,7 +61,6 @@
     float: left;
 }
 
-
 .message {
     color: white;
     padding: 18px 20px;
@@ -88,8 +84,6 @@
         border-width: 10px;
         margin-left: -10px;
     }}
-
-
 
 *, *:before, *:after {
     box-sizing: border-box;
@@ -135,9 +129,6 @@ body {
     ul {
         padding: 20px;
         height: 770px;
-
-
-
 
         li {
             padding-bottom: 20px;
@@ -289,7 +280,6 @@ body {
             cursor: pointer;
             font-weight: bold;
             background: #F2F5F8;
-
 
         }
     }
