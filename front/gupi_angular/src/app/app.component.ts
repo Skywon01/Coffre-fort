@@ -16,16 +16,17 @@ import {EmployeeListComponent} from "./components/employee-list/employee-list.co
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzFlexDirective} from "ng-zorro-antd/flex";
+import {ChatComponent} from "./components/chat/chat.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent, NzCardComponent, NzInputGroupComponent, NzInputDirective, NzFlexDirective],
+    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent, NzCardComponent, NzInputGroupComponent, NzInputDirective, NzFlexDirective, ChatComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    currentDate = new Date();
+
   isCollapsed = false;
   chatIsOpen = false;
     public users: UserModel[] = []
