@@ -5,29 +5,46 @@
 }
 <br />
 <br />
-<nz-table #editRowTable nzBordered [nzData]="listOfData">
+<nz-table #nzTable [nzData]="tuyauDeDevices" nzTableLayout="fixed">
     <thead>
     <tr>
-        <th nzWidth="30%">Nom</th>
+        <!--        <th nzWidth="60px"></th>-->
+        <th>Nom</th>
         <th>Prix</th>
-        <th>Catégorie</th>
-        <th>QR code</th>
-        <th>Action</th>
+        <th>QR Code</th>
+
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data of editRowTable.data" class="editable-row">
-        <td>
-            <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
-                {{ data.name }}
-            </div>
-            <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.name" (blur)="stopEdit()" />
-        </td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
-        <td>
-            <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
-        </td>
-    </tr>
+    <ng-container>
+
+        @for (device of tuyauDeDevices; track device.device_id) {
+            <tr>
+
+                <td>{{ device.name }}</td>
+                <td>{{ device.price }}</td>
+                <td>{{ device.qr_code }}</td>
+
+                <td>
+                    <nz-upload
+                        nzType="drag"
+                        [nzMultiple]="true"
+                        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        (nzChange)="handleChange($event)"
+                    >
+                        <p class="ant-upload-drag-icon">
+                            <span nz-icon nzType="inbox"></span>
+                            Déposer fichier
+                        </p>
+
+
+                    </nz-upload>
+                </td>
+            </tr>
+
+
+        }
+    </ng-container>
+
     </tbody>
 </nz-table>

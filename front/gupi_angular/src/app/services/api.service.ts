@@ -30,7 +30,7 @@ export class ApiService {
     constructor(
         private http: HttpClient
     ) {  }
-
+    // Observables utilisateur
     retrieveAllUsers(): Observable<any> {
         return this.http.get(`${apiRoot}/user`, httpoptions)
     }
@@ -46,5 +46,23 @@ export class ApiService {
     registerUser(user: any): Observable<any> {
         return this.http.post(`${apiRoot}/user`, user, httpoptions)
     }
+
+    // Observables Matériel
+    retrieveAllDevices(): Observable<any> {
+        return this.http.get(`${apiRoot}/device`, httpoptions)
+    }
+
+    retrieveOneDevice(id: string): Observable<any> {
+        return  this.http.get(`${apiRoot}/device/${id}`, httpoptions)
+    }
+
+    retrieveDeviceById(userId: number): Observable<any> {
+        return this.http.get(`${apiRoot}/device/${userId}`, httpoptions);
+    }
+
+    registerDevice(user: any): Observable<any> {
+        return this.http.post(`${apiRoot}/device`, user, httpoptions)
+    }
+
 
 }
