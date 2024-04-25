@@ -15,4 +15,5 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 export class ChatComponent {
     currentDate = new Date();
     chatIsOpen = false;
+
 }
