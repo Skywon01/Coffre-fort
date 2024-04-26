@@ -19,4 +19,7 @@ public class Device {
 
     private Integer price;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
