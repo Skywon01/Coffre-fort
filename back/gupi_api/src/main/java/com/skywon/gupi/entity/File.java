@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="File")
+@Table(name = "File")
 public class File {
 
     @Id

@@ -3,9 +3,10 @@ package com.skywon.gupi.controller;
 import com.skywon.gupi.entity.FileUploadInfo;
 
 
+import com.skywon.gupi.service.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +16,23 @@ import java.io.File;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class FileController {
 
+    @Autowired
+    private FileService fileService;
     // On retrouve @Value dans application properties
     @Value("${file.path}")
     private String path;
+
+    @GetMapping("/file")
+    public List<com.skywon.gupi.entity.File> allFiles() {
+        return this.fileService.getAll();
+    }
 
     @PostMapping("/file/upload")
     public FileUploadInfo upload(@RequestParam MultipartFile file) { // input type="file"
