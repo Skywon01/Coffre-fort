@@ -20,6 +20,8 @@ import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
+import {of} from "rxjs";
+import {NgForOf} from "@angular/common";
 
 @Component({
     selector: 'app-add-user-form',
@@ -37,12 +39,14 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
         NzOptionComponent,
         NzRowDirective,
         NzButtonComponent,
-        NzCheckboxComponent
+        NzCheckboxComponent,
+        NgForOf
     ],
     templateUrl: './add-user-form.component.html',
     styleUrl: './add-user-form.component.css'
 })
 export class AddUserFormComponent {
+    numbers: number[];
     validateForm: FormGroup<{
         user_id: FormControl<string>;
         name: FormControl<string>;
@@ -80,5 +84,8 @@ export class AddUserFormComponent {
             address: ['', [Validators.required]],
 
         });
+        this.numbers = Array.from({length: 99}, (_, i) => i + 1);
     }
+
+
 }

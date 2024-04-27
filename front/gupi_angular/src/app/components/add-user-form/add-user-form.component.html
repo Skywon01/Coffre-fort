@@ -26,7 +26,10 @@
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Age</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="number" id="age" type="number"/>
+            <select formControlName="number" id="age" type="number">
+                <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>
+
+            </select>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
