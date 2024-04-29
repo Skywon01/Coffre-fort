@@ -2,8 +2,10 @@
     <thead>
     <tr>
         <!--        <th nzWidth="60px"></th>-->
+        <th>Id</th>
         <th>Nom</th>
         <th>Prénom</th>
+        <th>Mail</th>
         <th>Age</th>
         <th>Adresse</th>
         <th>Envoyer</th>
@@ -14,9 +16,10 @@
 
         @for (user of tuyauDeUsers; track user.user_id) {
             <tr>
-
+                <td>{{ user.user_id }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
                 <td>{{ user.age }}</td>
                 <td>{{ user.address }}</td>
                 <td>
