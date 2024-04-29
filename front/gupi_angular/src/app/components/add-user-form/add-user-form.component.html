@@ -1,20 +1,14 @@
-<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+<form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Id utilisateur</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Nom</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="user_id"/>
+            <input nz-input formControlName="name" id="name"/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Nom</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="firstName">Prénom</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="name"/>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Prénom</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="firstName"/>
+            <input nz-input formControlName="firstName" id="firstName"/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -24,21 +18,21 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Age</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Age</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <select formControlName="number" id="age" type="number">
-                <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>
+            <input nz-input formControlName="age"/>
+<!--            <select formControlName="number" id="age" type="number">-->
+<!--                <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>-->
 
-            </select>
+<!--            </select>-->
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Adresse</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Adresse</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="adresse"/>
+            <input nz-input id="adresse" formControlName="address"/>
         </nz-form-control>
     </nz-form-item>
-
 
 
     <nz-form-item nz-row class="register-area">
