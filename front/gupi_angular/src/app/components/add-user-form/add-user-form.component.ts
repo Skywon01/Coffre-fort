@@ -49,7 +49,8 @@ import {ApiService} from "../../services/api.service";
 })
 export class AddUserFormComponent {
     // numbers!: number[];
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService) {
+    }
 
     form: FormGroup = new FormGroup({
         name: new FormControl(''),
@@ -65,6 +66,7 @@ export class AddUserFormComponent {
         console.log('Données du formulaire à envoyer :', formData);
         this.apiService.registerUser(formData).subscribe()
     }
+
     // this.numbers = Array.from({length: 99}, (_, i) => i + 1);
     // validateForm: FormGroup<{
     //     user_id: FormControl<string>;
@@ -107,7 +109,6 @@ export class AddUserFormComponent {
     //
     //     });
     //     this.numbers = Array.from({length: 99}, (_, i) => i + 1);
-
 
 
 }
