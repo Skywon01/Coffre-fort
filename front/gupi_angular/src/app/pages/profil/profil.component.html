@@ -1,5 +1,25 @@
+<div nz-row>
+    <div nz-col nzSpan="24">
+        <div
+            [nzAlign]="alignSegment[selectedLAlignment]"
+            [nzJustify]="justifySegment[1]"
+            class="btn-wrappers"
+            nz-flex
+        >
+
+            <div nz-col nzSpan="12">
+                <div class="profil"></div>
+                <h2>Sylvie Dupont</h2>
+                <h3>Développeuse</h3>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
 <div nz-row class="profil-container-items">
-    <div nz-col nzSpan="6" ></div>
+    <div nz-col nzSpan="6"></div>
     <div nz-col nzXs="20" nzSm="16" nzMd="12" nzLg="8" nzXl="4" class="profil-col">
         <div class="profil"></div>
     </div>
@@ -7,7 +27,8 @@
         <div nz-row>
 
             <h2>Sylvie Dupont</h2>
-            <span nz-icon nzType="edit" nzTheme="fill" style="font-size: 40px" nz-flex [nzJustify]="justifySegment[1]"></span>
+            <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
+                  style="font-size: 40px"></span>
         </div>
         <h3>Assistante administrative</h3>
         <h3>Société</h3>
