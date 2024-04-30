@@ -1,29 +1,28 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
-    AbstractControl,
     FormControl,
     FormGroup,
-    NonNullableFormBuilder,
     ReactiveFormsModule,
-    ValidatorFn,
     Validators
 } from "@angular/forms";
 import {
     NzFormControlComponent,
     NzFormDirective,
     NzFormItemComponent,
-    NzFormLabelComponent,
-    NzFormTooltipIcon
+    NzFormLabelComponent
 } from "ng-zorro-antd/form";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
+import {ApiService} from "../../services/api.service";
+import {UserModel} from "../../model/user.model";
+import {NgForOf} from "@angular/common";
 
 @Component({
-  selector: 'app-add-device',
-  standalone: true,
+    selector: 'app-add-device',
+    standalone: true,
     imports: [
         ReactiveFormsModule,
         NzFormDirective,
@@ -37,67 +36,40 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
         NzOptionComponent,
         NzRowDirective,
         NzButtonComponent,
-        NzCheckboxComponent
+        NzCheckboxComponent,
+        NgForOf
     ],
-  templateUrl: './add-device.component.html',
-  styleUrl: './add-device.component.css'
+    templateUrl: './add-device.component.html',
+    styleUrl: './add-device.component.css'
 })
 export class AddDeviceComponent {
-    validateForm: FormGroup<{
-        email: FormControl<string>;
-        password: FormControl<string>;
-        checkPassword: FormControl<string>;
-        nickname: FormControl<string>;
-        phoneNumberPrefix: FormControl<'+86' | '+87'>;
-        phoneNumber: FormControl<string>;
-        website: FormControl<string>;
-        captcha: FormControl<string>;
-        agree: FormControl<boolean>;
-    }>;
-    captchaTooltipIcon: NzFormTooltipIcon = {
-        type: 'info-circle',
-        theme: 'twotone'
-    };
+    numbers: number[];
+    form: FormGroup = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        price: new FormControl('', [Validators.required]),
+        category: new FormControl('', [Validators.required]),
+        qr_code: new FormControl(''),
+        possessor: new FormControl('')
+    });
 
-    submitForm(): void {
-        if (this.validateForm.valid) {
-            console.log('submit', this.validateForm.value);
+    constructor(private apiService: ApiService) {
+        this.numbers = Array.from({length: 9999}, (_, i) => i + 1);
+    }
+
+    submitDevice() {
+        if (this.form.valid) {
+            const formData: UserModel = this.form.value;
+            console.log('Données du formulaire à envoyer :', formData);
+            this.apiService.registerDevice(formData).subscribe()
+
         } else {
-            Object.values(this.validateForm.controls).forEach(control => {
+            Object.values(this.form.controls).forEach(control => {
                 if (control.invalid) {
                     control.markAsDirty();
-                    control.updateValueAndValidity({ onlySelf: true });
+                    control.updateValueAndValidity({onlySelf: true});
                 }
             });
+
         }
-    }
-
-
-
-    confirmationValidator: ValidatorFn = (control: AbstractControl): { [s: string]: boolean } => {
-        if (!control.value) {
-            return { required: true };
-        } else if (control.value !== this.validateForm.controls.password.value) {
-            return { confirm: true, error: true };
-        }
-        return {};
-    };
-
-    getCaptcha(e: MouseEvent): void {
-        e.preventDefault();
-    }
-
-    constructor(private fb: NonNullableFormBuilder) {
-        this.validateForm = this.fb.group({
-            email: ['', [Validators.email, Validators.required]],
-            password: ['', [Validators.required]],
-            checkPassword: ['', [Validators.required, this.confirmationValidator]],
-            nickname: ['', [Validators.required]],
-            phoneNumberPrefix: '+86' as '+86' | '+87',
-            phoneNumber: ['', [Validators.required]],
-            website: ['', [Validators.required]],
-            captcha: ['', [Validators.required]],
-            agree: [false]
-        });
     }
 }

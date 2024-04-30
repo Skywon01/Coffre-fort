@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
-import {NgForOf} from "@angular/common";
+import {CurrencyPipe, NgForOf} from "@angular/common";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
@@ -33,7 +33,8 @@ interface ItemData {
         NzPopconfirmDirective,
         AddDeviceComponent,
         NzIconDirective,
-        NzUploadComponent
+        NzUploadComponent,
+        CurrencyPipe
     ],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.css'

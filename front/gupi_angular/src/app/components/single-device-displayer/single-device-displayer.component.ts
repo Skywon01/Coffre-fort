@@ -4,11 +4,14 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {DeviceService} from "../../services/device.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../services/api.service";
+import {CurrencyPipe} from "@angular/common";
 
 @Component({
     selector: 'app-single-device-displayer',
     standalone: true,
-    imports: [],
+    imports: [
+        CurrencyPipe
+    ],
     templateUrl: './single-device-displayer.component.html',
     styleUrl: './single-device-displayer.component.css'
 })

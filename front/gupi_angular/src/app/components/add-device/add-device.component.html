@@ -1,32 +1,34 @@
-<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+<form (ngSubmit)="submitDevice()" [formGroup]="form" nz-form>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Nom</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Nom</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="email1" />
+            <input formControlName="name" nz-input/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Prix</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>Prix</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="email2" />
+            <select formControlName="price" type="number">
+                <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>
+            </select>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Catégorie</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="category" nzRequired>Catégorie</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="email3" />
+            <input formControlName="category" nz-input/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">QR code</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="qr_code" nzRequired>QR code</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="email4" />
+            <input formControlName="qr_code" nz-input/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Attribution</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="possessor" nzRequired>Attribution</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="email5" />
+            <input formControlName="possessor" nz-input/>
         </nz-form-control>
     </nz-form-item>
 
