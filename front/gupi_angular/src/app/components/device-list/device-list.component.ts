@@ -10,20 +10,18 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {DeviceModel} from "../../model/device.model";
 import {NzUploadChangeParam, NzUploadComponent} from "ng-zorro-antd/upload";
 import {NzMessageService} from "ng-zorro-antd/message";
-import {ApiService} from "../../services/api.service";
 
-
-interface ItemData {
-    id: string;
-    name: string;
-    age: string;
-    address: string;
-}
+// interface ItemData {
+//     id: string;
+//     name: string;
+//     age: string;
+//     address: string;
+// }
 
 
 @Component({
-  selector: 'app-device-list',
-  standalone: true,
+    selector: 'app-device-list',
+    standalone: true,
     imports: [
         NzButtonComponent,
         NzTableComponent,
@@ -37,14 +35,16 @@ interface ItemData {
         NzUploadComponent,
         CurrencyPipe
     ],
-  templateUrl: './device-list.component.html',
-  styleUrl: './device-list.component.css'
+    templateUrl: './device-list.component.html',
+    styleUrl: './device-list.component.css'
 })
-export class DeviceListComponent implements OnInit{
+export class DeviceListComponent implements OnInit {
     @Input() tuyauDeDevices!: DeviceModel[];
-    show: boolean = false;
-    constructor(private msg: NzMessageService) {}
-    handleChange({ file, fileList }: NzUploadChangeParam): void {
+
+    constructor(private msg: NzMessageService) {
+    }
+
+    handleChange({file, fileList}: NzUploadChangeParam): void {
         const status = file.status;
         if (status !== 'uploading') {
             console.log(file, fileList);
@@ -57,18 +57,6 @@ export class DeviceListComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        // this.loadDevices();
     }
-
-    // loadDevices() {
-    //     this.tuyauDeDevices.subscribe(devices => {
-    //         this.tuyauDeDevices = devices;
-    //     });
-    // }
-
-    handleDeviceAdded(device: DeviceModel) {
-        this.tuyauDeDevices.push(device); // Ajouter le nouveau périphérique à la liste existante
-    }
-
 
 }

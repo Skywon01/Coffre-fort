@@ -47,7 +47,7 @@ import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
 })
 export class AddDeviceComponent {
     @Output() deviceAdded: EventEmitter<DeviceModel> = new EventEmitter<DeviceModel>();
-    numbers: number[];
+    // numbers: number[];
     form: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required]),
         price: new FormControl('', [Validators.required]),
@@ -57,7 +57,8 @@ export class AddDeviceComponent {
     });
 
     constructor(private apiService: ApiService) {
-        this.numbers = Array.from({length: 250000}, (_, i) => i + 1);
+        // numbers n'est plus utilisé pour le moment
+        // this.numbers = Array.from({length: 250000}, (_, i) => i + 1);
     }
 
     submitDevice() {
@@ -65,7 +66,9 @@ export class AddDeviceComponent {
             const formData: UserModel = this.form.value;
             console.log('Données du formulaire à envoyer :', formData);
             this.apiService.registerDevice(formData).subscribe(device => {
-                this.deviceAdded.emit(device); // Émettre l'événement avec le nouveau périphérique
+                // .emit permet d'envoyer l'évènement, ici on envoie l'objet "device"
+                this.deviceAdded.emit(device);
+                this.form.reset();
             });
 
         } else {
