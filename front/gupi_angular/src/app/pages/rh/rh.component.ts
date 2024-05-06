@@ -6,15 +6,15 @@ import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {EmployeeListComponent} from "../../components/employee-list/employee-list.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {UserService} from "../../services/user.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {UserModel} from "../../model/user.model";
 import {
     SingleEmployeeDisplayerComponent
 } from "../../components/single-employee-displayer/single-employee-displayer.component";
 
 @Component({
-  selector: 'app-rh',
-  standalone: true,
+    selector: 'app-rh',
+    standalone: true,
     imports: [
         AddUserFormComponent,
         ModalRhComponent,
@@ -24,25 +24,26 @@ import {
         NzButtonComponent,
         SingleEmployeeDisplayerComponent
     ],
-  templateUrl: './rh.component.html',
-  styleUrl: './rh.component.css'
+    templateUrl: './rh.component.html',
+    styleUrl: './rh.component.css'
 })
-export class RhComponent implements OnInit{
+export class RhComponent implements OnInit {
     public users: UserModel[] = []
+
     constructor(private pageService: PageService,
-    private readonly userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router) {
+                private readonly userService: UserService,
+                private route: ActivatedRoute) {
         this.pageService.setComponentType('assets/media/icons/icon_rh.svg', 'Accueil RH', 'Bienvenue sur la page RH');
 
     }
+
     async ngOnInit() {
         //Récupère l'eventuel paramètre id dans l'url
         this.route.params.subscribe(params => {
             const id = params['id']
             if (!id) {
                 this.vaChercherTousLesUsers()
-            }else{
+            } else {
                 this.vaChercherUnSeulUser(id)
             }
 
@@ -61,4 +62,8 @@ export class RhComponent implements OnInit{
 
 
     show: boolean = false;
+
+    onUserAdded(newUser: UserModel) {
+        this.users.push(newUser);
+    }
 }

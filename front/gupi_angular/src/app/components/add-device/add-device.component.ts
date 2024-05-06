@@ -17,7 +17,6 @@ import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {ApiService} from "../../services/api.service";
-import {UserModel} from "../../model/user.model";
 import {NgForOf} from "@angular/common";
 import {DeviceModel} from "../../model/device.model";
 import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
@@ -63,7 +62,7 @@ export class AddDeviceComponent {
 
     submitDevice() {
         if (this.form.valid) {
-            const formData: UserModel = this.form.value;
+            const formData: DeviceModel = this.form.value;
             console.log('Données du formulaire à envoyer :', formData);
             this.apiService.registerDevice(formData).subscribe(device => {
                 // .emit permet d'envoyer l'évènement, ici on envoie l'objet "device"

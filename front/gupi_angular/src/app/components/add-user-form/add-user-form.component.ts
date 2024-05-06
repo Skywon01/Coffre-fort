@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -43,6 +43,7 @@ import {ApiService} from "../../services/api.service";
     styleUrl: './add-user-form.component.css'
 })
 export class AddUserFormComponent {
+    @Output() userAdded: EventEmitter<UserModel> = new EventEmitter<UserModel>();
     numbers: number[];
     form: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -61,7 +62,12 @@ export class AddUserFormComponent {
         if (this.form.valid) {
             const formData: UserModel = this.form.value;
             console.log('Données du formulaire à envoyer :', formData);
-            this.apiService.registerUser(formData).subscribe()
+            this.apiService.registerUser(formData).subscribe(user => {
+
+                    this.userAdded.emit(user);
+                }
+            )
+            this.form.reset();
 
         } else {
             Object.values(this.form.controls).forEach(control => {
