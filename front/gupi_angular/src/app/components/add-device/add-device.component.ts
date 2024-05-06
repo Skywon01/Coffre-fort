@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -19,6 +19,8 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {ApiService} from "../../services/api.service";
 import {UserModel} from "../../model/user.model";
 import {NgForOf} from "@angular/common";
+import {DeviceModel} from "../../model/device.model";
+import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
 
 @Component({
     selector: 'app-add-device',
@@ -37,12 +39,14 @@ import {NgForOf} from "@angular/common";
         NzRowDirective,
         NzButtonComponent,
         NzCheckboxComponent,
-        NgForOf
+        NgForOf,
+        NzInputNumberComponent
     ],
     templateUrl: './add-device.component.html',
     styleUrl: './add-device.component.css'
 })
 export class AddDeviceComponent {
+    @Output() deviceAdded: EventEmitter<DeviceModel> = new EventEmitter<DeviceModel>();
     numbers: number[];
     form: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -53,14 +57,16 @@ export class AddDeviceComponent {
     });
 
     constructor(private apiService: ApiService) {
-        this.numbers = Array.from({length: 9999}, (_, i) => i + 1);
+        this.numbers = Array.from({length: 250000}, (_, i) => i + 1);
     }
 
     submitDevice() {
         if (this.form.valid) {
             const formData: UserModel = this.form.value;
             console.log('Données du formulaire à envoyer :', formData);
-            this.apiService.registerDevice(formData).subscribe()
+            this.apiService.registerDevice(formData).subscribe(device => {
+                this.deviceAdded.emit(device); // Émettre l'événement avec le nouveau périphérique
+            });
 
         } else {
             Object.values(this.form.controls).forEach(control => {

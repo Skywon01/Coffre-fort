@@ -7,10 +7,8 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>Prix</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <select formControlName="price" type="number">
-                <option *ngFor="let num of numbers" [value]="num">{{ num }}</option>
-            </select>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="le prix maximum est de 9999€">
+            <nz-input-number [nzMax]="9999" [nzMin]="0" formControlName="price" type="number"/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>

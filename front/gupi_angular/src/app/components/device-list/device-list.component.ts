@@ -10,6 +10,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {DeviceModel} from "../../model/device.model";
 import {NzUploadChangeParam, NzUploadComponent} from "ng-zorro-antd/upload";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {ApiService} from "../../services/api.service";
 
 
 interface ItemData {
@@ -56,6 +57,17 @@ export class DeviceListComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        // this.loadDevices();
+    }
+
+    // loadDevices() {
+    //     this.tuyauDeDevices.subscribe(devices => {
+    //         this.tuyauDeDevices = devices;
+    //     });
+    // }
+
+    handleDeviceAdded(device: DeviceModel) {
+        this.tuyauDeDevices.push(device); // Ajouter le nouveau périphérique à la liste existante
     }
 
 
