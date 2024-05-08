@@ -10,9 +10,15 @@ import {ProfilUpdateComponent} from "../../components/profil-update/profil-updat
 import {
     SingleEmployeeDisplayerComponent
 } from "../../components/single-employee-displayer/single-employee-displayer.component";
+import {LoginComponent} from "../login/login.component";
 
 export const WELCOME_ROUTES: Routes = [
     {path: '', component: WelcomeComponent},
+    {
+        path: 'login',
+        component: LoginComponent,
+        title: "Page de connexion"
+    },
     {
         path: 'files',
         component: MyFileComponent,

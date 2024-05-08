@@ -30,6 +30,7 @@ export class AppComponent {
   isCollapsed = false;
   chatIsOpen = false;
     public users: UserModel[] = []
+    authService: boolean = false;
     constructor(
         private readonly userService: UserService,
         private route: ActivatedRoute,
