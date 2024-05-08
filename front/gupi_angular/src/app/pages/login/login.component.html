@@ -1,1 +1,9 @@
-<app-login-form></app-login-form>
+<div class="login-page">
+    <div [nzAlign]="alignSegment[1]" [nzJustify]="justifySegment[1]" [nzVertical]="isVertical" class="login-container"
+         nz-flex>
+        <span class="icon" nz-icon nzTheme="outline" nzType="shop"></span>
+        <h1 class="login-title">Bienvenue sur GUPI</h1>
+        <h2 class="login-title">Veuillez vous connecter</h2>
+        <app-login-form></app-login-form>
+    </div>
+</div>

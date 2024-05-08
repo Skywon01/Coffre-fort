@@ -1,29 +1,29 @@
 <form (ngSubmit)="submitForm()" [formGroup]="validateForm" class="login-form" nz-form>
     <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your username!">
+        <nz-form-control nzErrorTip="Veuillez entrer votre identifiant!">
+            <nz-form-label [nzSpan]="6" nzFor="email">Identifiant</nz-form-label>
             <nz-input-group nzPrefixIcon="user">
-                <input formControlName="userName" nz-input placeholder="Username" type="text"/>
+                <input formControlName="userName" nz-input placeholder="Identifiant" type="text"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-form-control nzErrorTip="Veuillez entrer votre mot de passe!">
+            <nz-form-label nzFor="email">Mot de passe</nz-form-label>
             <nz-input-group nzPrefixIcon="lock">
-                <input formControlName="password" nz-input placeholder="Password" type="password"/>
+                <input formControlName="password" nz-input placeholder="Mot de passe" type="password"/>
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
     <div class="login-form-margin" nz-row>
         <div [nzSpan]="12" nz-col>
             <label formControlName="remember" nz-checkbox>
-                <span>Remember me</span>
+                <span>Rester connecté</span>
             </label>
         </div>
         <div [nzSpan]="12" nz-col>
-            <a class="login-form-forgot">Forgot password</a>
+            <a class="login-form-forgot">Mot de passe oublié</a>
         </div>
     </div>
-    <button [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>Log in</button>
-    Or
-    <a>register now!</a>
+    <button [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>Se connecter</button>
 </form>

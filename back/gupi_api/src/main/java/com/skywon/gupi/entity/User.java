@@ -24,6 +24,8 @@ public class User {
 
     private String email;
 
+    private String password;
+
 //    @ManyToOne
 //    private Role role_id;
 
