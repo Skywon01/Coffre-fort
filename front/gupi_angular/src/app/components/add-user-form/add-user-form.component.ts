@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {
     FormControl,
-    FormGroup,
+    FormGroup, FormsModule,
     ReactiveFormsModule,
     Validators
 } from "@angular/forms";
@@ -19,6 +19,7 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NgForOf} from "@angular/common";
 import {UserModel} from "../../model/user.model";
 import {ApiService} from "../../services/api.service";
+import {NzIconDirective} from "ng-zorro-antd/icon";
 
 @Component({
     selector: 'app-add-user-form',
@@ -37,13 +38,17 @@ import {ApiService} from "../../services/api.service";
         NzRowDirective,
         NzButtonComponent,
         NzCheckboxComponent,
-        NgForOf
+        NgForOf,
+        NzIconDirective,
+        FormsModule
     ],
     templateUrl: './add-user-form.component.html',
     styleUrl: './add-user-form.component.css'
 })
 export class AddUserFormComponent {
     @Output() userAdded: EventEmitter<UserModel> = new EventEmitter<UserModel>();
+    passwordVisible = false;
+    password?: string;
     numbers: number[];
     form: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required]),

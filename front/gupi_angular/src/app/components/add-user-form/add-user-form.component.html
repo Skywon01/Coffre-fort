@@ -33,9 +33,25 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24">Mot de passe</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input formControlName="password" id="password" nz-input/>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Mot de passe non valide">
+            <nz-input-group [nzSuffix]="suffixTemplate">
+                <input
+                    [(ngModel)]="password"
+                    [type]="passwordVisible ? 'text' : 'password'"
+                    formControlName="password"
+                    nz-input
+                    placeholder="Entrez votre mot de passe"
+                />
+            </nz-input-group>
+            <ng-template #suffixTemplate>
+      <span
+          (click)="passwordVisible = !passwordVisible"
+          [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+          nz-icon
+      ></span>
+            </ng-template>
         </nz-form-control>
+
     </nz-form-item>
     <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
