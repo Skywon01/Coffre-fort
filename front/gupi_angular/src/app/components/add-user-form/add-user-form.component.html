@@ -31,6 +31,12 @@
             <input nz-input id="adresse" formControlName="address"/>
         </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">Mot de passe</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+            <input formControlName="password" id="password" nz-input/>
+        </nz-form-control>
+    </nz-form-item>
     <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
             <button nz-button nzType="primary">Ajouter un salarié</button>

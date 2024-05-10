@@ -35,7 +35,6 @@ public class UserController {
         return this.userService.byId(id);
     }
 
-//    Putmapping à mettre en place
 
     @PutMapping("/user/{id}")
     public User updateUser(@PathVariable Integer id, @RequestBody User user) throws Exception {

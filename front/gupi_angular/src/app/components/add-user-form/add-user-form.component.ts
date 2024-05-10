@@ -51,6 +51,7 @@ export class AddUserFormComponent {
         email: new FormControl('', [Validators.required, Validators.email]),
         address: new FormControl(''),
         age: new FormControl(''),
+        password: new FormControl('', [Validators.required]),
         role_id: new FormControl(''),
     });
 

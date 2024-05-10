@@ -3,6 +3,7 @@ package com.skywon.gupi.service;
 import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<User> getAll() {
         return this.userRepository.findAll();
@@ -23,6 +27,8 @@ public class UserService {
      * @return
      */
     public User save(User user){
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         return this.userRepository.save(user);
     }
 
@@ -49,6 +55,7 @@ public class UserService {
         user.setAge(newUser.getAge());
         user.setEmail(newUser.getEmail());
         user.setAddress(newUser.getAddress());
+        user.setPassword(newUser.getPassword());
         return userRepository.save(user);
 
 

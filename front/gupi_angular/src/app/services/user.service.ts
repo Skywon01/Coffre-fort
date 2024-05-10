@@ -26,7 +26,7 @@ export class UserService{
         const temp: UserModel[] = []
 
         rawdata.map((el) =>{
-            let tempObj: UserModel = new UserModel(el.user_id, el.name, el.firstName, el.email, el.address, el.age)
+            let tempObj: UserModel = new UserModel(el.user_id, el.name, el.firstName, el.email, el.address, el.age, el.password)
             temp.push(tempObj);
         })
         console.log('Data formatté: ', temp)
