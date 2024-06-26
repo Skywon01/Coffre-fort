@@ -13,7 +13,7 @@ public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long file_id;
-
+//java nio 2 pour les fichiers
     private String file_name;
     private String file_type;
     private String file_size;

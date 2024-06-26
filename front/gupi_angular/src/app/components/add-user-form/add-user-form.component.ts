@@ -49,6 +49,7 @@ export class AddUserFormComponent {
     @Output() userAdded: EventEmitter<UserModel> = new EventEmitter<UserModel>();
     passwordVisible = false;
     password?: string;
+    confirmPassword?: string;
     numbers: number[];
     form: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -57,8 +58,20 @@ export class AddUserFormComponent {
         address: new FormControl(''),
         age: new FormControl(''),
         password: new FormControl('', [Validators.required]),
+        // confirmPassword: ['', [this.passwordMatchValidator]],
         role_id: new FormControl(''),
+
     });
+
+    passwordMatchValidator(form: FormGroup) {
+        const password = form.get('password');
+        const confirmPassword = form.get('confirmPassword');
+        if (password?.value !== confirmPassword?.value) {
+            confirmPassword?.setErrors({ mustMatch: true });
+        } else {
+            confirmPassword?.setErrors(null);
+        }
+    }
 
     constructor(private apiService: ApiService) {
         this.numbers = Array.from({length: 99}, (_, i) => i + 1);

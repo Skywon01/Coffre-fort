@@ -27,12 +27,12 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24">Adresse</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+        <nz-form-control [nzSm]="14" [nzXs]="24" >
             <input nz-input id="adresse" formControlName="address"/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24">Mot de passe</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Mot de passe</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Mot de passe non valide">
             <nz-input-group [nzSuffix]="suffixTemplate">
                 <input
@@ -52,6 +52,27 @@
             </ng-template>
         </nz-form-control>
 
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Confirmer</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Les mots de passe ne correspondent pas">
+            <nz-input-group [nzSuffix]="confirmSuffixTemplate">
+                <input
+                    [(ngModel)]="confirmPassword"
+                    [type]="passwordVisible ? 'text' : 'password'"
+                    formControlName="confirmPassword"
+                    nz-input
+                    placeholder="Confirmez votre mot de passe"
+                />
+            </nz-input-group>
+            <ng-template #confirmSuffixTemplate>
+                <span
+                    (click)="passwordVisible = !passwordVisible"
+                    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                    nz-icon
+                ></span>
+            </ng-template>
+        </nz-form-control>
     </nz-form-item>
     <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
