@@ -26,6 +26,10 @@ public class User {
 
     private String password;
 
+    private String profile;
+
+    private String role;
+
 //    @ManyToOne
 //    private Role role_id;
 

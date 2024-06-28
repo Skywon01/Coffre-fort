@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
     NzListComponent,
     NzListItemActionComponent,
@@ -9,7 +9,7 @@ import {NzSkeletonComponent} from "ng-zorro-antd/skeleton";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {TreeFileComponent} from "../tree-file/tree-file.component";
-import {NzTableComponent} from "ng-zorro-antd/table";
+import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
 import {NgForOf, NgIf} from "@angular/common";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzFlexDirective} from "ng-zorro-antd/flex";
@@ -17,11 +17,14 @@ import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropd
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzMenuDirective, NzMenuItemComponent} from "ng-zorro-antd/menu";
 import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode} from "ng-zorro-antd/tree";
+import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
+import {FormsModule} from "@angular/forms";
+import {NzInputDirective} from "ng-zorro-antd/input";
 
-interface Person {
-    key: string;
+interface ItemData {
+    id: string;
     name: string;
-    age: number;
+    age: string;
     address: string;
 }
 
@@ -48,80 +51,47 @@ interface Person {
         NzIconDirective,
         NzMenuDirective,
         NzMenuItemComponent,
-        NzTreeComponent
+        NzTreeComponent,
+        NzPopconfirmDirective,
+        FormsModule,
+        NzInputDirective,
+        NzThMeasureDirective
     ],
   templateUrl: './list-file.component.html',
   styleUrl: './list-file.component.css'
 })
-export class ListFileComponent {
-    listOfData: Person[] = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park'
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park'
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park'
-        }
-    ];
-    // activated node
-    activatedNode?: NzTreeNode;
-    nodes = [
-        {
-            title: 'parent 0',
-            key: '100',
-            author: 'NG ZORRO',
-            expanded: true,
-            children: [
-                { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO', isLeaf: true },
-                { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true }
-            ]
-        },
-        {
-            title: 'parent 1',
-            key: '101',
-            author: 'NG ZORRO',
-            children: [
-                { title: 'leaf 1-0', key: '1010', author: 'NG ZORRO', isLeaf: true },
-                { title: 'leaf 1-1', key: '1011', author: 'NG ZORRO', isLeaf: true }
-            ]
-        }
-    ];
+export class ListFileComponent implements OnInit{
+    i = 0;
+    editId: string | null = null;
+    listOfData: ItemData[] = [];
 
-    openFolder(data: NzTreeNode | NzFormatEmitEvent): void {
-        // do something if u want
-        if (data instanceof NzTreeNode) {
-            data.isExpanded = !data.isExpanded;
-        } else {
-            const node = data.node;
-            if (node) {
-                node.isExpanded = !node.isExpanded;
+    startEdit(id: string): void {
+        this.editId = id;
+    }
+
+    stopEdit(): void {
+        this.editId = null;
+    }
+
+    addRow(): void {
+        this.listOfData = [
+            ...this.listOfData,
+            {
+                id: `${this.i}`,
+                name: `Edward King ${this.i}`,
+                age: '32',
+                address: `London, Park Lane no. ${this.i}`
             }
-        }
+        ];
+        this.i++;
     }
 
-    activeNode(data: NzFormatEmitEvent): void {
-        this.activatedNode = data.node!;
+    deleteRow(id: string): void {
+        this.listOfData = this.listOfData.filter(d => d.id !== id);
     }
 
-    contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
-        this.nzContextMenuService.create($event, menu);
+    ngOnInit(): void {
+        this.addRow();
+        this.addRow();
     }
-
-    selectDropdown(): void {
-        // do something
-    }
-
-    constructor(private nzContextMenuService: NzContextMenuService) {}
-
 }
