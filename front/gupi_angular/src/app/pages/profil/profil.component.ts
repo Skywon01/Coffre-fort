@@ -25,7 +25,7 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 export class ProfilComponent {
 shape: NzButtonShape = 'round'
     constructor(private pageService: PageService) {
-        this.pageService.setComponentType('user', 'Mon profil', 'Veuillez trouver vos informations personnelles');
+        this.pageService.setComponentType('profile', 'Mon profil', 'Veuillez trouver vos informations personnelles');
     }
 
 

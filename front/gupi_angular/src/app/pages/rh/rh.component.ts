@@ -33,7 +33,7 @@ export class RhComponent implements OnInit {
     constructor(private pageService: PageService,
                 private readonly userService: UserService,
                 private route: ActivatedRoute) {
-        this.pageService.setComponentType('assets/media/icons/icon_rh.svg', 'Accueil RH', 'Bienvenue sur la page RH');
+        this.pageService.setComponentType('idcard', 'Accueil RH', 'Bienvenue sur la page RH');
 
     }
 
