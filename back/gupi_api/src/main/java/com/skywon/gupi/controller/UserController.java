@@ -18,29 +18,29 @@ public class UserController {
      * C
      * @return
      */
-    @GetMapping("/user")
+    @GetMapping("api/user")
     public List<User> allUsers() {
         return this.userService.getAll();
     }
 
-    @PostMapping("/user")
+    @PostMapping("api/user")
     public User CreateUser(@RequestBody User user) {
         return this.userService.save(user);
 
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("api/user/{id}")
     public User getUser(@PathVariable Integer id) {
         return this.userService.byId(id);
     }
 
 
-    @PutMapping("/user/{id}")
+    @PutMapping("api/user/{id}")
     public User updateUser(@PathVariable Integer id, @RequestBody User user) throws Exception {
         return this.userService.updateUser(id, user);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("api/user/{id}")
     public void deleteUser(@PathVariable Integer id) {
         this.userService.deleteById(id);
     }

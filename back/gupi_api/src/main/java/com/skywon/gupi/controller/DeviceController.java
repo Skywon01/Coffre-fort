@@ -14,27 +14,27 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
-    @GetMapping("/device")
+    @GetMapping("api/device")
     public List<Device> getDevices() {
         return  this.deviceService.getAllDevice();
     }
 
-    @PostMapping("/device")
+    @PostMapping("api/device")
     public Device addDevice(@RequestBody Device device) {
         return this.deviceService.save(device);
     }
 
-    @GetMapping("/device/{id}")
+    @GetMapping("api/device/{id}")
     public Device getDevice(@PathVariable Integer id) {
         return this.deviceService.getDeviceById(id);
     }
 
-    @PutMapping("device/{id}")
+    @PutMapping("api/device/{id}")
     public Device updateDevice(@PathVariable Integer id, @RequestBody Device device) throws Exception {
         return this.deviceService.updateDevice(id, device);
     }
 
-    @DeleteMapping("device/{id}")
+    @DeleteMapping("api/device/{id}")
     public void deleteDevice(@PathVariable Integer id) throws Exception {
         this.deviceService.deleteDevice(id);
     }

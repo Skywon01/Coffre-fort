@@ -13,6 +13,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -53,7 +54,7 @@ public class SecurityConfig {
         config.addAllowedHeader("X-XSRF-TOKEN");
         config.addAllowedHeader("Content-Type");
         config.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        config.setAllowedOrigins(List.of("http://localhost:4200","http://localhost:8080"));
         config.setAllowCredentials(true); // This is important since we are using session cookies
         source.registerCorsConfiguration("/**", config);
         return source;

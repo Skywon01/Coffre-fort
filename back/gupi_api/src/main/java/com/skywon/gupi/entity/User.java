@@ -30,7 +30,4 @@ public class User {
 
     private String role;
 
-//    @ManyToOne
-//    private Role role_id;
-
 }

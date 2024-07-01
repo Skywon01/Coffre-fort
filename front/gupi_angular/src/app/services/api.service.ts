@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 /**
  * Nom de domaine de l'api GUPI
  */
-const apiRoot = "http://localhost:8080" //url de test dans un premier temps
+const apiRoot = "http://localhost:8080/api" //url de test dans un premier temps
 
 /**
  * Ici on commence la communication Http

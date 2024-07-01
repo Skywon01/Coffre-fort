@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {
+    AbstractControl,
     FormControl,
     FormGroup, FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, ValidationErrors, ValidatorFn,
     Validators
 } from "@angular/forms";
 import {
@@ -45,6 +46,8 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
     templateUrl: './add-user-form.component.html',
     styleUrl: './add-user-form.component.css'
 })
+
+
 export class AddUserFormComponent {
     @Output() userAdded: EventEmitter<UserModel> = new EventEmitter<UserModel>();
     passwordVisible = false;
@@ -58,20 +61,11 @@ export class AddUserFormComponent {
         address: new FormControl(''),
         age: new FormControl(''),
         password: new FormControl('', [Validators.required]),
-        // confirmPassword: ['', [this.passwordMatchValidator]],
+        confirmPassword: new FormControl('', [Validators.required]),
         role_id: new FormControl(''),
 
     });
 
-    passwordMatchValidator(form: FormGroup) {
-        const password = form.get('password');
-        const confirmPassword = form.get('confirmPassword');
-        if (password?.value !== confirmPassword?.value) {
-            confirmPassword?.setErrors({ mustMatch: true });
-        } else {
-            confirmPassword?.setErrors(null);
-        }
-    }
 
     constructor(private apiService: ApiService) {
         this.numbers = Array.from({length: 99}, (_, i) => i + 1);

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzLayoutModule} from 'ng-zorro-antd/layout';
+import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {BreadcrumbComponent} from "./components/breadcrumb/breadcrumb.component";
 import {UserIconComponent} from "./components/user-icon/user-icon.component";
 import {NzColDirective} from "ng-zorro-antd/grid";
@@ -19,31 +19,33 @@ import {NzFlexDirective} from "ng-zorro-antd/flex";
 import {ChatComponent} from "./components/chat/chat.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
+    selector: 'app-root',
+    standalone: true,
     imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent, NzCardComponent, NzInputGroupComponent, NzInputDirective, NzFlexDirective, ChatComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
 
-  isCollapsed = false;
-  chatIsOpen = false;
+    isCollapsed = false;
+    chatIsOpen = false;
     public users: UserModel[] = []
     authService: boolean = true;
+
     constructor(
         private readonly userService: UserService,
         private route: ActivatedRoute,
         private router: Router
     ) {
     }
+
     async ngOnInit() {
         //Récupère l'eventuel paramètre id dans l'url
         this.route.params.subscribe(params => {
             const id = params['id']
             if (!id) {
                 this.vaChercherTousLesUsers()
-            }else{
+            } else {
                 this.vaChercherUnSeulUser(id)
             }
 
