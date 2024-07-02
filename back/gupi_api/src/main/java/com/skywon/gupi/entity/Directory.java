@@ -15,6 +15,6 @@ public class Directory {
 
     private String name;
 
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
 }
