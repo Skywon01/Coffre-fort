@@ -32,6 +32,4 @@ public class User {
 
     private String role;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Directory> directory;
 }
