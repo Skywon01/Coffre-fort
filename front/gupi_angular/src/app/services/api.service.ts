@@ -64,5 +64,23 @@ export class ApiService {
         return this.http.post(`${apiRoot}/device`, user, httpoptions)
     }
 
+    //Observables Dossiers
+
+    retrieveAllDirectories(): Observable<any> {
+        return this.http.get(`${apiRoot}/directory`, httpoptions)
+    }
+
+    retrieveOneDirectory(id: string): Observable<any> {
+        return  this.http.get(`${apiRoot}/directory/${id}`, httpoptions)
+    }
+
+    retrieveDirectoryById(userId: number): Observable<any> {
+        return this.http.get(`${apiRoot}/directory/${userId}`, httpoptions);
+    }
+
+    registerDirectory(user: any): Observable<any> {
+        return this.http.post(`${apiRoot}/directory`, user, httpoptions)
+    }
+
 
 }
