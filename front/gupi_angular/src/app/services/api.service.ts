@@ -67,7 +67,7 @@ export class ApiService {
     //Observables Dossiers
 
     retrieveAllDirectories(): Observable<any> {
-        return this.http.get(`${apiRoot}/directory`, httpoptions)
+        return this.http.get(`${apiRoot}/folders/folderall`, httpoptions)
     }
 
     retrieveOneDirectory(id: string): Observable<any> {

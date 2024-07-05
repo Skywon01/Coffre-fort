@@ -11,13 +11,6 @@ import {DeviceModel} from "../../model/device.model";
 import {NzUploadChangeParam, NzUploadComponent} from "ng-zorro-antd/upload";
 import {NzMessageService} from "ng-zorro-antd/message";
 
-// interface ItemData {
-//     id: string;
-//     name: string;
-//     age: string;
-//     address: string;
-// }
-
 
 @Component({
     selector: 'app-device-list',

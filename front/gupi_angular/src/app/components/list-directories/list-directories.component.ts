@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
 import {NgForOf} from "@angular/common";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
+import {DeviceModel} from "../../model/device.model";
+import {DirectoryModel} from "../../model/directory.model";
 
-interface ItemData {
-    id: string;
-    name: string;
-    age: string;
-    address: string;
-}
+// interface ItemData {
+//     id: string;
+//     name: string;
+//     age: string;
+//     address: string;
+// }
 
 @Component({
   selector: 'app-list-directories',
@@ -29,37 +31,9 @@ interface ItemData {
   styleUrl: './list-directories.component.css'
 })
 export class ListDirectoriesComponent implements OnInit{
-    i = 0;
-    editId: string | null = null;
-    listOfData: ItemData[] = [];
-
-    startEdit(id: string): void {
-        this.editId = id;
-    }
-
-    stopEdit(): void {
-        this.editId = null;
-    }
-
-    addRow(): void {
-        this.listOfData = [
-            ...this.listOfData,
-            {
-                id: `${this.i}`,
-                name: `Edward King ${this.i}`,
-                age: '32',
-                address: `London, Park Lane no. ${this.i}`
-            }
-        ];
-        this.i++;
-    }
-
-    deleteRow(id: string): void {
-        this.listOfData = this.listOfData.filter(d => d.id !== id);
-    }
+    @Input() tuyauDeDirectory!: DirectoryModel[];
 
     ngOnInit(): void {
-        this.addRow();
-        this.addRow();
+
     }
 }
