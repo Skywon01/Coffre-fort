@@ -1,24 +1,37 @@
-<button nz-button nzType="primary">Ajouter un dossier</button>
-<br />
-<br />
-<nz-table nzBordered [nzData]="tuyauDeDirectory">
-    <thead>
-    <tr>
-        <th nzWidth="30%">Id répertoire</th>
-        <th>Nom du répertoire</th>
-        <th>Id utilisateur</th>
+<button nz-button nzType="primary" nzShape="round" class="add-folder">Ajouter un dossier</button>
+<br/>
+<br/>
+<nz-table [nzData]="tuyauDeDirectory">
 
-    </tr>
-    </thead>
     <tbody>
-        @for (directory of tuyauDeDirectory; track directory.directory_id){
+        @for (directory of tuyauDeDirectory; track directory.directory_id) {
 
-    <tr class="editable-row">
-        <td>{{ directory.directory_id }}</td>
-        <td>{{ directory.name }}</td>
-        <td>{{ directory.user_id }}</td>
+            <tr class="editable-row">
+                <!--        <td>{{ directory.directory_id }}</td>-->
+                <td class="table-line">
+                    <div class="table-line-icon">
+                        <span nz-icon nzType="folder-open" nzTheme="fill"
+                              style="color:#00000050; font-size: 50px;">
+                        </span>
+                        <div class="directory-text-container">
+                            <div class="directory-name"> {{ directory.name }} </div>
+                            <div class="file-number">3 fichiers</div>
+                        </div>
+                    </div>
+                    <div class="block-point" nz-popover
+                         [nzPopoverContent]="contentTemplate"
+                         nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮</div>
+                </td>
 
-    </tr>
+                <!--        <td>{{ directory.user_id }}</td>-->
+
+            </tr>
         }
     </tbody>
 </nz-table>
+<ng-template #contentTemplate>
+    <div>
+        <a>Renommer</a> <br>
+        <a style="color: red;">Supprimer</a>
+    </div>
+</ng-template>

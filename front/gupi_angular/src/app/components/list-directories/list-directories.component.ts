@@ -7,6 +7,8 @@ import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {DeviceModel} from "../../model/device.model";
 import {DirectoryModel} from "../../model/directory.model";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzPopoverDirective} from "ng-zorro-antd/popover";
 
 // interface ItemData {
 //     id: string;
@@ -25,7 +27,9 @@ import {DirectoryModel} from "../../model/directory.model";
         NgForOf,
         NzInputDirective,
         FormsModule,
-        NzPopconfirmDirective
+        NzPopconfirmDirective,
+        NzIconDirective,
+        NzPopoverDirective
     ],
   templateUrl: './list-directories.component.html',
   styleUrl: './list-directories.component.css'
