@@ -1,38 +1,37 @@
-<nz-table #nzTable [nzData]="tuyauDeUsers" nzTableLayout="fixed">
+<nz-table [nzData]="tuyauDeUsers">
     <thead>
-    <tr>
-        <!--        <th nzWidth="60px"></th>-->
-        <th>Id</th>
+    <tr  class="user-head">
+
         <th>Nom</th>
         <th>Prénom</th>
         <th>Mail</th>
         <th>Age</th>
         <th>Adresse</th>
-        <th>Envoyer</th>
+        <th>Envoyer un fichier</th>
     </tr>
     </thead>
     <tbody>
-    <ng-container>
+
 
         @for (user of tuyauDeUsers; track user.user_id) {
-            <tr>
-                <td>{{ user.user_id }}</td>
-                <td>{{ user.name }}</td>
+            <tr class="user-row">
+
+                <td> <span nz-icon nzType="user" nzTheme="outline" style="font-size: 36px; color:#00000050; margin:0 12px 0 12px"></span>{{ user.name }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.age }}</td>
                 <td>{{ user.address }}</td>
-                <td>
+                <td class="user-upload-file">
                     <nz-upload
                         nzType="drag"
                         [nzMultiple]="true"
                         nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         (nzChange)="handleChange($event)"
                     >
-                        <p class="ant-upload-drag-icon">
-                            <span nz-icon nzType="inbox"></span>
-                            Déposer fichier
-                        </p>
+                        <div class="user-upload-content">
+                            <span nz-icon nzType="inbox" style="font-size: 36px"></span>
+                            <p class="ant-upload-drag-icon text-upload">Déposer fichier</p>
+                        </div>
 
 
                     </nz-upload>
@@ -41,7 +40,7 @@
 
 
         }
-    </ng-container>
+
 
     </tbody>
 </nz-table>
