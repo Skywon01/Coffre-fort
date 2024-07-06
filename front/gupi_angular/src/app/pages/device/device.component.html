@@ -1,7 +1,7 @@
 <button (click)="show = !show" nz-button nzType="primary">Ajouter un appareil<span nz-icon nzType="down"></span>
 </button>
 @if (show) {
-    <h2>Formulaire pour ajouter un device</h2>
+    <h2>Formulaire pour ajouter un appareil</h2>
     <app-add-device (deviceAdded)="onDeviceAdded($event)"></app-add-device>
 }
 <br/>
