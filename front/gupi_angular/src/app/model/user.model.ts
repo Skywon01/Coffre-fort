@@ -7,6 +7,6 @@ export class UserModel {
         public address: string,
         public age: number,
         public password: string,
-        // public role_id: string
+        public directory_id: number,
     ) {  }
 }

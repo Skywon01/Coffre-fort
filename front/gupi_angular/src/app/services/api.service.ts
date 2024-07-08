@@ -32,19 +32,19 @@ export class ApiService {
     ) {  }
     // Observables utilisateur
     retrieveAllUsers(): Observable<any> {
-        return this.http.get(`${apiRoot}/user`, httpoptions)
+        return this.http.get(`${apiRoot}/users/`, httpoptions)
     }
 
     retrieveOneUser(id: string): Observable<any> {
-        return  this.http.get(`${apiRoot}/user/${id}`, httpoptions)
+        return  this.http.get(`${apiRoot}/user/${id}/`, httpoptions)
     }
 
     retrieveUserById(userId: number): Observable<any> {
-        return this.http.get(`${apiRoot}/user/${userId}`, httpoptions);
+        return this.http.get(`${apiRoot}/user/${userId}/`, httpoptions);
     }
 
     registerUser(user: any): Observable<any> {
-        return this.http.post(`${apiRoot}/user`, user, httpoptions)
+        return this.http.post(`${apiRoot}/users`, user, httpoptions)
     }
 
     // Observables Matériel
@@ -67,19 +67,19 @@ export class ApiService {
     //Observables Dossiers
 
     retrieveAllDirectories(): Observable<any> {
-        return this.http.get(`${apiRoot}/folders/folderall`, httpoptions)
+        return this.http.get(`${apiRoot}/directories`, httpoptions)
     }
 
     retrieveOneDirectory(id: string): Observable<any> {
-        return  this.http.get(`${apiRoot}/directory/${id}`, httpoptions)
+        return  this.http.get(`${apiRoot}/directories/${id}`, httpoptions)
     }
 
     retrieveDirectoryById(userId: number): Observable<any> {
-        return this.http.get(`${apiRoot}/directory/${userId}`, httpoptions);
+        return this.http.get(`${apiRoot}/directories/${userId}/`, httpoptions);
     }
 
     registerDirectory(user: any): Observable<any> {
-        return this.http.post(`${apiRoot}/directory`, user, httpoptions)
+        return this.http.post(`${apiRoot}/directories/`, user, httpoptions)
     }
 
 
