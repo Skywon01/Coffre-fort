@@ -1,49 +1,66 @@
 package com.skywon.gupi.controller;
 
+import com.skywon.gupi.dto.CreateDirectoryRequest;
 import com.skywon.gupi.entity.Directory;
 import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.DirectoryRepository;
 import com.skywon.gupi.repository.UserRepository;
 import com.skywon.gupi.service.DirectoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/folders")
+@RequestMapping("/api/directories")
 public class DirectoryController {
-    private final DirectoryRepository directoryRepository;
-    private final UserRepository userRepository;
+
+    @Autowired
+    private DirectoryRepository directoryRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private DirectoryService directoryService;
 
-    public DirectoryController(DirectoryRepository directoryRepository, UserRepository userRepository) {
-        this.directoryRepository = directoryRepository;
-        this.userRepository = userRepository;
+    @GetMapping
+    public List<Directory> getAllDirectories() {
+        return directoryService.getAll();
     }
 
-    @PostMapping("/{userId}")
-    public Directory createDirectoryForUser(@PathVariable Integer userId, @RequestBody Directory directory) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+    @GetMapping("/{id}")
+    public Directory getDirectoryById(@PathVariable Integer id) {
+        return directoryService.getDirectoryById(id);
+    }
+
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Directory> createDirectory(@RequestBody CreateDirectoryRequest request) {
+        User user = userRepository.findById(request.getUser_id()).orElseThrow(() -> new RuntimeException("User not found"));
+
+        Directory directory = new Directory();
+        directory.setName(request.getName());
         directory.setUser(user);
-        return directoryRepository.save(directory);
+
+        Directory savedDirectory = directoryRepository.save(directory);
+        return ResponseEntity.ok(savedDirectory);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Directory> getDirectoryForUser(@PathVariable Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return directoryRepository.findByUser(user);
+
+    @PostMapping("/{parent_id}/children")
+    public ResponseEntity<Directory> createChildDirectory(@PathVariable Integer parent_id, @RequestBody Directory directory) {
+        Directory parentDirectory = directoryRepository.findById(parent_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Parent directory not found"));
+        directory.setParent(parentDirectory);
+        Directory savedDirectory = directoryRepository.save(directory);
+        return ResponseEntity.ok(savedDirectory);
     }
 
-//    @GetMapping("folder/folderid/{directoryId}")
-//    public List<Directory> getDirectoryForFolder(@PathVariable Integer directoryId) {
-//        User user = userRepository.findById(directoryId).orElseThrow(() -> new RuntimeException("User not found"));
-//        return directoryRepository.findById(userId);
-//    }
-
-    @GetMapping("folderall")
-    public List<Directory> allDirectory() {
-        return this.directoryService.getAll();
+    @DeleteMapping("/{id}")
+    public void deleteDirectory(@PathVariable Integer id) {
+        directoryService.deleteDirectory(id);
     }
 }

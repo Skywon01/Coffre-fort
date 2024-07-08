@@ -22,4 +22,14 @@ public class FileService {
     public List<File> getAll() {
         return this.fileRepository.findAll();
     }
+
+    public File getFileById(Integer id) {
+        return fileRepository.findById(id).orElse(null);
+    }
+
+
+
+    public void deleteFile(Integer id) {
+        fileRepository.deleteById(id);
+    }
 }

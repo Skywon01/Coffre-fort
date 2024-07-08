@@ -16,4 +16,16 @@ public class DirectoryService {
     public List<Directory> getAll() {
         return this.directoryRepository.findAll();
     }
+
+    public Directory getDirectoryById(Integer id) {
+        return directoryRepository.findById(id).orElse(null);
+    }
+
+    public Directory saveDirectory(Directory directory) {
+        return directoryRepository.save(directory);
+    }
+
+    public void deleteDirectory(Integer id) {
+        directoryRepository.deleteById(id);
+    }
 }

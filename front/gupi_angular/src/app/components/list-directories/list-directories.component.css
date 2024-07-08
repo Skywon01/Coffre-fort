@@ -23,7 +23,12 @@
 .table-line-icon{
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+        :hover{
+            cursor: pointer;
+        }
 }
+
 
 .directory-text-container{
     padding-left: 20px;

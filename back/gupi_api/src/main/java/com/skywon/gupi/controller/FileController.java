@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/file")
 public class FileController {
 
     @Autowired
@@ -28,12 +29,18 @@ public class FileController {
     @Value("${file.path}")
     private String path;
 
-    @GetMapping("api/file")
+    @GetMapping
     public List<com.skywon.gupi.entity.File> allFiles() {
         return this.fileService.getAll();
     }
 
-    @PostMapping("api/file/upload")
+    @GetMapping("/{id}")
+    public com.skywon.gupi.entity.File getFileById(@PathVariable Integer id) {
+        return fileService.getFileById(id);
+    }
+
+
+    @PostMapping("/upload")
     public FileUploadInfo upload(@RequestParam MultipartFile file) { // input type="file"
         SimpleDateFormat format = new SimpleDateFormat("/yyyy/MM/");
         File directory = new File(path + format.format(new Date()));
@@ -56,7 +63,7 @@ public class FileController {
 
     }
 
-    @GetMapping("api/file/image/{annee}/{mois}/{fileName}")
+    @GetMapping("/image/{annee}/{mois}/{fileName}")
     public ResponseEntity<?> displayImage(@PathVariable String fileName, @PathVariable String annee, @PathVariable String mois) {
         File file = new File(path + "/" + annee + "/" + mois + "/" + fileName);
         if (!file.exists()) {
@@ -73,7 +80,7 @@ public class FileController {
 
     }
 
-    @DeleteMapping("api/file/image/{annee}/{mois}/{fileName}")
+    @DeleteMapping("/image/{annee}/{mois}/{fileName}")
     public ResponseEntity<?> deleteImage(@PathVariable String fileName, @PathVariable String annee, @PathVariable String mois) {
         try {
 

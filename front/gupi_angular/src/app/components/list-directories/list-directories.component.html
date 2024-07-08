@@ -7,25 +7,32 @@
         @for (directory of tuyauDeDirectory; track directory.directory_id) {
 
             <tr class="editable-row">
-                <!--        <td>{{ directory.directory_id }}</td>-->
+                <td hidden>{{ directory.directory_id }}</td>
                 <td class="table-line">
-                    <div class="table-line-icon">
+                    <div class="table-line-icon" (click)="toggleDirectory(directory.directory_id)">
                         <span nz-icon nzType="folder-open" nzTheme="fill"
                               style="color:#00000050; font-size: 50px;">
                         </span>
                         <div class="directory-text-container">
-                            <div class="directory-name"> {{ directory.name }} </div>
+                            <div class="directory-name"> {{ directory.name }}</div>
                             <div class="file-number">3 fichiers</div>
                         </div>
                     </div>
+
                     <div class="block-point" nz-popover
                          [nzPopoverContent]="contentTemplate"
-                         nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮</div>
+                         nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮
+                    </div>
                 </td>
 
-                <!--        <td>{{ directory.user_id }}</td>-->
+                <td hidden>{{ directory.user_id }}</td>
 
             </tr>
+            @if (openedDirectoryId === directory.directory_id) {
+                <h3>On fera apparaitre les sous-dossiers par la suite</h3>
+                <app-upload></app-upload>
+                <app-list-file></app-list-file>
+            }
         }
     </tbody>
 </nz-table>

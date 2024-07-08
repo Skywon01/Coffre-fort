@@ -1,5 +1,6 @@
 package com.skywon.gupi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long file_id;
+    private Integer file_id;
 //java nio 2 pour les fichiers
     private String file_name;
     private String file_type;
@@ -26,9 +27,8 @@ public class File {
 
     @ManyToOne
     @JoinColumn(name = "directory_id")
+    @JsonBackReference("directory-file")
     private Directory directory;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
 }

@@ -22,6 +22,17 @@ public class UserService {
     }
 
     /**
+     * Méthode pour rechercher un utilisateur par son id
+     *
+     * @param id
+     * @return
+     */
+    public User byId(Integer id) {
+        return this.userRepository.findById(id).orElse(new User());
+    }
+
+
+    /**
      * Méthode pour sauvegarder un utilisateur
      * @param user
      * @return
@@ -32,15 +43,6 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    /**
-     * Méthode pour rechercher un utilisateur par son id
-     *
-     * @param id
-     * @return
-     */
-    public User byId(Integer id) {
-        return this.userRepository.findById(id).orElse(new User());
-    }
 
     public void deleteById(Integer id) {
         this.userRepository.deleteById(id);
