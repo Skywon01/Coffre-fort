@@ -12,7 +12,7 @@
         @for (device of tuyauDeDevices; track device.device_id) {
             <tr>
 
-                <td>{{ device.name }}</td>
+                <td><span nz-icon nzType="tablet" nzTheme="fill" style="color:#00000050; font-size: 50px;"></span>{{ device.name }}</td>
                 <td>{{ device.price | currency: 'EUR' : 'symbol' : '3.2-2' : 'fr' }}</td>
                 <td>{{ device.qr_code }}</td>
 
