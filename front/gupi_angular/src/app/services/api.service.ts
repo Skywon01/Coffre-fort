@@ -39,8 +39,8 @@ export class ApiService {
         return  this.http.get(`${apiRoot}/user/${id}/`, httpoptions)
     }
 
-    retrieveUserById(userId: number): Observable<any> {
-        return this.http.get(`${apiRoot}/user/${userId}/`, httpoptions);
+    retrieveUserById(user_id: number): Observable<any> {
+        return this.http.get(`${apiRoot}/user/${user_id}/`, httpoptions);
     }
 
     registerUser(user: any): Observable<any> {
@@ -56,12 +56,12 @@ export class ApiService {
         return  this.http.get(`${apiRoot}/device/${id}`, httpoptions)
     }
 
-    retrieveDeviceById(userId: number): Observable<any> {
-        return this.http.get(`${apiRoot}/device/${userId}`, httpoptions);
+    retrieveDeviceById(device_id: number): Observable<any> {
+        return this.http.get(`${apiRoot}/device/${device_id}`, httpoptions);
     }
 
-    registerDevice(user: any): Observable<any> {
-        return this.http.post(`${apiRoot}/device`, user, httpoptions)
+    registerDevice(device: any): Observable<any> {
+        return this.http.post(`${apiRoot}/device`, device, httpoptions)
     }
 
     //Observables Dossiers
@@ -74,12 +74,12 @@ export class ApiService {
         return  this.http.get(`${apiRoot}/directories/${id}`, httpoptions)
     }
 
-    retrieveDirectoryById(userId: number): Observable<any> {
-        return this.http.get(`${apiRoot}/directories/${userId}/`, httpoptions);
+    retrieveDirectoryById(directory_id: number): Observable<any> {
+        return this.http.get(`${apiRoot}/directories/${directory_id}/`, httpoptions);
     }
 
-    registerDirectory(user: any): Observable<any> {
-        return this.http.post(`${apiRoot}/directories/`, user, httpoptions)
+    registerDirectory(directory: any): Observable<any> {
+        return this.http.post(`${apiRoot}/directories/`, directory, httpoptions)
     }
 
 

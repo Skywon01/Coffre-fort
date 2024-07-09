@@ -27,10 +27,10 @@ export class DirectoryService{
         const temp: DirectoryModel[] = []
 
         rawdata.map((el) =>{
-            let tempObj: DirectoryModel = new DirectoryModel(el.directory_id, el.name, el.user_id)
+            let tempObj: DirectoryModel = new DirectoryModel(el.directory_id, el.name)
             temp.push(tempObj);
         })
-        console.log('Data formatté: ', temp)
+        console.log('Data directory: ', temp)
         return temp
     }
 
