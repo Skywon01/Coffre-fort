@@ -24,10 +24,15 @@
         cursor: pointer;
     }
 }
-
+.notification-container-parent{
+    display: flex;
+    justify-content: space-between;
+}
 
 .notification-container{
     padding-left: 20px;
+    display: flex;
+    align-items: center;
 }
 .notification-name{
     font-size: 20px;

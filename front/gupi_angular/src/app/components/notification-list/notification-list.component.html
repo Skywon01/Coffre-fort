@@ -1,9 +1,19 @@
 <nz-table [nzData]="listOfData" [nzFrontPagination]="false" [nzShowPagination]="false">
     <tbody cdkDropList (cdkDropListDropped)="drop($event)">
-    <tr *ngFor="let data of listOfData" cdkDrag>
+    <tr *ngFor="let data of listOfData" cdkDrag class="notification-container-parent">
         <td class="notification-name notification-container" > <span nz-icon nzType="bell" nzTheme="fill" style="color:#00000050; font-size: 50px;"></span>{{ data.name }}</td>
         <td>{{ data.age }}</td>
         <td>{{ data.address }}</td>
+        <div class="block-point" nz-popover
+             [nzPopoverContent]="contentTemplate"
+             nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮
+        </div>
     </tr>
     </tbody>
 </nz-table>
+<ng-template #contentTemplate>
+    <div>
+        <a>Renommer</a> <br>
+        <a style="color: red;">Supprimer</a>
+    </div>
+</ng-template>

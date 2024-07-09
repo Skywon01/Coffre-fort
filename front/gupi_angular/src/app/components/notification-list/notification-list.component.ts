@@ -3,6 +3,7 @@ import {NzTableComponent} from "ng-zorro-antd/table";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgForOf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzPopoverDirective} from "ng-zorro-antd/popover";
 
 @Component({
   selector: 'app-notification-list',
@@ -12,7 +13,8 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
         CdkDropList,
         NgForOf,
         CdkDrag,
-        NzIconDirective
+        NzIconDirective,
+        NzPopoverDirective
     ],
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.css'

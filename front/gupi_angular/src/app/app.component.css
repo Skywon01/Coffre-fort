@@ -28,9 +28,13 @@
 .header-trigger {
     height: 64px;
     padding: 20px 24px;
-    font-size: 20px;
+    margin-left: -36px;
+    z-index: 5;
+    font-size: 38px;
     cursor: pointer;
     transition: all .3s, padding 0s;
+    color: #9da6e3;
+    filter: drop-shadow(1px 1px 1px rgba(0, 21, 41, .35));
 }
 
 .trigger:hover {

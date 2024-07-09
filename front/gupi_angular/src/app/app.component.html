@@ -90,10 +90,11 @@
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <span class="trigger"
                   nz-icon
-                  [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                  [nzType]="isCollapsed ? 'right-circle' : 'left-circle'"
+                  nzTheme="fill"
             ></span>
         </span>
-                <app-user-icon/>
+                <app-user-icon></app-user-icon>
 
             </div>
         </nz-header>
