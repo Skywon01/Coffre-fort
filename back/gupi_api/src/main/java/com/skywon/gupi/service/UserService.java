@@ -3,13 +3,16 @@ package com.skywon.gupi.service;
 import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -64,4 +67,27 @@ public class UserService {
 
     }
 
+    public User findByEmail(String email){
+        if (email == null) {
+            return null;
+        }
+        return userRepository.findByEmail(email.toLowerCase().trim());
+    }
+
+    public User findByToken(String token){
+        if (token == null) {
+            return null;
+        }
+        return userRepository.findByToken(token);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return user;
+    }
 }
