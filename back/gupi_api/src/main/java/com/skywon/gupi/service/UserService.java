@@ -37,8 +37,9 @@ public class UserService {
      * @param user
      * @return
      */
-    public User save(User user){
+    public User createUser(User user){
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         user.setPassword(encryptedPassword);
         return this.userRepository.save(user);
     }
@@ -62,4 +63,5 @@ public class UserService {
 
 
     }
+
 }

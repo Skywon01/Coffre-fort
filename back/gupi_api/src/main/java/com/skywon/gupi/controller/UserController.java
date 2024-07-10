@@ -35,9 +35,9 @@ public class UserController {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> CreateUser(@RequestBody User user) {
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    public User save(@RequestBody User user) {
+        return this.userService.createUser(user);
+
 
     }
 
