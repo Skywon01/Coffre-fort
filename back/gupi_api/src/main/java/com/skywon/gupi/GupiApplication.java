@@ -13,9 +13,5 @@ public class GupiApplication {
         SpringApplication.run(GupiApplication.class, args);
     }
 
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }

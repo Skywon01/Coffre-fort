@@ -3,16 +3,16 @@ package com.skywon.gupi.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * Utilisateur
+ */
 @Data
 @Entity
 @Table(name = "user")
@@ -33,15 +33,16 @@ public class User implements UserDetails {
     private String role;
     private boolean active;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("user-directory")
-    private List<Directory> directory;
 
     //@Temporal(TemporalType.TIMESTAMP)
     //@Column(name = "date_creation", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date dateCreation;
     // datetime 2024-05-16 11:42:11:00
     // timestamp 1715852566
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("user-directory")
+    private List<Directory> directory;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;

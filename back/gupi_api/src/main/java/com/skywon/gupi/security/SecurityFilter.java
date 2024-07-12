@@ -1,14 +1,14 @@
 package com.skywon.gupi.security;
 
-import com.skywon.gupi.manager.JwtTokenManager;
-import com.skywon.gupi.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
+import com.skywon.gupi.manager.JwtTokenManager;
+import com.skywon.gupi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         String urlRequest = request.getRequestURI();
 
-        if (urlRequest.startsWith("/**")) {
+        if (urlRequest.startsWith("/api/open/")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -51,8 +51,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             logger.info("Trying parse token but failed");
         }
 
-
         filterChain.doFilter(request, response);
     }
 }
-

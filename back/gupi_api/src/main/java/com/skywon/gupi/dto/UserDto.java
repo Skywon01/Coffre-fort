@@ -2,25 +2,19 @@ package com.skywon.gupi.dto;
 
 import com.skywon.gupi.entity.User;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.util.Date;
+
 
 @Data
 public class UserDto {
 
     private String name;
-
     private String firstName;
-
     private String address;
-
-    private String email;
-
-    private String password;
-
     private String profile;
-
-    private boolean active;
+    private String email;
+    private String password;
 
 
     /**
@@ -35,6 +29,7 @@ public class UserDto {
         user.setEmail(email);
         user.setPassword(password);
         user.setProfile(profile);
+        user.setDateCreation(new Date());
         user.setActive(true);
         return user;
     }

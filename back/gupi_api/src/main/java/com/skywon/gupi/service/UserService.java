@@ -40,6 +40,11 @@ public class UserService implements UserDetailsService {
      * @param user
      * @return
      */
+
+    public User save(User user){
+        return userRepository.save(user);
+    }
+
     public User createUser(User user){
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -82,8 +87,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
