@@ -1,4 +1,4 @@
-<nz-layout *ngIf="authService; else loginTemplate" class="app-layout">
+<nz-layout *ngIf="authService.isAuthenticated(); else loginTemplate" class="app-layout">
     <nz-sider class="menu-sidebar"
               nzCollapsible
               nzWidth="256px"
@@ -114,5 +114,6 @@
     </nz-layout>
 </nz-layout>
 <ng-template #loginTemplate>
-    <router-outlet></router-outlet>
+    <app-login></app-login>
+<!--    <router-outlet></router-outlet>-->
 </ng-template>

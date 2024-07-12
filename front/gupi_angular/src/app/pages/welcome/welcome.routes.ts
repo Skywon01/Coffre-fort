@@ -13,7 +13,8 @@ import {
 import {LoginComponent} from "../login/login.component";
 
 export const WELCOME_ROUTES: Routes = [
-    {path: '', component: WelcomeComponent},
+    {path: '', component: WelcomeComponent, title: "Bienvenue sur GUPI"},
+    {path: '', redirectTo:'/login', pathMatch: 'full'},
     {
         path: 'login',
         component: LoginComponent,
