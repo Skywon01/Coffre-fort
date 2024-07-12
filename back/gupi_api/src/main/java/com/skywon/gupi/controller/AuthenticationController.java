@@ -23,7 +23,7 @@ import java.util.Map;
 @RequestMapping("/api/open")
 public class AuthenticationController {
     @Autowired
-    private UserService usersService;
+    private UserService userService;
 
     @Autowired
     private RoleService roleService;
@@ -45,7 +45,7 @@ public class AuthenticationController {
         String msgError = "L'email ou le mot de passe est incorrect";
 
         // vérifier si l'email existe
-        User user = usersService.findByEmail(authenticationDto.getEmail());
+        User user = userService.findByEmail(authenticationDto.getEmail());
         if (user == null) {
             throw new WsException(HttpStatus.NOT_FOUND,msgError);
         }
@@ -65,7 +65,7 @@ public class AuthenticationController {
      * @return
      * <ul>
      *     <li><b>Exception</b> si l'email existe ....</li>
-     *     <li><b>token</b> si l'utilisateur et bien enregister</li>
+     *     <li><b>token</b> si l'utilisateur et bien enregistré</li>
      * </ul>
      */
     @PostMapping("/register")
@@ -74,7 +74,7 @@ public class AuthenticationController {
             throw new WsException(HttpStatus.BAD_REQUEST, "Le mot de passe doit contenir au moins 8 caractères");
         }
 
-        User user = usersService.findByEmail(userDto.getEmail());
+        User user = userService.findByEmail(userDto.getEmail());
         if (user != null) {
             throw new WsException(HttpStatus.BAD_REQUEST, "Cet email existe déja");
         }
@@ -86,10 +86,10 @@ public class AuthenticationController {
         // générer un token user
         do {
             user.setToken(Aleatoire.getRandomStr(50));
-        }while (usersService.findByToken(user.getToken()) != null);
+        }while (userService.findByToken(user.getToken()) != null);
 
 
-        usersService.createUser(user);
+        userService.createUser(user);
 
         return Map.of("token", JwtTokenManager.generateToken(user.getToken()));
 

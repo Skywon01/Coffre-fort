@@ -13,25 +13,25 @@ public class RoleService {
     /**
      * add or find a role
      *
-     * @param  nom du role
+     * @param  name du role
      * @return     Le role
      */
-    public Role save(String nom){
-        Role role = findByName(nom); // chercher dans la bd
+    public Role save(String name){
+        Role role = findByName(name); // chercher dans la bd
         if(role != null){
             return role;
         }
         role = new Role();
-        role.setName(nom);
+        role.setName(name);
         return roleRepository.save(role);
     }
 
     /**
      * Rechercher le role à partir du nom
-     * @param nom du role
+     * @param name du role
      * @return null si le role n'existe pas
      */
-    public Role findByName(String nom){
-        return roleRepository.findByName(nom);
+    public Role findByName(String name){
+        return roleRepository.findByName(name);
     }
 }

@@ -1,11 +1,11 @@
 package com.skywon.gupi.dto;
 
 import com.skywon.gupi.entity.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class UserDto {
 
     private String name;
@@ -35,7 +35,7 @@ public class UserDto {
         user.setEmail(email);
         user.setPassword(password);
         user.setProfile(profile);
-        user.setActive(active);
+        user.setActive(true);
         return user;
     }
 }
