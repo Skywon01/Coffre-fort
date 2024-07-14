@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class IdentificationController {
      * </ul>
      */
     @PostMapping("/login")
-    public Map<String, String> identification(@RequestBody IdentificationDto identificationDto) {
+    public Map<String, Object> identification(@RequestBody IdentificationDto identificationDto) {
 
         String msgError = "L'email ou le mot de passe est incorrect";
 
@@ -55,7 +56,13 @@ public class IdentificationController {
         }
 
         // Crypter le token
-        return Map.of("token", JwtTokenManager.generateToken(user.getToken()));
+        String token = JwtTokenManager.generateToken(user.getToken());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", user);
+
+        return response;
     }
 
     /**
