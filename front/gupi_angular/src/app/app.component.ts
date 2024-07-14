@@ -29,7 +29,7 @@ import {LoginComponent} from "./pages/login/login.component";
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+    user: any;
     isCollapsed = false;
     chatIsOpen = false;
     public users: UserModel[] = []
@@ -53,6 +53,10 @@ export class AppComponent {
             }
 
         })
+
+        this.user = this.authService.getUser();
+        // console.log('User:', this.user);
+
     }
 
     async vaChercherTousLesUsers(): Promise<void> {

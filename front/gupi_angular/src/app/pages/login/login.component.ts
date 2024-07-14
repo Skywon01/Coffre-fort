@@ -28,4 +28,6 @@ export class LoginComponent {
     public alignSegment: NzAlign[] = ['flex-start', 'center', 'flex-end'];
     public selectedJustification = 0;
     public selectedLAlignment = 0;
+
+
 }

@@ -33,5 +33,6 @@ export class UserIconComponent {
 
     logout(): void {
         localStorage.removeItem('jwtToken');
+        localStorage.removeItem('user');
     }
 }

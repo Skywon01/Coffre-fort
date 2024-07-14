@@ -12,7 +12,7 @@
             </a>
         </div>
         <!-- Nom du profil à changer en dynamique -->
-        <h2 class="profil-menu">Sylvie Dupont</h2>
+        <h2 class="profil-menu">{{ user.name }} {{ user.firstName }}</h2>
         <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" class="color-menu">
             @if (!isCollapsed) {
                 <div routerLink="/welcome/files" class="menu-item" routerLinkActive="active-link"
