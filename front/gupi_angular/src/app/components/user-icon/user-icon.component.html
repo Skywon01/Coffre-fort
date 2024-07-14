@@ -11,9 +11,8 @@
 </nz-badge>
 
 <ng-template #contentTemplate>
-    <a routerLink="welcome/profil">Mes informations</a>
-    <p>Editer mon profil</p>
-    <a routerLink="welcome/notification">Notifications</a>
-    <p>Se déconnecter</p>
+    <a routerLink="welcome/profil">Mes informations</a><br>
+    <a routerLink="welcome/notification">Notifications</a><br>
+    <a (click)="logout()">Se déconnecter</a><br>
     <a (click)="clickMe()">Fermer</a>
 </ng-template>

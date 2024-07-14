@@ -48,7 +48,7 @@ export class LoginFormComponent {
     constructor(private fb: NonNullableFormBuilder, private authService: AuthService, private router: Router) {
     }
 
-    submitForm(): void {
+    loginForm(): void {
         if (this.validateForm.valid) {
             const { userName, password, remember } = this.validateForm.value;
             this.authService.login(userName, password).subscribe({

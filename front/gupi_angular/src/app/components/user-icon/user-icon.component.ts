@@ -30,4 +30,8 @@ export class UserIconComponent {
   change(value: boolean): void {
     console.log(value);
   }
+
+    logout(): void {
+        localStorage.removeItem('jwtToken');
+    }
 }
