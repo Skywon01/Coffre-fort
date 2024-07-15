@@ -61,6 +61,7 @@ public class IdentificationController {
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("user", user);
+        response.put("roles", user.getRoles());
 
         return response;
     }

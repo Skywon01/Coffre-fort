@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {NzIconModule} from 'ng-zorro-antd/icon';
@@ -28,8 +28,9 @@ import {LoginComponent} from "./pages/login/login.component";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
     user: any;
+    roles: string[] = [];
     isCollapsed = false;
     chatIsOpen = false;
     public users: UserModel[] = []
@@ -55,7 +56,9 @@ export class AppComponent {
         })
 
         this.user = this.authService.getUser();
-        // console.log('User:', this.user);
+        this.roles = this.authService.getRoles();
+        console.log('User:', this.user); // Debugging: Vérifie si les informations de l'utilisateur sont récupérées
+        console.log('Roles:', this.roles);
 
     }
 

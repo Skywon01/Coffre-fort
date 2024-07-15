@@ -11,13 +11,10 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {ListFileComponent} from "../list-file/list-file.component";
 import {UploadComponent} from "../upload/upload.component";
-
-// interface ItemData {
-//     id: string;
-//     name: string;
-//     age: string;
-//     address: string;
-// }
+import {DirectoryService} from "../../services/directory.service";
+import {AuthService} from "../../services/authentification/auth.service";
+import {ApiService} from "../../services/api.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-list-directories',
@@ -41,6 +38,9 @@ import {UploadComponent} from "../upload/upload.component";
 export class ListDirectoriesComponent implements OnInit{
     @Input() tuyauDeDirectory!: DirectoryModel[];
     openedDirectoryId: number | null = null;
+    user_id: number | undefined;
+
+    constructor(private authService: AuthService, private apiService: ApiService) {}
 
     toggleDirectory(directoryId: number) {
         if (this.openedDirectoryId === directoryId) {
@@ -51,6 +51,24 @@ export class ListDirectoriesComponent implements OnInit{
     }
 
     ngOnInit(): void {
-
+        const user = this.authService.getUser();
+        if (user) {
+            this.user_id = user.id;
+            this.loadUserDirectories(this.user_id);
+        }
     }
+
+    loadUserDirectories(userId: number | undefined): void {
+        this.apiService.getUserDirectories(userId).subscribe(directories => {
+            this.tuyauDeDirectory = directories;
+        });
+    }
+
+
+    addDirectory(name: string): void {
+        this.apiService.createDirectory(name, this.user_id).subscribe(newDirectory => {
+            this.tuyauDeDirectory.push(newDirectory);
+        });
+    }
+
 }

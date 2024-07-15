@@ -30,7 +30,7 @@ export class ProfilComponent implements OnInit {
     user: any;
     shape: NzButtonShape = 'round'
 
-    constructor(private pageService: PageService, private authService: AuthService) {
+    constructor(private pageService: PageService, protected authService: AuthService) {
         this.pageService.setComponentType('profile', 'Mon profil', 'Veuillez trouver vos informations personnelles');
     }
 

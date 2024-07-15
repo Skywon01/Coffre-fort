@@ -1,4 +1,4 @@
-<button nz-button nzType="primary" nzShape="round" class="add-folder">Ajouter un dossier</button>
+<button nz-button nzType="primary" nzShape="round" class="add-folder" (click)="addDirectory('New Folder')">Ajouter un dossier</button>
 <br/>
 <br/>
 <nz-table [nzData]="tuyauDeDirectory">
@@ -7,7 +7,7 @@
         @for (directory of tuyauDeDirectory; track directory.directory_id) {
 
             <tr class="editable-row">
-                <td hidden>{{ directory.directory_id }}</td>
+                <td >{{ directory.directory_id }}</td>
                 <td class="table-line">
                     <div class="table-line-icon" (click)="toggleDirectory(directory.directory_id)">
                         <span nz-icon nzType="folder-open" nzTheme="fill"

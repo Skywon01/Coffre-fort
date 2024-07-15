@@ -63,4 +63,11 @@ public class DirectoryController {
     public void deleteDirectory(@PathVariable Integer id) {
         directoryService.deleteDirectory(id);
     }
+
+    @GetMapping("/user/{user_id}")
+    public ResponseEntity<List<Directory>> getUserDirectories(@PathVariable Integer user_id) {
+        User user = userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Directory> directories = directoryRepository.findByUser(user);
+        return ResponseEntity.ok(directories);
+    }
 }

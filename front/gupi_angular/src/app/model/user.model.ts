@@ -9,5 +9,6 @@ export class UserModel {
         public password: string,
         public directory: number,
         public file: number,
+        public role: string
     ) {  }
 }

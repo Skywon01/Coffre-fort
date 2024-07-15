@@ -1,6 +1,7 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
+import {DirectoryModel} from "../model/directory.model";
 
 /**
  * Nom de domaine de l'api GUPI
@@ -80,6 +81,15 @@ export class ApiService {
 
     registerDirectory(directory: any): Observable<any> {
         return this.http.post(`${apiRoot}/directories/`, directory, httpoptions)
+    }
+
+    getUserDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
+        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`);
+    }
+
+    createDirectory(name: string, user_id: number | undefined): Observable<DirectoryModel> {
+        const request = { name, user_id: user_id };
+        return this.http.post<DirectoryModel>(`${apiRoot}/directories`, request);
     }
 
 
