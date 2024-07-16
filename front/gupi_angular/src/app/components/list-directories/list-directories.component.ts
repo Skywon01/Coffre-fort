@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
@@ -30,7 +30,8 @@ import {UserService} from "../../services/user.service";
         NzIconDirective,
         NzPopoverDirective,
         ListFileComponent,
-        UploadComponent
+        UploadComponent,
+        NgIf
     ],
   templateUrl: './list-directories.component.html',
   styleUrl: './list-directories.component.css'
@@ -69,6 +70,11 @@ export class ListDirectoriesComponent implements OnInit{
         this.apiService.createDirectory(name, this.user_id).subscribe(newDirectory => {
             this.tuyauDeDirectory.push(newDirectory);
         });
+    }
+
+    isAuthorized(requiredRoles: string[]): boolean {
+        const userRoles = this.authService.getRoles();
+        return requiredRoles.some(role => userRoles.includes(role));
     }
 
 }

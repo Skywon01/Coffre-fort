@@ -48,6 +48,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/api/open/**").permitAll()
                         .requestMatchers("/api/client/**").hasAnyAuthority("CLIENT")
                         .requestMatchers("/api/dashboard/**").hasAnyAuthority("ADMIN")
@@ -65,6 +66,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedHeader("X-XSRF-TOKEN");
         config.addAllowedHeader("Content-Type");
+        config.addAllowedHeader("Authorization");
         config.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         config.setAllowCredentials(true); // This is important since we are using session cookies

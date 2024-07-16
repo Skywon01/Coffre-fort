@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {DirectoryModel} from "../model/directory.model";
+import {AuthService} from "./authentification/auth.service";
 
 /**
  * Nom de domaine de l'api GUPI
@@ -29,8 +30,18 @@ export class ApiService {
     //On ne renvoie que des observables ici grâce au back
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private authService: AuthService,
     ) {  }
+
+    private getAuthHeaders(): HttpHeaders {
+        const token = this.authService.getToken();
+        return new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        });
+    }
+
     // Observables utilisateur
     retrieveAllUsers(): Observable<any> {
         return this.http.get(`${apiRoot}/users/`, httpoptions)
@@ -84,12 +95,12 @@ export class ApiService {
     }
 
     getUserDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
-        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`);
+        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`, { headers: this.getAuthHeaders() });
     }
 
     createDirectory(name: string, user_id: number | undefined): Observable<DirectoryModel> {
         const request = { name, user_id: user_id };
-        return this.http.post<DirectoryModel>(`${apiRoot}/directories`, request);
+        return this.http.post<DirectoryModel>(`${apiRoot}/directories`, request, { headers: this.getAuthHeaders() });
     }
 
 
