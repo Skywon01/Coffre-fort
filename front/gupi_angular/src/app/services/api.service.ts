@@ -98,9 +98,9 @@ export class ApiService {
         return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`, { headers: this.getAuthHeaders() });
     }
 
-    createDirectory(name: string, user_id: number | undefined): Observable<DirectoryModel> {
-        const request = { name, user_id: user_id };
-        return this.http.post<DirectoryModel>(`${apiRoot}/directories`, request, { headers: this.getAuthHeaders() });
+    createDirectory(name: string): Observable<any> {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        return this.http.post(`${apiRoot}/directories`, { name, user_id: user.id });
     }
 
 

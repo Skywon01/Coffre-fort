@@ -67,6 +67,7 @@ export class AddDeviceComponent {
             this.apiService.registerDevice(formData).subscribe(device => {
                 // .emit permet d'envoyer l'évènement, ici on envoie l'objet "device"
                 this.deviceAdded.emit(device);
+                // .reset permet de vider le formulaire une fois soumis
                 this.form.reset();
             });
 

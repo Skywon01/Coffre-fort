@@ -1,6 +1,9 @@
-<button nz-button nzType="primary" nzShape="round" class="add-folder" (click)="addDirectory('New Folder')" >Ajouter un dossier</button>
+<button nz-button nzType="primary" nzShape="round" class="add-folder" (click)="showCreateDirectoryForm = !showCreateDirectoryForm">
+    Ajouter un dossier
+</button>
 <br/>
 <br/>
+<app-form-create-directory *ngIf="showCreateDirectoryForm" (directoryCreated)="onDirectoryCreated()"></app-form-create-directory>
 <nz-table [nzData]="tuyauDeDirectory">
 
     <tbody>

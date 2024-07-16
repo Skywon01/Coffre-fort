@@ -30,7 +30,6 @@ public class User implements UserDetails {
     private String password;
     private String profile;
     private String token;
-    private String role;
     private boolean active;
 
 

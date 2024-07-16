@@ -15,6 +15,7 @@ import {DirectoryService} from "../../services/directory.service";
 import {AuthService} from "../../services/authentification/auth.service";
 import {ApiService} from "../../services/api.service";
 import {UserService} from "../../services/user.service";
+import {FormCreateDirectoryComponent} from "../form-create-directory/form-create-directory.component";
 
 @Component({
   selector: 'app-list-directories',
@@ -31,7 +32,8 @@ import {UserService} from "../../services/user.service";
         NzPopoverDirective,
         ListFileComponent,
         UploadComponent,
-        NgIf
+        NgIf,
+        FormCreateDirectoryComponent
     ],
   templateUrl: './list-directories.component.html',
   styleUrl: './list-directories.component.css'
@@ -40,6 +42,7 @@ export class ListDirectoriesComponent implements OnInit{
     @Input() tuyauDeDirectory!: DirectoryModel[];
     openedDirectoryId: number | null = null;
     user_id: number | undefined;
+    showCreateDirectoryForm: boolean = false;
 
     constructor(private authService: AuthService, private apiService: ApiService) {}
 
@@ -67,14 +70,25 @@ export class ListDirectoriesComponent implements OnInit{
 
 
     addDirectory(name: string): void {
-        this.apiService.createDirectory(name, this.user_id).subscribe(newDirectory => {
+        this.apiService.createDirectory(name).subscribe(newDirectory => {
             this.tuyauDeDirectory.push(newDirectory);
         });
     }
 
-    isAuthorized(requiredRoles: string[]): boolean {
+    isAuthorized(requiredRoles: string[]) {
         const userRoles = this.authService.getRoles();
         return requiredRoles.some(role => userRoles.includes(role));
+    }
+
+    loadDirectories() {
+        const user = this.authService.getUser();
+        this.apiService.getUserDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
+            this.tuyauDeDirectory = directories;
+        });
+    }
+
+    onDirectoryCreated() {
+        this.loadDirectories();
     }
 
 }

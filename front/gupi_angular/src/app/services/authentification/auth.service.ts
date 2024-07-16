@@ -34,7 +34,7 @@ export class AuthService {
 
     getRoles(): string[] {
         const roles = localStorage.getItem('roles');
-        return roles ? JSON.parse(roles) : [];
+        return roles ? JSON.parse(roles) : ["authority"];
     }
 
     isAuthenticated(): boolean {
