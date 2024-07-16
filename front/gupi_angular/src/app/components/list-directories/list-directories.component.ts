@@ -16,6 +16,7 @@ import {AuthService} from "../../services/authentification/auth.service";
 import {ApiService} from "../../services/api.service";
 import {UserService} from "../../services/user.service";
 import {FormCreateDirectoryComponent} from "../form-create-directory/form-create-directory.component";
+import {UploadFileComponent} from "../upload-file/upload-file.component";
 
 @Component({
   selector: 'app-list-directories',
@@ -33,7 +34,8 @@ import {FormCreateDirectoryComponent} from "../form-create-directory/form-create
         ListFileComponent,
         UploadComponent,
         NgIf,
-        FormCreateDirectoryComponent
+        FormCreateDirectoryComponent,
+        UploadFileComponent
     ],
   templateUrl: './list-directories.component.html',
   styleUrl: './list-directories.component.css'
@@ -90,5 +92,13 @@ export class ListDirectoriesComponent implements OnInit{
     onDirectoryCreated() {
         this.loadDirectories();
     }
-
+    onFileUploaded() {
+        if (this.openedDirectoryId) {
+            // Recharge la liste des fichiers pour le répertoire actuellement ouvert
+            const listFilesComponent = document.querySelector('app-list-files') as any;
+            if (listFilesComponent) {
+                listFilesComponent.loadFiles();
+            }
+        }
+    }
 }

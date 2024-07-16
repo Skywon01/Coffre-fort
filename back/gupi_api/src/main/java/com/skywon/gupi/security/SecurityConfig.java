@@ -66,6 +66,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedHeader("X-XSRF-TOKEN");
         config.addAllowedHeader("Content-Type");
+        config.addAllowedHeader("Content-Disposition");
         config.addAllowedHeader("Authorization");
         config.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));

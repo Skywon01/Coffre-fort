@@ -28,7 +28,7 @@ export class DeviceService {
         const temp: DeviceModel[] = []
 
         rawdata.map((el) => {
-            let tempObj: DeviceModel = new DeviceModel(el.device_id, el.name, el.price, el.qr_code)
+            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code)
             temp.push(tempObj);
         })
         console.log('Data formatté: ', temp)

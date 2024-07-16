@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer device_id;
+    private Integer id;
 
     private String qr_code;
 

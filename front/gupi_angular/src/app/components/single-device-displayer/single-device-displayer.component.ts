@@ -18,7 +18,7 @@ import {CurrencyPipe} from "@angular/common";
 export class SingleDeviceDisplayerComponent implements OnInit {
     public devices: DeviceModel[] = [];
 
-    device_id!: number;
+    id!: number;
     device: any;
 
     constructor(
@@ -29,7 +29,7 @@ export class SingleDeviceDisplayerComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
-            this.device_id = params['id'];
+            this.id = params['id'];
             this.loadDeviceDetails();
         });
 
@@ -37,7 +37,7 @@ export class SingleDeviceDisplayerComponent implements OnInit {
     }
 
     loadDeviceDetails() {
-        this.apiService.retrieveUserById(this.device_id).subscribe(
+        this.apiService.retrieveUserById(this.id).subscribe(
             (data) => {
                 this.device = data;
             },

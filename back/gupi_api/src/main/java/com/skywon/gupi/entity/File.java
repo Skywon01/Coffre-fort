@@ -13,9 +13,9 @@ public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer file_id;
-//java nio 2 pour les fichiers
+    private Integer id;
     private String file_name;
+    private String original_file_name;
     private String file_type;
     private String file_size;
     private String file_path;

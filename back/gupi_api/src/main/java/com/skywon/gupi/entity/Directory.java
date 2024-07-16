@@ -16,7 +16,7 @@ import java.util.Set;
 public class Directory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer directory_id;
+    private Integer id;
     private String name;
 
     @ManyToOne

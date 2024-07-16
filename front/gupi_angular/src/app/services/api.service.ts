@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {DirectoryModel} from "../model/directory.model";
@@ -103,5 +103,22 @@ export class ApiService {
         return this.http.post(`${apiRoot}/directories`, { name, user_id: user.id });
     }
 
+    uploadFile(file: File, directoryId: number): Observable<any> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('directoryId', directoryId.toString());
+        return this.http.post<any>(`${apiRoot}/file/upload`, formData);
+    }
 
+    getFilesByDirectoryId(directory_id: number): Observable<any> {
+        return this.http.get<any>(`${apiRoot}/file/directory/${directory_id}`);
+    }
+    downloadFile(fileId: number): Observable<HttpResponse<Blob>> {
+        return this.http.get(`${apiRoot}/file/download/${fileId}`, {
+            responseType: 'blob',
+            observe: 'response'
+        });
+    }
 }
+
+

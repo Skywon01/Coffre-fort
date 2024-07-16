@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {
     NzListComponent,
     NzListItemActionComponent,
@@ -20,18 +20,13 @@ import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode} from "ng-zorro-antd/tree
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
-
-interface ItemData {
-    id: string;
-    name: string;
-    age: string;
-    address: string;
-}
+import {DirectoryService} from "../../services/directory.service";
+import {ApiService} from "../../services/api.service";
 
 
 @Component({
-  selector: 'app-list-file',
-  standalone: true,
+    selector: 'app-list-file',
+    standalone: true,
     imports: [
         NzListComponent,
         NzListItemComponent,
@@ -57,41 +52,67 @@ interface ItemData {
         NzInputDirective,
         NzThMeasureDirective
     ],
-  templateUrl: './list-file.component.html',
-  styleUrl: './list-file.component.css'
+    templateUrl: './list-file.component.html',
+    styleUrl: './list-file.component.css'
 })
-export class ListFileComponent implements OnInit{
-    i = 0;
-    editId: string | null = null;
-    listOfData: ItemData[] = [];
+export class ListFileComponent implements OnInit {
+    @Input() directoryId!: number;
+    files: any[] = [];
 
-    startEdit(id: string): void {
-        this.editId = id;
+    constructor(private apiService: ApiService) {
     }
 
-    stopEdit(): void {
-        this.editId = null;
+    ngOnInit() {
+        this.loadFiles();
     }
 
-    addRow(): void {
-        this.listOfData = [
-            ...this.listOfData,
-            {
-                id: `${this.i}`,
-                name: `Edward King ${this.i}`,
-                age: '32',
-                address: `London, Park Lane no. ${this.i}`
+    loadFiles() {
+        this.apiService.getFilesByDirectoryId(this.directoryId).subscribe(files => {
+            this.files = files;
+        }, error => {
+            console.error('Error loading files:', error);
+        });
+    }
+
+    download(fileId: number): void {
+        this.apiService.downloadFile(fileId).subscribe(response => {
+            if (response.body) {
+                const blob = new Blob([response.body], { type: response.headers.get('Content-Type') || 'application/octet-stream' });
+                const contentDisposition = response.headers.get('Content-Disposition');
+                const fileName = this.getFileNameFromContentDisposition(contentDisposition);
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+            } else {
+                console.error('No file content found in response.');
             }
-        ];
-        this.i++;
+        });
     }
 
-    deleteRow(id: string): void {
-        this.listOfData = this.listOfData.filter(d => d.id !== id);
+
+    private getFileNameFromContentDisposition(contentDisposition: string | null): string {
+        if (!contentDisposition) {
+            return 'downloaded-file';
+        }
+
+        const startIndex = contentDisposition.indexOf('filename="');
+        if (startIndex === -1) {
+            return 'downloaded-file';
+        }
+
+        const endIndex = contentDisposition.indexOf('"', startIndex + 10); // +10 pour sauter "filename="
+        if (endIndex === -1) {
+            return 'downloaded-file';
+        }
+
+        const fileName = contentDisposition.substring(startIndex + 10, endIndex);
+        return fileName.trim();
     }
 
-    ngOnInit(): void {
-        this.addRow();
-        this.addRow();
-    }
 }
