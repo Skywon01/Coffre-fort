@@ -1,6 +1,7 @@
 package com.skywon.gupi.controller;
 
 import com.skywon.gupi.dto.CreateDirectoryRequest;
+import com.skywon.gupi.dto.DirectoryDTO;
 import com.skywon.gupi.entity.Directory;
 import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.DirectoryRepository;
@@ -27,7 +28,7 @@ public class DirectoryController {
     private DirectoryService directoryService;
 
     @GetMapping
-    public List<Directory> getAllDirectories() {
+    public List<DirectoryDTO> getAllDirectories() {
         return directoryService.getAll();
     }
 

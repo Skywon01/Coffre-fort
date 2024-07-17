@@ -5,16 +5,13 @@ import {NgForOf, NgIf} from "@angular/common";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
-import {DeviceModel} from "../../model/device.model";
 import {DirectoryModel} from "../../model/directory.model";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {ListFileComponent} from "../list-file/list-file.component";
 import {UploadComponent} from "../upload/upload.component";
-import {DirectoryService} from "../../services/directory.service";
 import {AuthService} from "../../services/authentification/auth.service";
 import {ApiService} from "../../services/api.service";
-import {UserService} from "../../services/user.service";
 import {FormCreateDirectoryComponent} from "../form-create-directory/form-create-directory.component";
 import {UploadFileComponent} from "../upload-file/upload-file.component";
 
@@ -66,7 +63,8 @@ export class ListDirectoriesComponent implements OnInit{
 
     loadUserDirectories(userId: number | undefined): void {
         this.apiService.getUserDirectories(userId).subscribe(directories => {
-            this.tuyauDeDirectory = directories;
+            // Filtrer les dossiers parents
+            this.tuyauDeDirectory = directories.filter(directory => directory.parent_id === null);
         });
     }
 
@@ -85,7 +83,7 @@ export class ListDirectoriesComponent implements OnInit{
     loadDirectories() {
         const user = this.authService.getUser();
         this.apiService.getUserDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
-            this.tuyauDeDirectory = directories;
+            this.tuyauDeDirectory = directories.filter(directory => directory.parent_id === null);
         });
     }
 
