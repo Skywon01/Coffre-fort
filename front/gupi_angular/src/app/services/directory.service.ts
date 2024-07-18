@@ -27,7 +27,7 @@ export class DirectoryService{
         const temp: DirectoryModel[] = []
 
         rawdata.map((el) =>{
-            let tempObj: DirectoryModel = new DirectoryModel(el.id, el.name, el.user_id, el.parent_id)
+            let tempObj: DirectoryModel = new DirectoryModel(el.id, el.name, el.user_id, el.parent_id, el.children)
             temp.push(tempObj);
         })
         console.log('Data directory: ', temp)

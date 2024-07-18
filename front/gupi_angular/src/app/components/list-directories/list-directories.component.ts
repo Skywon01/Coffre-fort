@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
@@ -32,14 +32,15 @@ import {UploadFileComponent} from "../upload-file/upload-file.component";
         UploadComponent,
         NgIf,
         FormCreateDirectoryComponent,
-        UploadFileComponent
+        UploadFileComponent,
+        NgTemplateOutlet
     ],
   templateUrl: './list-directories.component.html',
   styleUrl: './list-directories.component.css'
 })
-export class ListDirectoriesComponent implements OnInit{
+export class ListDirectoriesComponent implements OnInit {
     @Input() tuyauDeDirectory!: DirectoryModel[];
-    openedDirectoryId: number | null = null;
+    openedDirectoryId: number = -1;
     user_id: number | undefined;
     showCreateDirectoryForm: boolean = false;
 
@@ -47,11 +48,12 @@ export class ListDirectoriesComponent implements OnInit{
 
     toggleDirectory(directoryId: number) {
         if (this.openedDirectoryId === directoryId) {
-            this.openedDirectoryId = null;
+            this.openedDirectoryId = -1; // Réinitialiser à -1 pour indiquer qu'aucun répertoire n'est ouvert
         } else {
             this.openedDirectoryId = directoryId;
         }
     }
+
 
     ngOnInit(): void {
         const user = this.authService.getUser();
@@ -63,9 +65,31 @@ export class ListDirectoriesComponent implements OnInit{
 
     loadUserDirectories(userId: number | undefined): void {
         this.apiService.getUserDirectories(userId).subscribe(directories => {
-            // Filtrer les dossiers parents
-            this.tuyauDeDirectory = directories.filter(directory => directory.parent_id === null);
+            this.tuyauDeDirectory = this.buildHierarchy(directories);
         });
+    }
+
+    buildHierarchy(directories: DirectoryModel[]): DirectoryModel[] {
+        const directoryMap = new Map<number, DirectoryModel>();
+        directories.forEach(directory => directoryMap.set(directory.id, directory));
+        const rootDirectories: DirectoryModel[] = [];
+
+        directories.forEach(directory => {
+            if (directory.parent_id) {
+                const parent = directoryMap.get(directory.parent_id);
+                if (parent) {
+                    if (!parent.children) {
+                        parent.children = [];
+                    }
+                    parent.children.push(directory);
+                }
+            } else {
+                rootDirectories.push(directory);
+            }
+        });
+
+        console.log("Root Directories: ", rootDirectories); // Log the hierarchy
+        return rootDirectories;
     }
 
 
@@ -83,16 +107,16 @@ export class ListDirectoriesComponent implements OnInit{
     loadDirectories() {
         const user = this.authService.getUser();
         this.apiService.getUserDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
-            this.tuyauDeDirectory = directories.filter(directory => directory.parent_id === null);
+            this.tuyauDeDirectory = directories;
         });
     }
 
     onDirectoryCreated() {
         this.loadDirectories();
     }
+
     onFileUploaded() {
         if (this.openedDirectoryId) {
-            // Recharge la liste des fichiers pour le répertoire actuellement ouvert
             const listFilesComponent = document.querySelector('app-list-files') as any;
             if (listFilesComponent) {
                 listFilesComponent.loadFiles();

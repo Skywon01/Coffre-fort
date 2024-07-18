@@ -4,43 +4,47 @@
 <br/>
 <br/>
 <app-form-create-directory *ngIf="showCreateDirectoryForm" (directoryCreated)="onDirectoryCreated()"></app-form-create-directory>
-<nz-table [nzData]="tuyauDeDirectory">
 
+<nz-table>
     <tbody>
-        @for (directory of tuyauDeDirectory; track directory.id) {
-
-            <tr class="editable-row">
-<!--                <td >{{ directory.id }}</td>-->
-                <td class="table-line">
-                    <div class="table-line-icon" (click)="toggleDirectory(directory.id)">
-                        <span nz-icon nzType="folder-open" nzTheme="fill"
-                              style="color:#00000050; font-size: 50px;">
-                        </span>
-                        <div class="directory-text-container">
-                            <div class="directory-name"> {{ directory.name }}</div>
-                            <div class="file-number">3 fichiers</div>
-                        </div>
-                    </div>
-
-                    <div class="block-point" nz-popover
-                         [nzPopoverContent]="contentTemplate"
-                         nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮
-                    </div>
-                </td>
-
-<!--                <td hidden>{{ directory.user_id }}</td>-->
-
-            </tr>
-            @if (openedDirectoryId === directory.id) {
-                <app-upload-file [directoryId]="openedDirectoryId" (fileUploaded)="onFileUploaded()"></app-upload-file>
-                <app-list-file [directoryId]="openedDirectoryId"></app-list-file>
-            }
-        }
+    <ng-container *ngFor="let directory of tuyauDeDirectory">
+        <ng-template [ngTemplateOutlet]="directoryTemplate" [ngTemplateOutletContext]="{ $implicit: directory }"></ng-template>
+    </ng-container>
     </tbody>
 </nz-table>
+
+<ng-template #directoryTemplate let-directory>
+    <tr class="editable-row">
+        <td class="table-line">
+            <div class="table-line-icon" (click)="toggleDirectory(directory.id)">
+                <span nz-icon nzType="folder-open" nzTheme="fill" style="color:#00000050; font-size: 50px;"></span>
+                <div class="directory-text-container">
+                    <div class="directory-name">{{ directory.name }}</div>
+                    <div class="file-number">{{ directory.files?.length || 0 }} fichiers</div>
+                </div>
+            </div>
+            <div class="block-point" nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮</div>
+        </td>
+    </tr>
+    <tr *ngIf="openedDirectoryId === directory.id">
+        <td colspan="2">
+            <ng-container *ngIf="directory.children?.length">
+                <ng-container *ngFor="let child of directory.children">
+                    <ng-template [ngTemplateOutlet]="directoryTemplate" [ngTemplateOutletContext]="{ $implicit: child }"></ng-template>
+                </ng-container>
+            </ng-container>
+            <app-upload-file [directoryId]="openedDirectoryId" (fileUploaded)="onFileUploaded()"></app-upload-file>
+            <app-list-file [directoryId]="openedDirectoryId"></app-list-file>
+
+        </td>
+
+    </tr>
+
+</ng-template>
+
 <ng-template #contentTemplate>
     <div>
-        <a>Renommer</a> <br>
+        <a>Renommer</a><br>
         <a style="color: red;">Supprimer</a>
     </div>
 </ng-template>
