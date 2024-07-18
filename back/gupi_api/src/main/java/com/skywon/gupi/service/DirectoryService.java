@@ -14,9 +14,6 @@ public class DirectoryService {
     @Autowired
     private DirectoryRepository directoryRepository;
 
-//    public List<Directory> getAll() {
-//        return this.directoryRepository.findAll();
-//    }
 
     public List<DirectoryDTO> getAll() {
         List<Directory> directories = directoryRepository.findAll();

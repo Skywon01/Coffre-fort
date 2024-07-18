@@ -67,8 +67,8 @@ public class DirectoryController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<List<Directory>> getUserDirectories(@PathVariable Integer id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        List<Directory> directories = directoryRepository.findByUser(user);
+        User userId = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Directory> directories = directoryRepository.findByUser(userId);
         return ResponseEntity.ok(directories);
     }
 }
