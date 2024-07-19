@@ -47,7 +47,7 @@
 <!--            <a (click)="deleteDirectory(directory.id)" style="color: red;">Supprimer</a> <br>-->
             <a (click)="toggleCreateChildDirectoryForm(directory.id)">Ajouter un sous-dossier</a>
             <div *ngIf="showCreateChildDirectoryForm.get(directory.id)">
-                <input type="text" [(ngModel)]="newChildDirectoryName" placeholder="Nom du dossier enfant"/>
+                <input type="text" [(ngModel)]="newChildDirectoryName" placeholder="Nom du sous-dossier"/>
                 <button nz-button nzType="primary" (click)="addChildDirectory(directory.id, newChildDirectoryName)">Créer</button>
             </div>
         </div>

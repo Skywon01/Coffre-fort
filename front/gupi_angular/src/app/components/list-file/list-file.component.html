@@ -1,4 +1,4 @@
-<ul>
-    <li *ngFor="let file of files">{{ file.original_file_name }}</li>
-    <button *ngFor="let file of files" (click)="download(file.id)">Télécharger</button>
-</ul>
+<div *ngFor="let file of files">
+    <p (click)="download(file.id)">{{ file.original_file_name }}</p>
+<!--    <button (click)="download(file.id)">Télécharger</button>-->
+</div>
