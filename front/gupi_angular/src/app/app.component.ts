@@ -57,19 +57,19 @@ export class AppComponent implements OnInit{
 
         this.user = this.authService.getUser();
         this.roles = this.authService.getRoles();
-        console.log('User:', this.user); // Debugging: Vérifie si les informations de l'utilisateur sont récupérées
-        console.log('Roles:', this.roles);
+        // console.log('User:', this.user);
+        // console.log('Roles:', this.roles);
 
     }
 
     async vaChercherTousLesUsers(): Promise<void> {
         this.users = await this.userService.getUserAll()
-        console.log(this.users)
+        // console.log(this.users)
     }
 
     async vaChercherUnSeulUser(id: string) {
         this.users = await this.userService.getUserOne(id)
-        console.log(this.users)
+        // console.log(this.users)
     }
 
 

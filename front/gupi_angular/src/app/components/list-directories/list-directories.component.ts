@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
 import {NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
@@ -40,17 +40,28 @@ import {UploadFileComponent} from "../upload-file/upload-file.component";
 })
 export class ListDirectoriesComponent implements OnInit {
     @Input() tuyauDeDirectory!: DirectoryModel[];
-    openedDirectoryId: number = -1;
+    openedDirectories: Map<number, boolean> = new Map();
     user_id: number | undefined;
     showCreateDirectoryForm: boolean = false;
+    showCreateChildDirectoryForm: Map<number, boolean> = new Map();
+    newChildDirectoryName: string = '';
+    @Output() directoryAdded = new EventEmitter<DirectoryModel>();
 
     constructor(private authService: AuthService, private apiService: ApiService) {}
 
     toggleDirectory(directoryId: number) {
-        if (this.openedDirectoryId === directoryId) {
-            this.openedDirectoryId = -1; // Réinitialiser à -1 pour indiquer qu'aucun répertoire n'est ouvert
+        if (this.openedDirectories.has(directoryId)) {
+            this.openedDirectories.delete(directoryId);
         } else {
-            this.openedDirectoryId = directoryId;
+            this.openedDirectories.set(directoryId, true);
+        }
+    }
+
+    toggleCreateChildDirectoryForm(directoryId: number) {
+        if (this.showCreateChildDirectoryForm.has(directoryId)) {
+            this.showCreateChildDirectoryForm.delete(directoryId);
+        } else {
+            this.showCreateChildDirectoryForm.set(directoryId, true);
         }
     }
 
@@ -64,17 +75,19 @@ export class ListDirectoriesComponent implements OnInit {
     }
 
     loadUserDirectories(userId: number | undefined): void {
-        this.apiService.getUserDirectories(userId).subscribe(directories => {
-            this.tuyauDeDirectory = this.buildHierarchy(directories);
+        this.apiService.getUserParentDirectories(userId).subscribe(parentDirectories => {
+            this.apiService.getUserChildDirectories(userId).subscribe(childDirectories => {
+                this.tuyauDeDirectory = this.buildHierarchy(parentDirectories, childDirectories);
+            });
         });
     }
 
-    buildHierarchy(directories: DirectoryModel[]): DirectoryModel[] {
+    buildHierarchy(parents: DirectoryModel[], children: DirectoryModel[]): DirectoryModel[] {
         const directoryMap = new Map<number, DirectoryModel>();
-        directories.forEach(directory => directoryMap.set(directory.id, directory));
-        const rootDirectories: DirectoryModel[] = [];
+        parents.forEach(directory => directoryMap.set(directory.id, directory));
+        children.forEach(directory => directoryMap.set(directory.id, directory));
 
-        directories.forEach(directory => {
+        children.forEach(directory => {
             if (directory.parent_id) {
                 const parent = directoryMap.get(directory.parent_id);
                 if (parent) {
@@ -83,19 +96,32 @@ export class ListDirectoriesComponent implements OnInit {
                     }
                     parent.children.push(directory);
                 }
-            } else {
-                rootDirectories.push(directory);
             }
         });
 
-        console.log("Root Directories: ", rootDirectories); // Log the hierarchy
-        return rootDirectories;
+        return parents;
     }
+
 
 
     addDirectory(name: string): void {
         this.apiService.createDirectory(name).subscribe(newDirectory => {
             this.tuyauDeDirectory.push(newDirectory);
+        });
+    }
+
+    addChildDirectory(parentId: number, name: string): void {
+        this.apiService.createChildDirectory(parentId, name).subscribe(newChildDirectory => {
+            const parentDirectory = this.tuyauDeDirectory.find(dir => dir.id === parentId);
+            if (parentDirectory) {
+                if (!parentDirectory.children) {
+                    parentDirectory.children = [];
+                }
+                parentDirectory.children.push(newChildDirectory);
+            }
+            this.newChildDirectoryName = '';
+            this.toggleCreateChildDirectoryForm(parentId);
+            this.directoryAdded.emit(parentDirectory);
         });
     }
 
@@ -116,7 +142,7 @@ export class ListDirectoriesComponent implements OnInit {
     }
 
     onFileUploaded() {
-        if (this.openedDirectoryId) {
+        if (this.openedDirectories.size > 0) {
             const listFilesComponent = document.querySelector('app-list-files') as any;
             if (listFilesComponent) {
                 listFilesComponent.loadFiles();

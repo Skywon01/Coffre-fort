@@ -32,7 +32,7 @@ export class UserIconComponent {
   }
 
     logout(): void {
-        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('role');
         localStorage.removeItem('user');
     }
 }

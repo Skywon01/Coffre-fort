@@ -35,7 +35,7 @@ export class ApiService {
     ) {  }
 
     private getAuthHeaders(): HttpHeaders {
-        const token = this.authService.getToken();
+        const token = this.authService.getUser();
         return new HttpHeaders({
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
@@ -103,6 +103,11 @@ export class ApiService {
         return this.http.post(`${apiRoot}/directories`, { name, user_id: user.id });
     }
 
+    createChildDirectory(parent_id: number, name: string): Observable<DirectoryModel> {
+        const url = `/api/directories/${parent_id}/children`;
+        return this.http.post<DirectoryModel>(`${apiRoot}/directories/${parent_id}/children`, { name });
+    }
+
     uploadFile(file: File, directoryId: number): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file);
@@ -118,6 +123,14 @@ export class ApiService {
             responseType: 'blob',
             observe: 'response'
         });
+    }
+
+    getUserParentDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
+        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/parents`);
+    }
+
+    getUserChildDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
+        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/children`);
     }
 }
 

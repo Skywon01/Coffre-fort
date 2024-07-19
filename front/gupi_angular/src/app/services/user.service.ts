@@ -30,7 +30,7 @@ export class UserService {
             let tempObj: UserModel = new UserModel(el.id, el.name, el.firstName, el.email, el.address, el.age, el.password, el.directory, el.file, el.role)
             temp.push(tempObj);
         })
-        console.log('Data user: ', temp)
+        // console.log('Data user: ', temp)
         return temp
     }
 

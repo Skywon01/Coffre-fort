@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/directories")
@@ -65,10 +66,19 @@ public class DirectoryController {
         directoryService.deleteDirectory(id);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<Directory>> getUserDirectories(@PathVariable Integer id) {
-        User userId = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        List<Directory> directories = directoryRepository.findByUser(userId);
+    @GetMapping("/user/{id}/parents")
+    public ResponseEntity<List<Directory>> getUserParentDirectories(@PathVariable Integer id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Directory> directories = directoryRepository.findByUserAndParentIsNull(user);
+        return ResponseEntity.ok(directories);
+    }
+
+    @GetMapping("/user/{id}/children")
+    public ResponseEntity<List<Directory>> getUserChildDirectories(@PathVariable Integer id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Directory> directories = directoryRepository.findByUser(user).stream()
+                .filter(directory -> directory.getParent() != null)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(directories);
     }
 }

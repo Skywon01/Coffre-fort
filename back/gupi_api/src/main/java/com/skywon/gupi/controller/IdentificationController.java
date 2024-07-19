@@ -8,8 +8,11 @@ import com.skywon.gupi.manager.JwtTokenManager;
 import com.skywon.gupi.manager.WsException;
 import com.skywon.gupi.service.RoleService;
 import com.skywon.gupi.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,31 +43,41 @@ public class IdentificationController {
      * </ul>
      */
     @PostMapping("/login")
-    public Map<String, Object> identification(@RequestBody IdentificationDto identificationDto) {
+    public ResponseEntity<Map<String, Object>> identification(@RequestBody IdentificationDto identificationDto, HttpServletResponse response) {
 
         String msgError = "L'email ou le mot de passe est incorrect";
 
         // vérifier si l'email existe
         User user = userService.findByEmail(identificationDto.getEmail());
         if (user == null) {
-            throw new WsException(HttpStatus.NOT_FOUND,msgError);
+            throw new WsException(HttpStatus.NOT_FOUND, msgError);
         }
 
         // vérifier si le mdp correspond
         if (!this.bCryptPasswordEncoder.matches(identificationDto.getPassword(), user.getPassword())) {
-            throw new WsException(HttpStatus.NOT_FOUND,msgError);
+            throw new WsException(HttpStatus.NOT_FOUND, msgError);
         }
 
         // Crypter le token
         String token = JwtTokenManager.generateToken(user.getToken());
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("token", token);
-        response.put("user", user);
-        response.put("roles", user.getRoles());
+        // Configurer le cookie
+        Cookie jwtCookie = new Cookie("jwt", token);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(true); // Assurez-vous que votre application utilise HTTPS
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(24 * 60 * 60); // Expire dans 24 heures
 
-        return response;
+        // Ajouter le cookie à la réponse
+        response.addCookie(jwtCookie);
+
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("user", user);
+        responseBody.put("roles", user.getRoles());
+
+        return ResponseEntity.ok(responseBody);
     }
+
 
     /**
      * La méthode qui permet d'enregister un nouvel utilisateur

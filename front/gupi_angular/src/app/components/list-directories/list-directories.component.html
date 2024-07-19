@@ -21,30 +21,36 @@
                 <div class="directory-text-container">
                     <div class="directory-name">{{ directory.name }}</div>
                     <div class="file-number">{{ directory.files?.length || 0 }} fichiers</div>
+                    <div> {{ directory.children?.length }} enfants</div>
                 </div>
             </div>
             <div class="block-point" nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮</div>
         </td>
     </tr>
-    <tr *ngIf="openedDirectoryId === directory.id">
+    <tr *ngIf="openedDirectories.has(directory.id)">
         <td colspan="2">
+            <app-upload-file [directoryId]="directory.id" (fileUploaded)="onFileUploaded()"></app-upload-file>
+            <app-list-file [directoryId]="directory.id"></app-list-file>
             <ng-container *ngIf="directory.children?.length">
                 <ng-container *ngFor="let child of directory.children">
                     <ng-template [ngTemplateOutlet]="directoryTemplate" [ngTemplateOutletContext]="{ $implicit: child }"></ng-template>
                 </ng-container>
             </ng-container>
-            <app-upload-file [directoryId]="openedDirectoryId" (fileUploaded)="onFileUploaded()"></app-upload-file>
-            <app-list-file [directoryId]="openedDirectoryId"></app-list-file>
 
         </td>
 
     </tr>
 
+    <ng-template #contentTemplate>
+        <div>
+<!--            <a (click)="renameDirectory(directory.id)">Renommer</a> <br>-->
+<!--            <a (click)="deleteDirectory(directory.id)" style="color: red;">Supprimer</a> <br>-->
+            <a (click)="toggleCreateChildDirectoryForm(directory.id)">Ajouter un sous-dossier</a>
+            <div *ngIf="showCreateChildDirectoryForm.get(directory.id)">
+                <input type="text" [(ngModel)]="newChildDirectoryName" placeholder="Nom du dossier enfant"/>
+                <button nz-button nzType="primary" (click)="addChildDirectory(directory.id, newChildDirectoryName)">Créer</button>
+            </div>
+        </div>
+    </ng-template>
 </ng-template>
 
-<ng-template #contentTemplate>
-    <div>
-        <a>Renommer</a><br>
-        <a style="color: red;">Supprimer</a>
-    </div>
-</ng-template>

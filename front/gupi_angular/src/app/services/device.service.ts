@@ -31,7 +31,7 @@ export class DeviceService {
             let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code)
             temp.push(tempObj);
         })
-        console.log('Data formatté: ', temp)
+        // console.log('Data formatté: ', temp)
         return temp
     }
 }

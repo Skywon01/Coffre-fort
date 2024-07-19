@@ -7,6 +7,7 @@ import {UserService} from "../../services/user.service";
 import {DirectoryService} from "../../services/directory.service";
 import {DeviceModel} from "../../model/device.model";
 import {DirectoryModel} from "../../model/directory.model";
+import {UserModel} from "../../model/user.model";
 
 @Component({
   selector: 'app-my-file',
@@ -41,11 +42,15 @@ export class MyFileComponent implements OnInit{
 
     async vaChercherTousLesDirectories(): Promise<void> {
         this.directory = await this.directoryService.getDirectoryAll()
-        console.log(this.directory)
+        // console.log(this.directory)
     }
 
     async vaChercherUnSeulDirectory(id: string) {
         this.directory = await this.directoryService.getDirectoryOne(id)
-        console.log(this.directory)
+        // console.log(this.directory)
+    }
+
+    onDirectoryAdded(newDirectory: DirectoryModel) {
+        this.directory.push(newDirectory);
     }
 }

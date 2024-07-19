@@ -13,7 +13,8 @@ constructor(
     public user_id: number,
     public parent_id: number | null,
     public children: DirectoryModel[],
-    public files?: FileModel[]
+    public files?: FileModel[],
+    public parents?: DirectoryModel[]
 ) {  }
 }
 

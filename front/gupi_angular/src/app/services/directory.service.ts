@@ -30,7 +30,7 @@ export class DirectoryService{
             let tempObj: DirectoryModel = new DirectoryModel(el.id, el.name, el.user_id, el.parent_id, el.children)
             temp.push(tempObj);
         })
-        console.log('Data directory: ', temp)
+        // console.log('Data directory: ', temp)
         return temp
     }
 

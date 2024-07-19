@@ -11,4 +11,6 @@ import java.util.List;
 public interface DirectoryRepository extends JpaRepository<Directory, Integer> {
 
     List<Directory> findByUser(User user);
+    List<Directory> findByParent(Directory parent);
+    List<Directory> findByUserAndParentIsNull(User user);
 }
