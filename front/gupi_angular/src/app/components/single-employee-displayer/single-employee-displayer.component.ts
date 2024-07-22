@@ -6,22 +6,22 @@ import {ApiService} from "../../services/api.service";
 import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-single-employee-displayer',
-  standalone: true,
+    selector: 'app-single-employee-displayer',
+    standalone: true,
     imports: [
         NgIf
     ],
-  templateUrl: './single-employee-displayer.component.html',
-  styleUrl: './single-employee-displayer.component.css'
+    templateUrl: './single-employee-displayer.component.html',
+    styleUrl: './single-employee-displayer.component.css'
 })
-export class SingleEmployeeDisplayerComponent implements OnInit{
+export class SingleEmployeeDisplayerComponent implements OnInit {
     public users: UserModel[] = []
     user_id!: number;
     user: any;
 
     constructor(
         private readonly userService: UserService,
-        private route: ActivatedRoute, private apiService: ApiService) {
+        private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
@@ -32,7 +32,7 @@ export class SingleEmployeeDisplayerComponent implements OnInit{
     }
 
     loadUserDetails() {
-        this.apiService.retrieveUserById(this.user_id).subscribe(
+        this.userService.retrieveUserById(this.user_id).subscribe(
             (data) => {
                 this.user = data;
             },

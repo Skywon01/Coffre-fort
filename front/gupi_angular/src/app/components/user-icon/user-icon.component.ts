@@ -32,7 +32,7 @@ export class UserIconComponent {
   }
 
     logout(): void {
-        localStorage.removeItem('role');
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('user');
     }
 }

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {ApiService} from "./api.service";
-import {lastValueFrom} from "rxjs";
+import {apiRoot, ApiService, httpoptions} from "./api.service";
+import {lastValueFrom, Observable} from "rxjs";
 import {UserModel} from "../model/user.model";
 import {DeviceModel} from "../model/device.model";
 
@@ -9,18 +9,37 @@ import {DeviceModel} from "../model/device.model";
     providedIn: 'root',
 })
 export class DeviceService {
+
+
     constructor(
-        private apiService: ApiService
+        private http: HttpClient,
     ) {
     }
 
+    retrieveAllDevices(): Observable<any> {
+        return this.http.get(`${apiRoot}/device`, httpoptions)
+    }
+
+    retrieveOneDevice(id: string): Observable<any> {
+        return this.http.get(`${apiRoot}/device/${id}`, httpoptions)
+    }
+
+    retrieveDeviceById(device_id: number): Observable<any> {
+        return this.http.get(`${apiRoot}/device/${device_id}`, httpoptions);
+    }
+
+    registerDevice(device: any): Observable<any> {
+        return this.http.post(`${apiRoot}/device`, device, httpoptions)
+    }
+
+
     async getDeviceAll() {
-        let res = await lastValueFrom(this.apiService.retrieveAllDevices())
+        let res = await lastValueFrom(this.retrieveAllDevices())
         return this.formatData(res)
     }
 
     async getDeviceOne(id: string) {
-        let res = await lastValueFrom(this.apiService.retrieveOneDevice(id))
+        let res = await lastValueFrom(this.retrieveOneDevice(id))
         return this.formatData([res])
     }
 
@@ -30,7 +49,7 @@ export class DeviceService {
         rawdata.map((el) => {
             let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code)
             temp.push(tempObj);
-        })
+        });
         // console.log('Data formatté: ', temp)
         return temp
     }

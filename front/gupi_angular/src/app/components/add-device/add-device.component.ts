@@ -20,6 +20,7 @@ import {ApiService} from "../../services/api.service";
 import {NgForOf} from "@angular/common";
 import {DeviceModel} from "../../model/device.model";
 import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
+import {DeviceService} from "../../services/device.service";
 
 @Component({
     selector: 'app-add-device',
@@ -55,7 +56,7 @@ export class AddDeviceComponent {
         possessor: new FormControl('')
     });
 
-    constructor(private apiService: ApiService) {
+    constructor(private deviceService: DeviceService,) {
         // numbers n'est plus utilisé pour le moment
         // this.numbers = Array.from({length: 250000}, (_, i) => i + 1);
     }
@@ -64,7 +65,7 @@ export class AddDeviceComponent {
         if (this.form.valid) {
             const formData: DeviceModel = this.form.value;
             console.log('Données du formulaire à envoyer :', formData);
-            this.apiService.registerDevice(formData).subscribe(device => {
+            this.deviceService.registerDevice(formData).subscribe(device => {
                 // .emit permet d'envoyer l'évènement, ici on envoie l'objet "device"
                 this.deviceAdded.emit(device);
                 // .reset permet de vider le formulaire une fois soumis

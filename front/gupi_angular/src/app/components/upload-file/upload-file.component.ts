@@ -4,19 +4,21 @@ import {DirectoryService} from "../../services/directory.service";
 import {ApiService} from "../../services/api.service";
 
 @Component({
-  selector: 'app-upload-file',
-  standalone: true,
+    selector: 'app-upload-file',
+    standalone: true,
     imports: [
         FormsModule
     ],
-  templateUrl: './upload-file.component.html',
-  styleUrl: './upload-file.component.css'
+    templateUrl: './upload-file.component.html',
+    styleUrl: './upload-file.component.css'
 })
 export class UploadFileComponent {
     @Input() directoryId!: number;
     @Output() fileUploaded = new EventEmitter<void>();
     selectedFile!: File;
-    constructor(private apiService: ApiService) {}
+
+    constructor(private directoryService: DirectoryService) {
+    }
 
     onFileSelected(event: any) {
         this.selectedFile = event.target.files[0];
@@ -24,7 +26,7 @@ export class UploadFileComponent {
 
     onSubmit() {
         if (this.selectedFile) {
-            this.apiService.uploadFile(this.selectedFile, this.directoryId).subscribe(response => {
+            this.directoryService.uploadFile(this.selectedFile, this.directoryId).subscribe(response => {
                 console.log('File uploaded:', response);
                 this.fileUploaded.emit();
             }, error => {

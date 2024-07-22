@@ -59,7 +59,7 @@ export class ListFileComponent implements OnInit {
     @Input() directoryId!: number;
     files: any[] = [];
 
-    constructor(private apiService: ApiService) {
+    constructor(private directoryService: DirectoryService,) {
     }
 
     ngOnInit() {
@@ -67,7 +67,7 @@ export class ListFileComponent implements OnInit {
     }
 
     loadFiles() {
-        this.apiService.getFilesByDirectoryId(this.directoryId).subscribe(files => {
+        this.directoryService.getFilesByDirectoryId(this.directoryId).subscribe(files => {
             this.files = files;
         }, error => {
             console.error('Error loading files:', error);
@@ -75,9 +75,9 @@ export class ListFileComponent implements OnInit {
     }
 
     download(fileId: number): void {
-        this.apiService.downloadFile(fileId).subscribe(response => {
+        this.directoryService.downloadFile(fileId).subscribe(response => {
             if (response.body) {
-                const blob = new Blob([response.body], { type: response.headers.get('Content-Type') || 'application/octet-stream' });
+                const blob = new Blob([response.body], {type: response.headers.get('Content-Type') || 'application/octet-stream'});
                 const contentDisposition = response.headers.get('Content-Disposition');
                 const fileName = this.getFileNameFromContentDisposition(contentDisposition);
 

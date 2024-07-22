@@ -21,6 +21,7 @@ import {NgForOf} from "@angular/common";
 import {UserModel} from "../../model/user.model";
 import {ApiService} from "../../services/api.service";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {UserService} from "../../services/user.service";
 
 @Component({
     selector: 'app-add-user-form',
@@ -67,7 +68,7 @@ export class AddUserFormComponent {
     });
 
 
-    constructor(private apiService: ApiService) {
+    constructor(private userService: UserService) {
         this.numbers = Array.from({length: 99}, (_, i) => i + 1);
     }
 
@@ -75,7 +76,7 @@ export class AddUserFormComponent {
         if (this.form.valid) {
             const formData: UserModel = this.form.value;
             console.log('Données du formulaire à envoyer :', formData);
-            this.apiService.registerUser(formData).subscribe(user => {
+            this.userService.registerUser(formData).subscribe(user => {
 
                     this.userAdded.emit(user);
                 }

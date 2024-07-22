@@ -14,10 +14,11 @@ import {AuthService} from "../../services/authentification/auth.service";
 import {ApiService} from "../../services/api.service";
 import {FormCreateDirectoryComponent} from "../form-create-directory/form-create-directory.component";
 import {UploadFileComponent} from "../upload-file/upload-file.component";
+import {DirectoryService} from "../../services/directory.service";
 
 @Component({
-  selector: 'app-list-directories',
-  standalone: true,
+    selector: 'app-list-directories',
+    standalone: true,
     imports: [
         NzButtonComponent,
         NzTableComponent,
@@ -35,8 +36,8 @@ import {UploadFileComponent} from "../upload-file/upload-file.component";
         UploadFileComponent,
         NgTemplateOutlet
     ],
-  templateUrl: './list-directories.component.html',
-  styleUrl: './list-directories.component.css'
+    templateUrl: './list-directories.component.html',
+    styleUrl: './list-directories.component.css'
 })
 export class ListDirectoriesComponent implements OnInit {
     @Input() tuyauDeDirectory!: DirectoryModel[];
@@ -47,7 +48,8 @@ export class ListDirectoriesComponent implements OnInit {
     newChildDirectoryName: string = '';
     @Output() directoryAdded = new EventEmitter<DirectoryModel>();
 
-    constructor(private authService: AuthService, private apiService: ApiService) {}
+    constructor(private authService: AuthService, private directoryService: DirectoryService) {
+    }
 
     toggleDirectory(directoryId: number) {
         if (this.openedDirectories.has(directoryId)) {
@@ -75,8 +77,8 @@ export class ListDirectoriesComponent implements OnInit {
     }
 
     loadUserDirectories(userId: number | undefined): void {
-        this.apiService.getUserParentDirectories(userId).subscribe(parentDirectories => {
-            this.apiService.getUserChildDirectories(userId).subscribe(childDirectories => {
+        this.directoryService.getUserParentDirectories(userId).subscribe(parentDirectories => {
+            this.directoryService.getUserChildDirectories(userId).subscribe(childDirectories => {
                 this.tuyauDeDirectory = this.buildHierarchy(parentDirectories, childDirectories);
             });
         });
@@ -103,15 +105,14 @@ export class ListDirectoriesComponent implements OnInit {
     }
 
 
-
     addDirectory(name: string): void {
-        this.apiService.createDirectory(name).subscribe(newDirectory => {
+        this.directoryService.createDirectory(name).subscribe(newDirectory => {
             this.tuyauDeDirectory.push(newDirectory);
         });
     }
 
     addChildDirectory(parentId: number, name: string): void {
-        this.apiService.createChildDirectory(parentId, name).subscribe(newChildDirectory => {
+        this.directoryService.createChildDirectory(parentId, name).subscribe(newChildDirectory => {
             const parentDirectory = this.tuyauDeDirectory.find(dir => dir.id === parentId);
             if (parentDirectory) {
                 if (!parentDirectory.children) {
@@ -132,7 +133,7 @@ export class ListDirectoriesComponent implements OnInit {
 
     loadDirectories() {
         const user = this.authService.getUser();
-        this.apiService.getUserDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
+        this.directoryService.getUserDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
             this.tuyauDeDirectory = directories;
         });
     }
