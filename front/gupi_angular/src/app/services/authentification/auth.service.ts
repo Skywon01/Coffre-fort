@@ -15,6 +15,8 @@ export class AuthService {
         return this.http.post<any>(`${this.apiUrl}/login`, {email, password}, {withCredentials: true})
             .pipe(tap(response => {
                 if (response) {
+                    // console.log("Response User: ", response.user);
+                    // console.log("Response Roles: ", response.roles);
                     sessionStorage.setItem('user', JSON.stringify(response.user));
                     sessionStorage.setItem('roles', JSON.stringify(response.roles));
                 }
@@ -26,17 +28,17 @@ export class AuthService {
         return user ? JSON.parse(user) : null;
     }
 
-    getRoles(): string[] {
+    getRoles(): { id: number, name: string, authority: string }[] {
         const roles = sessionStorage.getItem('roles');
-        return roles ? JSON.parse(roles) : ["authority"];
+        return roles ? JSON.parse(roles) : [];
     }
 
     isAuthenticated(): boolean {
         return !!this.getUser();
     }
 
-    hasRole(role: string): boolean {
-        const roles = this.getRoles();
-        return roles.includes(role);
-    }
+    // hasRole(role: string){
+    //     const roles = this.getRoles();
+    //     console.log("Bonjour");
+    // }
 }

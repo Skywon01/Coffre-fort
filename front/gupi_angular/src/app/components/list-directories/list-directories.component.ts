@@ -48,7 +48,7 @@ export class ListDirectoriesComponent implements OnInit {
     newChildDirectoryName: string = '';
     @Output() directoryAdded = new EventEmitter<DirectoryModel>();
 
-    constructor(private authService: AuthService, private directoryService: DirectoryService) {
+    constructor(private authService: AuthService, private directoryService: DirectoryService, protected apiService: ApiService) {
     }
 
     toggleDirectory(directoryId: number) {
@@ -126,10 +126,7 @@ export class ListDirectoriesComponent implements OnInit {
         });
     }
 
-    isAuthorized(requiredRoles: string[]) {
-        const userRoles = this.authService.getRoles();
-        return requiredRoles.some(role => userRoles.includes(role));
-    }
+
 
     loadDirectories() {
         const user = this.authService.getUser();

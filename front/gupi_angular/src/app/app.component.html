@@ -54,6 +54,8 @@
                     src="assets/media/icons/icon_computer.svg" alt="Icône matériel" width="36"
                     routerLinkActive="active-link active-link-collapsed"></a>
             }
+            @if (this.apiService.isAuthorized("ADMIN")){
+
             @if (!isCollapsed) {
                 <div routerLink="/welcome/rh" class="menu-item" routerLinkActive="active-link"
                      style="background-color: #FAC23C">
@@ -66,6 +68,7 @@
                 <a class="menu-icon-collapsed" routerLink="/welcome/rh" routerLinkActive="active-link"><img
                     src="assets/media/icons/icon_rh.svg" alt="Icône rh" width="36"
                     routerLinkActive="active-link active-link-collapsed"></a>
+            }
             }
             @if (!isCollapsed) {
                 <div routerLink="/welcome/profil" class="menu-item" routerLinkActive="active-link"

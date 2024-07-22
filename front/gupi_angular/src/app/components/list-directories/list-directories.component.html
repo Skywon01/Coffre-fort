@@ -1,6 +1,9 @@
+@if(this.apiService.isAuthorized("USER")){
 <button nz-button nzType="primary" nzShape="round" class="add-folder" (click)="showCreateDirectoryForm = !showCreateDirectoryForm">
     Ajouter un dossier
 </button>
+
+}
 <br/>
 <br/>
 <app-form-create-directory *ngIf="showCreateDirectoryForm" (directoryCreated)="onDirectoryCreated()"></app-form-create-directory>

@@ -19,6 +19,7 @@ import {NzFlexDirective} from "ng-zorro-antd/flex";
 import {ChatComponent} from "./components/chat/chat.component";
 import {AuthService} from "./services/authentification/auth.service";
 import {LoginComponent} from "./pages/login/login.component";
+import {ApiService} from "./services/api.service";
 
 
 @Component({
@@ -39,7 +40,8 @@ export class AppComponent implements OnInit{
         private readonly userService: UserService,
         private route: ActivatedRoute,
         private router: Router,
-        public authService: AuthService
+        public authService: AuthService,
+        public apiService: ApiService
     ) {
     }
 
@@ -56,9 +58,9 @@ export class AppComponent implements OnInit{
         })
 
         this.user = this.authService.getUser();
-        this.roles = this.authService.getRoles();
-        // console.log('User:', this.user);
-        // console.log('Roles:', this.roles);
+        // this.roles = this.authService.getRoles();
+        console.log('User:', this.user);
+        console.log('Roles:', this.roles);
 
     }
 
