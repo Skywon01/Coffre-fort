@@ -59,8 +59,8 @@ export class AppComponent implements OnInit{
 
         this.user = this.authService.getUser();
         // this.roles = this.authService.getRoles();
-        console.log('User:', this.user);
-        console.log('Roles:', this.roles);
+        // console.log('User:', this.user);
+        // console.log('Roles:', this.roles);
 
     }
 

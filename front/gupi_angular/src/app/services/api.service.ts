@@ -45,7 +45,7 @@ export class ApiService {
 
     public isAuthorized(requiredRole: string): boolean {
         const userRoles = this.authService.getRoles();
-        console.log("Rôles récupérés:", userRoles);
+        // console.log("Rôles récupérés:", userRoles);
         return userRoles.some(role => role.name === requiredRole);
     }
 }
