@@ -10,7 +10,8 @@
             <div class="profil-col" nz-col nzSpan="12">
                 <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
                       style="font-size: 40px; float: right; color: rgba(0,0,0,0.50)"></span>
-                <div class="profil"></div>
+                Vérifier le fonctionnement pour
+                <div class="profil" [style.background-image]="'url(' + user.profile + ')'"></div>
                 <p> Id: {{ user.id }} Role: {{ user.role }}</p>
                 <h2>{{ user.name }} {{ user.firstName }}</h2>
                 <h3>Assistante administrative</h3>

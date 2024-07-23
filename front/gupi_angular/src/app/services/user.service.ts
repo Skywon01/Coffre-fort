@@ -28,7 +28,7 @@ export class UserService {
         const temp: UserModel[] = []
 
         rawdata.map((el) => {
-            let tempObj: UserModel = new UserModel(el.id, el.name, el.firstName, el.email, el.address, el.age, el.password, el.directory, el.file, el.role)
+            let tempObj: UserModel = new UserModel(el.id, el.name, el.firstName, el.email, el.address, el.age, el.password, el.profile, el.directory, el.file, el.role)
             temp.push(tempObj);
         });
         // console.log('Data user: ', temp)
