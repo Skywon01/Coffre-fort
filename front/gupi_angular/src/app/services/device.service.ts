@@ -53,4 +53,8 @@ export class DeviceService {
         // console.log('Data formatté: ', temp)
         return temp
     }
+
+    getDevicesByUserId(userId: number): Observable<DeviceModel[]> {
+        return this.http.get<DeviceModel[]>(`${apiRoot}/device/user/${userId}`);
+    }
 }

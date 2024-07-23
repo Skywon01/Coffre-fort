@@ -38,4 +38,8 @@ public class DeviceService {
     public void deleteDevice(Integer id) throws Exception {
         this.deviceRepository.deleteById(id);
     }
+
+    public List<Device> getDevicesByUserId(Integer userId) {
+        return deviceRepository.findByUserId(userId);
+    }
 }

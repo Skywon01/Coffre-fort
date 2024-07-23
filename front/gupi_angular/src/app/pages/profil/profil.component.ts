@@ -9,6 +9,10 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {AuthService} from "../../services/authentification/auth.service";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {DeviceListComponent} from "../../components/device-list/device-list.component";
+import {DeviceModel} from "../../model/device.model";
+import {DeviceService} from "../../services/device.service";
+
 
 @Component({
     selector: 'app-profil',
@@ -21,24 +25,32 @@ import {NgIf} from "@angular/common";
         DeviceListOwnedComponent,
         NzRowDirective,
         NzColDirective,
-        NgIf
+        NgIf,
+        DeviceListComponent
     ],
     templateUrl: './profil.component.html',
     styleUrl: './profil.component.css'
 })
 export class ProfilComponent implements OnInit {
     user: any;
+    devices: DeviceModel[] = [];
     shape: NzButtonShape = 'round'
 
-    constructor(private pageService: PageService, protected authService: AuthService) {
+    constructor(private pageService: PageService, protected authService: AuthService, private deviceService: DeviceService,) {
         this.pageService.setComponentType('profile', 'Mon profil', 'Veuillez trouver vos informations personnelles');
     }
 
     ngOnInit(): void {
         this.user = this.authService.getUser();
-        // console.log('User:', this.user);
+        if (this.user) {
+            this.loadUserDevices(this.user.id);
+        }
     }
-
+    loadUserDevices(userId: number): void {
+        this.deviceService.getDevicesByUserId(userId).subscribe((devices: DeviceModel[]) => {
+            this.devices = devices;
+        });
+    }
 
     public justifySegment: NzJustify[] = [
         'flex-start',

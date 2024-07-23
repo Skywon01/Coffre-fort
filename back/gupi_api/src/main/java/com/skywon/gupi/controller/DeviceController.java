@@ -39,4 +39,9 @@ public class DeviceController {
         this.deviceService.deleteDevice(id);
     }
 
+    @GetMapping("api/device/user/{userId}")
+    public List<Device> getDevicesByUserId(@PathVariable Integer userId) {
+        return this.deviceService.getDevicesByUserId(userId);
+    }
+
 }
