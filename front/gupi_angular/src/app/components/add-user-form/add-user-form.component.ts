@@ -75,7 +75,7 @@ export class AddUserFormComponent {
     onSubmit() {
         if (this.form.valid) {
             const formData: UserModel = this.form.value;
-            console.log('Données du formulaire à envoyer :', formData);
+            // console.log('Données du formulaire à envoyer :', formData);
             this.userService.registerUser(formData).subscribe(user => {
 
                     this.userAdded.emit(user);

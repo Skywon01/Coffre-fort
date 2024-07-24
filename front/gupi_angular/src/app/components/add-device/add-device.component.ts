@@ -64,7 +64,7 @@ export class AddDeviceComponent {
     submitDevice() {
         if (this.form.valid) {
             const formData: DeviceModel = this.form.value;
-            console.log('Données du formulaire à envoyer :', formData);
+            // console.log('Données du formulaire à envoyer :', formData);
             this.deviceService.registerDevice(formData).subscribe(device => {
                 // .emit permet d'envoyer l'évènement, ici on envoie l'objet "device"
                 this.deviceAdded.emit(device);

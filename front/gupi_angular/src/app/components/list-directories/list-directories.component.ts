@@ -105,11 +105,11 @@ export class ListDirectoriesComponent implements OnInit {
     }
 
 
-    addDirectory(name: string): void {
-        this.directoryService.createDirectory(name).subscribe(newDirectory => {
-            this.tuyauDeDirectory.push(newDirectory);
-        });
-    }
+    // addDirectory(name: string): void {
+    //     this.directoryService.createDirectory(name).subscribe(newDirectory => {
+    //         this.tuyauDeDirectory.push(newDirectory);
+    //     });
+    // }
 
     addChildDirectory(parentId: number, name: string): void {
         this.directoryService.createChildDirectory(parentId, name).subscribe(newChildDirectory => {

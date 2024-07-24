@@ -11,35 +11,16 @@
     </tr>
     </thead>
     <tbody>
-
-
-        @for (user of tuyauDeUsers; track user.id) {
-            <tr class="user-row">
-
-                <td> <span nz-icon nzType="user" nzTheme="outline" style="font-size: 36px; color:#00000050; margin:0 12px 0 12px"></span>{{ user.name }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.age }}</td>
-                <td>{{ user.address }}</td>
-                <td class="user-upload-file">
-                    <nz-upload
-                        nzType="drag"
-                        [nzMultiple]="true"
-                        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        (nzChange)="handleChange($event)"
-                    >
-                        <div class="user-upload-content">
-                            <span nz-icon nzType="inbox" style="font-size: 36px"></span>
-                            <p class="ant-upload-drag-icon text-upload">Déposer fichier</p>
-                        </div>
-
-
-                    </nz-upload>
-                </td>
-            </tr>
-
-
-        }
+    <tr class="user-row" *ngFor="let user of tuyauDeUsers">
+        <td><span nz-icon nzType="user" nzTheme="outline" style="font-size: 36px; color:#00000050; margin:0 12px 0 12px"></span>{{ user.name }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ user.address }}</td>
+        <td class="user-upload-file">
+            <app-upload-file-user [userId]="user.id" (fileUploaded)="onFileUploaded(user.id)"></app-upload-file-user>
+        </td>
+    </tr>
 
 
     </tbody>

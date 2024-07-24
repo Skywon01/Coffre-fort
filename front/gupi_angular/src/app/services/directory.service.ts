@@ -61,7 +61,7 @@ export class DirectoryService {
         return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`, {headers: this.apiService.getAuthHeaders()});
     }
 
-    createDirectory(name: string): Observable<any> {
+    createDirectory(name: { user_id: number; name: string }): Observable<any> {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
         return this.http.post(`${apiRoot}/directories`, {name, user_id: user.id});
     }
@@ -98,5 +98,12 @@ export class DirectoryService {
     }
 
 
-}
+    uploadFileToUserFolder(file: File, user_id: number): Observable<any> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        formData.append('userId', user_id.toString());
 
+        return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text'});
+    }
+
+}

@@ -6,6 +6,8 @@ import {SingleEmployeeDisplayerComponent} from "../single-employee-displayer/sin
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzUploadChangeParam, NzUploadComponent} from "ng-zorro-antd/upload";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {UploadFileComponent} from "../upload-file/upload-file.component";
+import {UploadFileUserComponent} from "../upload-file-user/upload-file-user.component";
 
 @Component({
   selector: 'app-employee-list',
@@ -18,7 +20,9 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
         NzTrExpandDirective,
         SingleEmployeeDisplayerComponent,
         NzUploadComponent,
-        NzIconDirective
+        NzIconDirective,
+        UploadFileUserComponent,
+
     ],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
@@ -29,13 +33,18 @@ export class EmployeeListComponent {
     handleChange({ file, fileList }: NzUploadChangeParam): void {
         const status = file.status;
         if (status !== 'uploading') {
-            console.log(file, fileList);
+            // console.log(file, fileList);
         }
         if (status === 'done') {
             this.msg.success(`${file.name} file uploaded successfully.`);
         } else if (status === 'error') {
             this.msg.error(`${file.name} file upload failed.`);
         }
+    }
+
+    onFileUploaded(userId: number) {
+        this.msg.success(`Fichier pour l'utilisateur ID ${userId} uploadé avec succès.`);
+        // Logique supplémentaire après l'upload de fichier (par exemple, rafraîchir la liste des fichiers, envoyer une notification, etc.)
     }
 
 

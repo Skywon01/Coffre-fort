@@ -44,6 +44,12 @@ public class FileController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/upload-to-user-folder/{userId}")
+    public ResponseEntity<String> uploadToUserFolder(@RequestParam MultipartFile file, @PathVariable Integer userId) {
+        String response = fileService.uploadFileToUserFolder(file, userId);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/directory/{directoryId}")
     public List<com.skywon.gupi.entity.File> getFilesByDirectoryId(@PathVariable Integer directoryId) {
         return fileService.getFilesByDirectoryId(directoryId);
