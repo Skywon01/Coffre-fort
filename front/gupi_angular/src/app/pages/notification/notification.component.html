@@ -1,1 +1,3 @@
-<app-notification-list [userId]="currentUserId"></app-notification-list>
+<ng-container *ngIf="currentUserId">
+    <app-notification-list [userId]="currentUserId"></app-notification-list>
+</ng-container>

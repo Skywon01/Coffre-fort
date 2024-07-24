@@ -18,6 +18,7 @@ export class UploadFileUserComponent {
     @Output() fileUploaded = new EventEmitter<void>();
     selectedFile!: File;
     @Input() senderName!: any;
+    @Input() senderFirstName!: any;
 
     constructor(private directoryService: DirectoryService, private msg: NzMessageService) {}
 
@@ -27,7 +28,7 @@ export class UploadFileUserComponent {
 
     onSubmit() {
         if (this.selectedFile) {
-            this.directoryService.uploadFileToUserFolder(this.selectedFile, this.userId, this.senderName).subscribe(response => {
+            this.directoryService.uploadFileToUserFolder(this.selectedFile, this.userId, this.senderName, this.senderFirstName).subscribe(response => {
                 console.log('File uploaded:', response);
                 this.msg.success('Fichier téléchargé avec succès.');
                 this.fileUploaded.emit();

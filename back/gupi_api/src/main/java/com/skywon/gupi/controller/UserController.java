@@ -51,5 +51,20 @@ public class UserController {
         this.userService.deleteById(id);
     }
 
+    @GetMapping("/current")
+    public ResponseEntity<User> getCurrentUser() {
+        // Simule la récupération de l'utilisateur actuel
+        // En pratique, utilise des informations d'authentification pour obtenir l'utilisateur actuel
+        User currentUser = getCurrentAuthenticatedUser();
+        return ResponseEntity.ok(currentUser);
+    }
 
+    private User getCurrentAuthenticatedUser() {
+        // Retourne un utilisateur simulé
+        User user = new User();
+        user.setId(1);
+        user.setFirstName("john_doe");
+        user.setEmail("john.doe@example.com");
+        return user;
+    }
 }

@@ -17,6 +17,7 @@ public class UserNotification {
     private Integer id;
 
     private String senderName;
+    private String senderFirstName;
     private String fileName;
     private LocalDateTime timestamp;
 

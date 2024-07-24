@@ -98,11 +98,13 @@ export class DirectoryService {
     }
 
 
-    uploadFileToUserFolder(file: File, user_id: number, senderName: string): Observable<any> {
+
+    uploadFileToUserFolder(file: File, user_id: number, senderName: string, senderFirstName: string): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file);
         formData.append('userId', user_id.toString());
         formData.append('senderName', senderName);
+        formData.append('senderFirstName', senderFirstName);
 
         return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text'});
     }

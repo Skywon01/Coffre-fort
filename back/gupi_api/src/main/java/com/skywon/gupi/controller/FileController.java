@@ -2,6 +2,7 @@ package com.skywon.gupi.controller;
 
 
 import com.skywon.gupi.service.FileService;
+import com.skywon.gupi.service.UserNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -22,6 +23,9 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private UserNotificationService userNotificationService;
 
     @Value("${file.path}")
     private String path;
@@ -45,10 +49,18 @@ public class FileController {
     }
 
     @PostMapping("/upload-to-user-folder/{userId}")
-    public ResponseEntity<String> uploadToUserFolder(@RequestParam MultipartFile file, @PathVariable Integer userId, @RequestParam String senderName) {
-        String response = fileService.uploadFileToUserFolder(file, userId, senderName);
+    public ResponseEntity<String> uploadToUserFolder(@RequestParam MultipartFile file, @PathVariable Integer userId, @RequestParam String senderName, @RequestParam String senderFirstName) {
+        String response = fileService.uploadFileToUserFolder(file, userId, senderName, senderFirstName);
+        System.out.println("Received file: " + file.getOriginalFilename());
+
+        System.out.println("Received userId: " + userId);
+        System.out.println("Received senderName: " + senderName);
+        System.out.println("Received senderFirstName: " + senderFirstName);
+        userNotificationService.createNotification(senderName, senderFirstName, file.getOriginalFilename(), userId);
         return ResponseEntity.ok(response);
     }
+
+
 
     @GetMapping("/directory/{directoryId}")
     public List<com.skywon.gupi.entity.File> getFilesByDirectoryId(@PathVariable Integer directoryId) {

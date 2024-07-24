@@ -50,7 +50,9 @@ export class UserService {
     registerUser(user: any): Observable<any> {
         return this.http.post(`${apiRoot}/users`, user, httpoptions)
     }
-
+    getCurrentUser(): Observable<UserModel> {
+        return this.http.get<UserModel>(`${apiRoot}/users/current`, httpoptions);
+    }
 
 }
 
