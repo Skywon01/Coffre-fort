@@ -12,6 +12,7 @@ import {NotificationListComponent} from "../../components/notification-list/noti
   styleUrl: './notification.component.css'
 })
 export class NotificationComponent {
+    currentUserId!: number;
     constructor(private pageService: PageService) {
         this.pageService.setComponentType('bell', 'Notifications', 'Veuillez trouver toutes vos notifications');
     }

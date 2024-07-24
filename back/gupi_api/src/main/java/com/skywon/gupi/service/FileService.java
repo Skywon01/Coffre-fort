@@ -1,9 +1,11 @@
 package com.skywon.gupi.service;
 
 import com.skywon.gupi.entity.Directory;
+import com.skywon.gupi.entity.UserNotification;
 import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.DirectoryRepository;
 import com.skywon.gupi.repository.FileRepository;
+import com.skywon.gupi.repository.UserNotificationRepository;
 import com.skywon.gupi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +32,9 @@ public class FileService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserNotificationRepository userNotificationRepository;
 
     @Value("${file.path}")
     private String path;
@@ -66,7 +72,7 @@ public class FileService {
         }
     }
 
-    public String uploadFileToUserFolder(MultipartFile file, Integer userId) {
+    public String uploadFileToUserFolder(MultipartFile file, Integer userId, String senderName) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Optional<Directory> optionalDirectory = directoryRepository.findByUserAndName(user, "Documents envoyés");
 
@@ -103,9 +109,12 @@ public class FileService {
             uploadedFile.setDirectory(directory);
             fileRepository.save(uploadedFile);
 
-            // Envoi de notification (à implémenter)
-            // notificationService.sendNotification(user.getEmail(), "Nouveau fichier reçu", "Vous avez reçu un nouveau fichier...");
-
+            UserNotification userNotification = new UserNotification();
+            userNotification.setSenderName(senderName);
+            userNotification.setFileName(file.getOriginalFilename());
+            userNotification.setTimestamp(LocalDateTime.now());
+            userNotification.setUser(directory.getUser());
+            userNotificationRepository.save(userNotification);
             return "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.";
         } catch (Exception ex) {
             ex.printStackTrace();

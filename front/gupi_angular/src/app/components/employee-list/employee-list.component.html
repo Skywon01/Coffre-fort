@@ -18,7 +18,7 @@
         <td>{{ user.age }}</td>
         <td>{{ user.address }}</td>
         <td class="user-upload-file">
-            <app-upload-file-user [userId]="user.id" (fileUploaded)="onFileUploaded(user.id)"></app-upload-file-user>
+            <app-upload-file-user [userId]="user.id" [senderName]="currentUserName" (fileUploaded)="onFileUploaded(user.id)"></app-upload-file-user>
         </td>
     </tr>
 
