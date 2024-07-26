@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NzTableComponent} from "ng-zorro-antd/table";
+import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
-import {DatePipe, NgForOf} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgForOf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {UsernotificationService} from "../../services/usernotification.service";
@@ -18,7 +18,9 @@ import {UserModel} from "../../model/user.model";
         CdkDrag,
         NzIconDirective,
         NzPopoverDirective,
-        DatePipe
+        DatePipe,
+        CurrencyPipe,
+        NzThMeasureDirective
     ],
     templateUrl: './notification-list.component.html',
     styleUrl: './notification-list.component.css'

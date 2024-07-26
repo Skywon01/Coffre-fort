@@ -1,5 +1,27 @@
 <h1>Notifications</h1>
 
-@for (notification of notifications; track notification.id){
-    <p>{{ notification.id }} {{ notification.senderName }} (Nom à implémenter) a envoyé le fichier {{ notification.fileName }} le {{ notification.timestamp | date: 'short' }}</p>
-}
+
+<nz-table>
+    <thead>
+    <tr>
+        <th>Expéditeur</th>
+        <th>Fichier</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container>
+
+        @for (notification of notifications; track notification.id) {
+            <tr>
+                <td><span nz-icon nzType="bell" nzTheme="fill" style="color:#00000050; font-size: 50px;"></span>{{ notification.senderName }}</td>
+                <td>{{ notification.fileName }}</td>
+                <td>{{ notification.timestamp | date: "dd MMMM , yyyy 'à' HH:mm"  }}</td>
+            </tr>
+
+
+        }
+    </ng-container>
+
+    </tbody>
+</nz-table>

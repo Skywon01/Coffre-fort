@@ -54,7 +54,7 @@ export class LoginFormComponent {
             this.authService.login(userName, password).subscribe({
                 next: (response) => {
                     console.log('Login successful', response);
-                    this.router.navigate(['/welcome']); // Redirige vers une route protégée après connexion
+                    this.router.navigate(['/']); // Redirige vers une route protégée après connexion
                 },
                 error: (error) => {
                     console.error('Login failed', error);
