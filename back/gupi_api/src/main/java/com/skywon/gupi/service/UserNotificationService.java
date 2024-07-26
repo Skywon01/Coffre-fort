@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class UserNotificationService {
@@ -18,10 +19,25 @@ public class UserNotificationService {
         notification.setSenderFirstName(senderFirstName);
         notification.setFileName(fileName);
         notification.setTimestamp(LocalDateTime.now());
-        // Assuming user entity is already fetched and set, else you can fetch user by userId from UserRepository
-        // notification.setUser(user);
+        notification.setActive(true);
+        // A vérifier pour pouvoir mettre le nom de l'expéditeur
+//        notification.setUser(userId);
 
         userNotificationRepository.save(notification);
+    }
+
+    public List<UserNotification> getActiveNotifications(Integer userId) {
+        return userNotificationRepository.findByUserIdAndActiveTrue(userId);
+    }
+
+    public long getActiveNotificationsCount(Integer userId) {
+        return userNotificationRepository.countByUserIdAndActiveTrue(userId);
+    }
+
+    public void markNotificationsAsInactive(Integer userId) {
+        List<UserNotification> notifications = userNotificationRepository.findByUserIdAndActiveTrue(userId);
+        notifications.forEach(notification -> notification.setActive(false));
+        userNotificationRepository.saveAll(notifications);
     }
 
 }

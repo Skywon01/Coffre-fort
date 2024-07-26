@@ -110,11 +110,13 @@ public class FileService {
             fileRepository.save(uploadedFile);
 
             UserNotification userNotification = new UserNotification();
-            userNotification.setSenderName(senderName);
-            userNotification.setSenderFirstName(senderFirsName);
+            // Il faut prendre l'utilisateur en cours et non pas l'utilisateur ciblé pour le nom de l'expéditeur
+            userNotification.setSenderName(user.getName());
+            userNotification.setSenderFirstName(user.getFirstName());
             userNotification.setFileName(file.getOriginalFilename());
             userNotification.setTimestamp(LocalDateTime.now());
             userNotification.setUser(directory.getUser());
+            userNotification.setActive(true);
             userNotificationRepository.save(userNotification);
             return "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.";
         } catch (Exception ex) {

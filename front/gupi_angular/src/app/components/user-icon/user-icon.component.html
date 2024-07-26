@@ -1,8 +1,8 @@
 <!--Le nzCount servira à binder le nombre de notifications-->
-<nz-badge [nzCount]="5" style="margin-right: 24px;" class="user-icon">
+<nz-badge [nzCount]="activeCount" style="margin-right: 24px;" class="user-icon">
 
 <span nz-icon nzType="user" nzTheme="outline" nz-popover
-      nzPopoverTitle="Title"
+      nzPopoverTitle="Menu utilisateur"
       [(nzPopoverVisible)]="visible"
       (nzPopoverVisibleChange)="change($event)"
       nzPopoverTrigger="click"

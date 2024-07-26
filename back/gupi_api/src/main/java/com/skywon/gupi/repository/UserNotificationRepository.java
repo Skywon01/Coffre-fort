@@ -10,4 +10,7 @@ import java.util.List;
 public interface UserNotificationRepository extends JpaRepository<UserNotification, Integer> {
 
     List<UserNotification> findByUserId(Integer user_id);
+
+    List<UserNotification> findByUserIdAndActiveTrue(Integer userId);
+    long countByUserIdAndActiveTrue(Integer userId);
 }

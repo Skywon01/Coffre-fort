@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name="user-notification")
+@Table(name="user_notification")
 public class UserNotification {
 
     @Id
@@ -20,6 +20,7 @@ public class UserNotification {
     private String senderFirstName;
     private String fileName;
     private LocalDateTime timestamp;
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
