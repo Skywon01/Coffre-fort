@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
-import {RouterLink} from "@angular/router";
+import {NavigationEnd, Router, RouterLink} from "@angular/router";
 import {NzBadgeComponent} from "ng-zorro-antd/badge";
 import {NzAvatarComponent} from "ng-zorro-antd/avatar";
 import {UsernotificationService} from "../../services/usernotification.service";
@@ -28,13 +28,30 @@ export class UserIconComponent implements OnInit{
     activeCount: number = 0;
     @Input() userId!: number;
 
-    constructor(private userNotificationService: UsernotificationService, private userService: UserService, private authService: AuthService) {}
+    constructor(
+        private userNotificationService: UsernotificationService,
+        private authService: AuthService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         const user = this.authService.getUser();
-        this.userId = user.id;
+        if (user) {
+            this.userId = user.id;
             this.loadActiveNotificationsCount();
+        }
 
+        this.userNotificationService.notificationAdded.subscribe(() => {
+            this.loadActiveNotificationsCount();
+        });
+
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                if (event.url === '/notification') {
+                    this.markNotificationsAsInactive();
+                }
+            }
+        });
     }
 
     loadActiveNotificationsCount(): void {
@@ -43,6 +60,16 @@ export class UserIconComponent implements OnInit{
                 this.activeCount = count;
             }, error => {
                 console.error('Error fetching active notifications count:', error);
+            });
+        }
+    }
+
+    markNotificationsAsInactive(): void {
+        if (this.userId !== undefined) {
+            this.userNotificationService.markNotificationsAsInactive(this.userId).subscribe(() => {
+                this.activeCount = 0;
+            }, error => {
+                console.error('Error marking notifications as inactive:', error);
             });
         }
     }

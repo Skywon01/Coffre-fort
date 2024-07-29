@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {apiRoot, httpoptions} from "./api.service";
 import {NotificationModel} from "../model/userNotification.model";
-import {UserModel} from "../model/user.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsernotificationService {
+    public notificationAdded = new EventEmitter<void>();
 
     constructor(private http: HttpClient) {}
 
@@ -22,6 +22,14 @@ export class UsernotificationService {
 
     markNotificationsAsInactive(userId: number): Observable<void> {
         return this.http.post<void>(`${apiRoot}/notifications/markAsInactive/${userId}`, {});
+    }
+
+    addNotification(notification: NotificationModel): Observable<NotificationModel> {
+        return this.http.post<NotificationModel>(`${apiRoot}/notifications`, notification);
+    }
+
+    notifyNotificationAdded() {
+        this.notificationAdded.emit();
     }
 }
 

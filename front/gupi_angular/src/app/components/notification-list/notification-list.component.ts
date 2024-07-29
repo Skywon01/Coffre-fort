@@ -6,7 +6,6 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {UsernotificationService} from "../../services/usernotification.service";
 import {NotificationModel} from "../../model/userNotification.model"
-import {UserModel} from "../../model/user.model";
 import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/authentification/auth.service";
 
@@ -31,7 +30,6 @@ export class NotificationListComponent implements OnInit {
     @Input() userId!: number;
     public notifications: NotificationModel[] = [];
 
-
     constructor(private userNotificationService: UsernotificationService, private userService: UserService, private authService: AuthService) {}
 
     ngOnInit() {
@@ -39,8 +37,12 @@ export class NotificationListComponent implements OnInit {
         if (user) {
             this.userId = user.id;
             this.loadNotifications();
-            this.markNotificationsAsInactive()
+            this.markNotificationsAsInactive();
         }
+
+        this.userNotificationService.notificationAdded.subscribe(() => {
+            this.loadNotifications();
+        });
     }
 
     markNotificationsAsInactive(): void {
@@ -50,7 +52,8 @@ export class NotificationListComponent implements OnInit {
             }, error => {
                 console.error('Error marking notifications as inactive:', error);
             });
-        }}
+        }
+    }
 
     loadNotifications() {
         if (this.userId) {

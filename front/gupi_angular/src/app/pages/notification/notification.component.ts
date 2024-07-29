@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {PageService} from "../../services/page/page.component";
 import {NotificationListComponent} from "../../components/notification-list/notification-list.component";
 import {UserService} from "../../services/user.service";
@@ -19,6 +19,7 @@ import {AuthService} from "../../services/authentification/auth.service";
 })
 export class NotificationComponent implements OnInit{
     @Input() userId!: number;
+    public notificationAdded = new EventEmitter<void>();
 
     constructor(private pageService: PageService, private userService: UserService, private authService: AuthService,) {
         this.pageService.setComponentType('bell', 'Notifications', 'Veuillez trouver toutes vos notifications');
@@ -29,6 +30,10 @@ export class NotificationComponent implements OnInit{
         const user = this.authService.getUser();
         this.userId = user.id;
 
+    }
+
+    notifyNotificationAdded() {
+        this.notificationAdded.emit();
     }
 }
 

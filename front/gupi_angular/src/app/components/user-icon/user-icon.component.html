@@ -1,13 +1,11 @@
-<!--Le nzCount servira à binder le nombre de notifications-->
 <nz-badge [nzCount]="activeCount" style="margin-right: 24px;" class="user-icon">
-
-<span nz-icon nzType="user" nzTheme="outline" nz-popover
-      nzPopoverTitle="Menu utilisateur"
-      [(nzPopoverVisible)]="visible"
-      (nzPopoverVisibleChange)="change($event)"
-      nzPopoverTrigger="click"
-      [nzPopoverContent]="contentTemplate"
-      nzPopoverPlacement="bottomRight"></span>
+    <span nz-icon nzType="user" nzTheme="outline" nz-popover
+          nzPopoverTitle="Menu utilisateur"
+          [(nzPopoverVisible)]="visible"
+          (nzPopoverVisibleChange)="change($event)"
+          nzPopoverTrigger="click"
+          [nzPopoverContent]="contentTemplate"
+          nzPopoverPlacement="bottomRight"></span>
 </nz-badge>
 
 <ng-template #contentTemplate>
