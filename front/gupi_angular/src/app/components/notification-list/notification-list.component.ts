@@ -8,6 +8,7 @@ import {UsernotificationService} from "../../services/usernotification.service";
 import {NotificationModel} from "../../model/userNotification.model"
 import {UserModel} from "../../model/user.model";
 import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/authentification/auth.service";
 
 @Component({
     selector: 'app-notification-list',
@@ -29,23 +30,21 @@ import {UserService} from "../../services/user.service";
 export class NotificationListComponent implements OnInit {
     @Input() userId!: number;
     public notifications: NotificationModel[] = [];
-    currentUserId: number | undefined;
 
-    constructor(private userNotificationService: UsernotificationService, private userService: UserService) {}
+
+    constructor(private userNotificationService: UsernotificationService, private userService: UserService, private authService: AuthService) {}
 
     ngOnInit() {
-        this.loadNotifications();
-        this.userService.getCurrentUser().subscribe(user => {
-            this.currentUserId = user.id;
-            this.markNotificationsAsInactive();
-        }, error => {
-            console.error('Error fetching current user:', error);
-        });
+        const user = this.authService.getUser();
+        if (user) {
+            this.userId = user.id;
+            this.loadNotifications();
+        }
     }
 
     markNotificationsAsInactive(): void {
-        if (this.currentUserId !== undefined) {
-            this.userNotificationService.markNotificationsAsInactive(this.currentUserId).subscribe(() => {
+        if (this.userId !== undefined) {
+            this.userNotificationService.markNotificationsAsInactive(this.userId).subscribe(() => {
                 console.log('Notifications marked as inactive');
             }, error => {
                 console.error('Error marking notifications as inactive:', error);

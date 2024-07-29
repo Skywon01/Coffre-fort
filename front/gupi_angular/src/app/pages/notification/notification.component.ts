@@ -5,6 +5,7 @@ import {UserService} from "../../services/user.service";
 
 import {UserModel} from "../../model/user.model";
 import {NgIf} from "@angular/common";
+import {AuthService} from "../../services/authentification/auth.service";
 
 @Component({
   selector: 'app-notification',
@@ -17,21 +18,17 @@ import {NgIf} from "@angular/common";
   styleUrl: './notification.component.css'
 })
 export class NotificationComponent implements OnInit{
-    public currentUserId!: number;
-    constructor(private pageService: PageService, private userService: UserService,) {
+    @Input() userId!: number;
+
+    constructor(private pageService: PageService, private userService: UserService, private authService: AuthService,) {
         this.pageService.setComponentType('bell', 'Notifications', 'Veuillez trouver toutes vos notifications');
 
     }
 
     ngOnInit(): void {
-        this.userService.getCurrentUser().subscribe(
-            (user: UserModel) => {
-                this.currentUserId = user.id;
-                console.log('Current user ID:', this.currentUserId);
-            },
-            error => {
-                console.error('Error fetching current user:', error);
-            }
-        );
+        const user = this.authService.getUser();
+        this.userId = user.id;
+
     }
 }
+

@@ -62,7 +62,7 @@ export class DirectoryService {
     }
 
     createDirectory(name: { user_id: number; name: string }): Observable<any> {
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const user = JSON.parse(sessionStorage.getItem('user') || '{}');
         return this.http.post(`${apiRoot}/directories`, {name, user_id: user.id});
     }
 
