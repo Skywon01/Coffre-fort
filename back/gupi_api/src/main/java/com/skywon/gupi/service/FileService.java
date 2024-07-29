@@ -72,7 +72,7 @@ public class FileService {
         }
     }
 
-    public String uploadFileToUserFolder(MultipartFile file, Integer userId, String senderName, String senderFirsName) {
+    public String uploadFileToUserFolder(MultipartFile file, Integer userId, String senderName, String senderFirstName) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Optional<Directory> optionalDirectory = directoryRepository.findByUserAndName(user, "Documents envoyés");
 
@@ -111,8 +111,8 @@ public class FileService {
 
             UserNotification userNotification = new UserNotification();
             // Il faut prendre l'utilisateur en cours et non pas l'utilisateur ciblé pour le nom de l'expéditeur
-            userNotification.setSenderName(user.getName());
-            userNotification.setSenderFirstName(user.getFirstName());
+            userNotification.setSenderName(senderName);
+            userNotification.setSenderFirstName(senderFirstName);
             userNotification.setFileName(file.getOriginalFilename());
             userNotification.setTimestamp(LocalDateTime.now());
             userNotification.setUser(directory.getUser());

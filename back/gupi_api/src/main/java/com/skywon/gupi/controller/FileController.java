@@ -56,7 +56,7 @@ public class FileController {
         System.out.println("Received userId: " + userId);
         System.out.println("Received senderName: " + senderName);
         System.out.println("Received senderFirstName: " + senderFirstName);
-        userNotificationService.createNotification(senderName, senderFirstName, file.getOriginalFilename(), userId);
+//        userNotificationService.createNotification(senderName, senderFirstName, file.getOriginalFilename(), userId);
         return ResponseEntity.ok(response);
     }
 

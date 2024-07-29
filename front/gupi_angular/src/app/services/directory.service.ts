@@ -105,7 +105,7 @@ export class DirectoryService {
         formData.append('userId', user_id.toString());
         formData.append('senderName', senderName);
         formData.append('senderFirstName', senderFirstName);
-
+console.log(senderFirstName, senderName);
         return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text'});
     }
 

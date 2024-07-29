@@ -39,6 +39,7 @@ export class NotificationListComponent implements OnInit {
         if (user) {
             this.userId = user.id;
             this.loadNotifications();
+            this.markNotificationsAsInactive()
         }
     }
 
