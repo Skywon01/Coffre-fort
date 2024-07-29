@@ -15,6 +15,7 @@ public class UserDto {
     private String profile;
     private String email;
     private String password;
+    private Integer age;
 
 
     /**
@@ -29,6 +30,7 @@ public class UserDto {
         user.setEmail(email);
         user.setPassword(password);
         user.setProfile(profile);
+        user.setAge(age);
         user.setDateCreation(new Date());
         user.setActive(true);
         return user;

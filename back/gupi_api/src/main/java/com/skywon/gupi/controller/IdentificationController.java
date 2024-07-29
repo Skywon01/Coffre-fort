@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/open")
+@RequestMapping("/api")
 public class IdentificationController {
 
     @Autowired
@@ -102,6 +102,11 @@ public class IdentificationController {
         user = userDto.getUser();
         user.setPassword(this.bCryptPasswordEncoder.encode(userDto.getPassword()));
         user.setRoles(List.of(roleService.save("USER")));
+        user.setName(userDto.getName());
+        user.setFirstName(userDto.getFirstName());
+        user.setAddress(userDto.getAddress());
+
+
 
         // générer un token user
         do {

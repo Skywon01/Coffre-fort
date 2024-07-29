@@ -48,7 +48,7 @@ export class UserService {
     }
 
     registerUser(user: any): Observable<any> {
-        return this.http.post(`${apiRoot}/users`, user, httpoptions)
+        return this.http.post(`${apiRoot}/register`, user, httpoptions)
     }
 
 
