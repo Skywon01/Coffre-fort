@@ -57,9 +57,9 @@ export class DirectoryService {
         return this.http.post(`${apiRoot}/directories/`, directory, httpoptions)
     }
 
-    getUserDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
-        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`, {headers: this.apiService.getAuthHeaders()});
-    }
+    // getUserDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
+    //     return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`, {headers: this.apiService.getAuthHeaders()});
+    // }
 
     createDirectory(name: { user_id: number; name: string }): Observable<any> {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
@@ -89,6 +89,11 @@ export class DirectoryService {
         });
     }
 
+    /**
+     * Requêtes pour séparer les parents des enfants lors de l'affichage
+     * Le tri est donc parent puis enfant
+     * @param user_id
+     */
     getUserParentDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
         return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/parents`);
     }

@@ -130,7 +130,7 @@ export class ListDirectoriesComponent implements OnInit {
 
     loadDirectories() {
         const user = this.authService.getUser();
-        this.directoryService.getUserDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
+        this.directoryService.getUserParentDirectories(user.id).subscribe((directories: DirectoryModel[]) => {
             this.tuyauDeDirectory = directories;
         });
     }

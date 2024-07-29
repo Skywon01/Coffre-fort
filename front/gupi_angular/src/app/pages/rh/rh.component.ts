@@ -52,12 +52,12 @@ export class RhComponent implements OnInit {
 
     async vaChercherTousLesUsers(): Promise<void> {
         this.users = await this.userService.getUserAll()
-        console.log(this.users)
+        // console.log(this.users)
     }
 
     async vaChercherUnSeulUser(id: string) {
         this.users = await this.userService.getUserOne(id)
-        console.log(this.users)
+        // console.log(this.users)
     }
 
 

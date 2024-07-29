@@ -48,9 +48,9 @@ export class NotificationListComponent implements OnInit {
     markNotificationsAsInactive(): void {
         if (this.userId !== undefined) {
             this.userNotificationService.markNotificationsAsInactive(this.userId).subscribe(() => {
-                console.log('Notifications marked as inactive');
+                // console.log('Notifications marked as inactive');
             }, error => {
-                console.error('Error marking notifications as inactive:', error);
+                // console.error('Error marking notifications as inactive:', error);
             });
         }
     }
@@ -60,10 +60,10 @@ export class NotificationListComponent implements OnInit {
             this.userNotificationService.getNotifications(this.userId).subscribe(userNotifications => {
                 this.notifications = userNotifications;
             }, error => {
-                console.error('Error loading notifications:', error);
+                // console.error('Error loading notifications:', error);
             });
         } else {
-            console.error('userId is undefined');
+            // console.error('userId is undefined');
         }
     }
 }

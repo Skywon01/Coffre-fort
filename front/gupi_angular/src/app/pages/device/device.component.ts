@@ -47,12 +47,12 @@ export class DeviceComponent implements OnInit {
 
     async vaChercherTousLesDevices(): Promise<void> {
         this.devices = await this.deviceService.getDeviceAll()
-        console.log(this.devices)
+        // console.log(this.devices)
     }
 
     async vaChercherUnSeulDevice(id: string) {
         this.devices = await this.deviceService.getDeviceOne(id)
-        console.log(this.devices)
+        // console.log(this.devices)
     }
 
     onDeviceAdded(newDevice: DeviceModel) {
