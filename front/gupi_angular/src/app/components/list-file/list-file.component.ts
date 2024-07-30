@@ -8,7 +8,6 @@ import {
 import {NzSkeletonComponent} from "ng-zorro-antd/skeleton";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {TreeFileComponent} from "../tree-file/tree-file.component";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
 import {NgForOf, NgIf} from "@angular/common";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
@@ -36,7 +35,6 @@ import {ApiService} from "../../services/api.service";
         NzButtonComponent,
         NzRowDirective,
         NzColDirective,
-        TreeFileComponent,
         NzTableComponent,
         NgForOf,
         NzDividerComponent,

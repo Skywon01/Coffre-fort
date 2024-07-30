@@ -58,7 +58,9 @@ export class NotificationListComponent implements OnInit {
     loadNotifications() {
         if (this.userId) {
             this.userNotificationService.getNotifications(this.userId).subscribe(userNotifications => {
-                this.notifications = userNotifications;
+                this.notifications = userNotifications.sort((a, b) => {
+                    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+                });
             }, error => {
                 // console.error('Error loading notifications:', error);
             });

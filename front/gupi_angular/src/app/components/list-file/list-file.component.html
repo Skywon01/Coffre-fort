@@ -1,4 +1,4 @@
 <div *ngFor="let file of files">
-    <p (click)="download(file.id)">{{ file.original_file_name }}</p>
+    <p (click)="download(file.id)" class="file-name">{{ file.original_file_name }}</p>
 <!--    <button (click)="download(file.id)">Télécharger</button>-->
 </div>

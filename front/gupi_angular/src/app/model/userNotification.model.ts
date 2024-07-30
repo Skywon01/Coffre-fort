@@ -5,6 +5,7 @@ export class NotificationModel{
     public senderFirstName: string,
     public fileName: string,
     public timestamp: string,
+    public isActive: boolean,
     public user: {
         id: number;
     },
