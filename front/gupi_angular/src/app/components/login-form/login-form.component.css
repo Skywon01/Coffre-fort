@@ -21,11 +21,11 @@
     background-color: #4763EF;
 }
 
-.login-label{
+.login-label {
     color: #707070 !important;
 }
 
-.login-input{
+.login-input {
     border-radius: 7px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
 }

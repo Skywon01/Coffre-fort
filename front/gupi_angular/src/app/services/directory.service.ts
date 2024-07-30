@@ -103,7 +103,6 @@ export class DirectoryService {
     }
 
 
-
     uploadFileToUserFolder(file: File, user_id: number, senderName: string, senderFirstName: string): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file);

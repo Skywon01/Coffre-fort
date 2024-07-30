@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AddUserFormComponent} from "../../components/add-user-form/add-user-form.component";
-import {ModalRhComponent} from "../../components/modal-rh/modal-rh.component";
 import {PageService} from "../../services/page/page.component";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {EmployeeListComponent} from "../../components/employee-list/employee-list.component";
@@ -17,7 +16,6 @@ import {
     standalone: true,
     imports: [
         AddUserFormComponent,
-        ModalRhComponent,
         NzTabSetComponent,
         NzTabComponent,
         EmployeeListComponent,

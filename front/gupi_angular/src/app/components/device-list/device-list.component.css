@@ -10,9 +10,10 @@
     padding: 4px 11px;
 }
 
-tr:nth-child(odd){
+tr:nth-child(odd) {
     background-color: #D7D7D7;
 }
-tr:nth-child(even){
+
+tr:nth-child(even) {
     background-color: #FFFFFF;
 }

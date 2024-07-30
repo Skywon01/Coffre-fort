@@ -4,10 +4,8 @@ import {NzQRCodeComponent} from "ng-zorro-antd/qr-code";
 import {PageService} from "../../services/page/page.component";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzAlign, NzFlexDirective, NzJustify} from "ng-zorro-antd/flex";
-import {DeviceListOwnedComponent} from "../../components/device-list-owned/device-list-owned.component";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {AuthService} from "../../services/authentification/auth.service";
-import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {DeviceListComponent} from "../../components/device-list/device-list.component";
 import {DeviceModel} from "../../model/device.model";
@@ -22,7 +20,6 @@ import {DeviceService} from "../../services/device.service";
         NzQRCodeComponent,
         NzIconDirective,
         NzFlexDirective,
-        DeviceListOwnedComponent,
         NzRowDirective,
         NzColDirective,
         NgIf,

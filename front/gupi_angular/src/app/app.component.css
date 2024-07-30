@@ -7,7 +7,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-*{
+* {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -45,7 +45,7 @@
     filter: drop-shadow(1px 1px 1px rgba(0, 21, 41, .35));
 }
 
-.trigger{
+.trigger {
     font-size: 38px !important;
     vertical-align: middle;
 }
@@ -153,6 +153,7 @@ nz-header {
     transition-duration: .3s;
 
 }
+
 .menu-icon-collapsed:hover {
     scale: 1.08;
 }

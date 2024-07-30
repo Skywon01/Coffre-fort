@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DirectoryService} from "../../services/directory.service";
-import {ApiService} from "../../services/api.service";
 import {DirectoryModel} from "../../model/directory.model";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";

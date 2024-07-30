@@ -16,7 +16,6 @@ import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
-import {ApiService} from "../../services/api.service";
 import {NgForOf} from "@angular/common";
 import {DeviceModel} from "../../model/device.model";
 import {NzInputNumberComponent} from "ng-zorro-antd/input-number";

@@ -1,9 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {
-    AbstractControl,
     FormControl,
     FormGroup, FormsModule,
-    ReactiveFormsModule, ValidationErrors, ValidatorFn,
+    ReactiveFormsModule,
     Validators
 } from "@angular/forms";
 import {
@@ -19,7 +18,6 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NgForOf} from "@angular/common";
 import {UserModel} from "../../model/user.model";
-import {ApiService} from "../../services/api.service";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {UserService} from "../../services/user.service";
 

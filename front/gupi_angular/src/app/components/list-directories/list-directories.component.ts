@@ -9,7 +9,6 @@ import {DirectoryModel} from "../../model/directory.model";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {ListFileComponent} from "../list-file/list-file.component";
-import {UploadComponent} from "../upload/upload.component";
 import {AuthService} from "../../services/authentification/auth.service";
 import {ApiService} from "../../services/api.service";
 import {FormCreateDirectoryComponent} from "../form-create-directory/form-create-directory.component";
@@ -30,7 +29,6 @@ import {DirectoryService} from "../../services/directory.service";
         NzIconDirective,
         NzPopoverDirective,
         ListFileComponent,
-        UploadComponent,
         NgIf,
         FormCreateDirectoryComponent,
         UploadFileComponent,
@@ -105,11 +103,6 @@ export class ListDirectoriesComponent implements OnInit {
     }
 
 
-    // addDirectory(name: string): void {
-    //     this.directoryService.createDirectory(name).subscribe(newDirectory => {
-    //         this.tuyauDeDirectory.push(newDirectory);
-    //     });
-    // }
 
     addChildDirectory(parentId: number, name: string): void {
         this.directoryService.createChildDirectory(parentId, name).subscribe(newChildDirectory => {

@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {apiRoot, httpoptions} from "./api.service";
 import {NotificationModel} from "../model/userNotification.model";
 
@@ -10,7 +10,8 @@ import {NotificationModel} from "../model/userNotification.model";
 export class UsernotificationService {
     public notificationAdded = new EventEmitter<void>();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     getNotifications(userId: number): Observable<NotificationModel[]> {
         return this.http.get<NotificationModel[]>(`${apiRoot}/notifications/user/${userId}`);

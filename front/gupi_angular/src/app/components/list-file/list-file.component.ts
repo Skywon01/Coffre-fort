@@ -12,16 +12,14 @@ import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
 import {NgForOf, NgIf} from "@angular/common";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzFlexDirective} from "ng-zorro-antd/flex";
-import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
+import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzMenuDirective, NzMenuItemComponent} from "ng-zorro-antd/menu";
-import {NzFormatEmitEvent, NzTreeComponent, NzTreeNode} from "ng-zorro-antd/tree";
+import {NzTreeComponent} from "ng-zorro-antd/tree";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {DirectoryService} from "../../services/directory.service";
-import {ApiService} from "../../services/api.service";
-
 
 @Component({
     selector: 'app-list-file',
