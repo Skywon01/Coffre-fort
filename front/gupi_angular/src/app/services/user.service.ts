@@ -40,15 +40,19 @@ export class UserService {
     }
 
     retrieveOneUser(id: string): Observable<any> {
-        return this.http.get(`${apiRoot}/user/${id}/`, httpoptions)
+        return this.http.get(`${apiRoot}/users/${id}`, httpoptions)
     }
 
     retrieveUserById(user_id: number): Observable<any> {
-        return this.http.get(`${apiRoot}/user/${user_id}/`, httpoptions);
+        return this.http.get(`${apiRoot}/users/${user_id}`, httpoptions);
     }
 
     registerUser(user: any): Observable<any> {
         return this.http.post(`${apiRoot}/register`, user, httpoptions)
+    }
+
+    updateUser(id: number, user: any): Observable<any> {
+        return this.http.put<UserModel>(`${apiRoot}/users/${id}`, user, httpoptions);
     }
 
 

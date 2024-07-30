@@ -10,6 +10,7 @@ import {NgIf} from "@angular/common";
 import {DeviceListComponent} from "../../components/device-list/device-list.component";
 import {DeviceModel} from "../../model/device.model";
 import {DeviceService} from "../../services/device.service";
+import {FormProfileEditComponent} from "../../components/form-profile-edit/form-profile-edit.component";
 
 
 @Component({
@@ -23,7 +24,8 @@ import {DeviceService} from "../../services/device.service";
         NzRowDirective,
         NzColDirective,
         NgIf,
-        DeviceListComponent
+        DeviceListComponent,
+        FormProfileEditComponent
     ],
     templateUrl: './profil.component.html',
     styleUrl: './profil.component.css'

@@ -1,3 +1,4 @@
+<app-form-profile-edit [tuyauDeUsers]="user"></app-form-profile-edit>
 <div nz-row>
     <div nz-col nzSpan="24">
         <div
@@ -7,11 +8,11 @@
             nz-flex
         >
             @if (user) {
-                <div class="profil-col" nz-col nzSpan="12">
-                <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
-                      style="font-size: 40px; float: right; color: rgba(0,0,0,0.50)"></span>
-                    <div class="profil" [style.background-image]="'url(' + user.profile + ')'"></div>
-                    <h2>{{ user.name }} {{ user.firstName }}</h2>
+            <div class="profil-col" nz-col nzSpan="12">
+            <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
+                  style="font-size: 40px; float: right; color: rgba(0,0,0,0.50)"></span>
+                <div class="profil" [style.background-image]="'url(' + user.profile + ')'"></div>
+                <h2>{{ user.name }} {{ user.firstName }}</h2>
                     <h3>Assistante administrative</h3>
                     <h2>Société</h2>
                     <h3>Avengers</h3>
@@ -53,9 +54,7 @@
 
             <div class="profil-col" nz-col nzSpan="12">
                 <h2>Matériel</h2>
-                <!--                Le matériel sera affiché ici, un message sera affiché si aucun matériel
 
-                -->
                 <app-device-list [tuyauDeDevices]="devices"></app-device-list>
 
 

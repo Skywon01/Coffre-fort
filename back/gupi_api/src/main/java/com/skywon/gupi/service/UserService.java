@@ -61,12 +61,24 @@ public class UserService implements UserDetailsService {
     public User updateUser(Integer id, User newUser) throws Exception {
         User user = this.userRepository.findById(id).orElseThrow(() -> new Exception("Utilisateur non trouvé"));
 
-        user.setName(newUser.getName());
-        user.setFirstName(newUser.getFirstName());
-        user.setAge(newUser.getAge());
-        user.setEmail(newUser.getEmail());
-        user.setAddress(newUser.getAddress());
-        user.setPassword(newUser.getPassword());
+        if (newUser.getName() != null && !newUser.getName().isEmpty()) {
+            user.setName(newUser.getName());
+        }
+        if (newUser.getFirstName() != null && !newUser.getFirstName().isEmpty()) {
+            user.setFirstName(newUser.getFirstName());
+        }
+        if (newUser.getAge() != null) {
+            user.setAge(newUser.getAge());
+        }
+        if (newUser.getEmail() != null && !newUser.getEmail().isEmpty()) {
+            user.setEmail(newUser.getEmail());
+        }
+        if (newUser.getAddress() != null && !newUser.getAddress().isEmpty()) {
+            user.setAddress(newUser.getAddress());
+        }
+        if (newUser.getPassword() != null && !newUser.getPassword().isEmpty()) {
+            user.setPassword(newUser.getPassword()); // Note: tu devrais idéalement re-hasher le mot de passe ici
+        }
         return userRepository.save(user);
 
 

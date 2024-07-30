@@ -6,14 +6,6 @@
 
         <app-employee-list [tuyauDeUsers]="users"></app-employee-list>
     </nz-tab>
-    <nz-tab nzTitle="Autre">
-        <h1>Tuer un employé au hasard</h1>
-        <button nz-button nzType="primary" (click)="show = !show">Tuer</button>
-        @if (show) {
-            <h2>Oups un employé est mort</h2>
-        }
-
-    </nz-tab>
 </nz-tabset>
 
 
