@@ -30,10 +30,4 @@ public class File {
     @JsonBackReference("directory-file")
     private Directory directory;
 
-
-    @ManyToOne
-    @JoinColumn(name = "directory_child_id")
-    @JsonBackReference("directory-child-file")
-    private DirectoryChild directoryChild;
-
 }

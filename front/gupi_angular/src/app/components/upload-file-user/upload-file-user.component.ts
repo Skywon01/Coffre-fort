@@ -36,7 +36,7 @@ export class UploadFileUserComponent {
 
         if (this.selectedFile) {
             this.directoryService.uploadFileToUserFolder(this.selectedFile, this.userId, user.name, user.firstName).subscribe(response => {
-                console.log('File uploaded:', response);
+                // console.log('File uploaded:', response);
                 this.msg.success('Fichier téléchargé avec succès.');
                 this.userNotificationService.notifyNotificationAdded();
                 this.fileUploaded.emit();
