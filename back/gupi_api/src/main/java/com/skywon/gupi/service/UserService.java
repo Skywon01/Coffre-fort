@@ -52,12 +52,24 @@ public class UserService implements UserDetailsService {
         return this.userRepository.save(user);
     }
 
-
+    /**
+     * Supprimer un utilisateur
+     * @param id
+     */
     public void deleteById(Integer id) {
         this.userRepository.deleteById(id);
     }
 
-    //Fonctionnel mais refactor à prévoir
+
+    /**
+     * Méthode qui permet de mettre à jour le profil
+     * On met des conditions pour n'envoyer que les informations mises à jour dans le formulaire
+     * Le mot de passe peut être mis à jour de cette façon mais il sera conseillé de passer par un token
+     * @param id
+     * @param newUser
+     * @return
+     * @throws Exception
+     */
     public User updateUser(Integer id, User newUser) throws Exception {
         User user = this.userRepository.findById(id).orElseThrow(() -> new Exception("Utilisateur non trouvé"));
 
@@ -77,7 +89,7 @@ public class UserService implements UserDetailsService {
             user.setAddress(newUser.getAddress());
         }
         if (newUser.getPassword() != null && !newUser.getPassword().isEmpty()) {
-            user.setPassword(newUser.getPassword()); // Note: tu devrais idéalement re-hasher le mot de passe ici
+            user.setPassword(newUser.getPassword());
         }
         return userRepository.save(user);
 
