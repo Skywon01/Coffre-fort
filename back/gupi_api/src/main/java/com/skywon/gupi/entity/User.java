@@ -29,6 +29,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String profile;
+    private String company;
+    private String job;
     private String token;
     private boolean active;
 

@@ -35,6 +35,15 @@
     border: none;
 }
 
+.profil-edit{
+    font-size: 40px;
+    float: right;
+    color: rgba(0,0,0,0.50);
+        &:hover{
+            cursor: pointer;
+        }
+}
+
 
 .info-container {
     background-color: white;

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserModel} from "../../model/user.model";
 import {UserService} from "../../services/user.service";
@@ -10,6 +10,7 @@ import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixD
 import {NgForOf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {DirectoryModel} from "../../model/directory.model";
 
 @Component({
   selector: 'app-form-profile-edit',
@@ -37,6 +38,9 @@ export class FormProfileEditComponent implements OnInit{
     public form: FormGroup;
     public passwordVisible = false;
     @Input() tuyauDeUsers!: UserModel;
+    @Output() profileUpdate = new EventEmitter<UserModel>();
+
+
     constructor(
         private userService: UserService,
         private authService: AuthService,
@@ -48,6 +52,8 @@ export class FormProfileEditComponent implements OnInit{
             email: new FormControl('', [Validators.email]),
             address: new FormControl(''),
             age: new FormControl(''),
+            company: new FormControl(''),
+            job: new FormControl(''),
             password: new FormControl('', []),
             confirmPassword: new FormControl('', []),
             role_id: new FormControl('')
@@ -69,7 +75,9 @@ export class FormProfileEditComponent implements OnInit{
                 firstName: user.firstName,
                 email: user.email,
                 address: user.address,
-                age: user.age
+                age: user.age,
+                company: user.company,
+                job: user.job,
             });
         });
     }
@@ -85,7 +93,9 @@ export class FormProfileEditComponent implements OnInit{
 
             this.userService.updateUser(this.user.id, formData).subscribe(
                 () => {
+                    console.log(formData)
                     this.notification.success('Succès', 'Informations mises à jour avec succès.');
+                    this.profileUpdate.emit();
                 },
                 (error) => {
                     this.notification.error('Erreur', 'Erreur lors de la mise à jour des informations.');

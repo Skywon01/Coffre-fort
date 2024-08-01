@@ -34,6 +34,7 @@ export class ProfilComponent implements OnInit {
     user: any;
     devices: DeviceModel[] = [];
     shape: NzButtonShape = 'round'
+    showUpdateProfile: boolean = false;
 
     constructor(private pageService: PageService, protected authService: AuthService, private deviceService: DeviceService,) {
         this.pageService.setComponentType('profile', 'Mon profil', 'Veuillez trouver vos informations personnelles');
@@ -44,6 +45,10 @@ export class ProfilComponent implements OnInit {
         if (this.user) {
             this.loadUserDevices(this.user.id);
         }
+    }
+
+    onProfileUpdate() {
+        this.authService.getUser();
     }
     loadUserDevices(userId: number): void {
         this.deviceService.getDevicesByUserId(userId).subscribe((devices: DeviceModel[]) => {

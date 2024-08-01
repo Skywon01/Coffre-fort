@@ -88,6 +88,12 @@ public class UserService implements UserDetailsService {
         if (newUser.getAddress() != null && !newUser.getAddress().isEmpty()) {
             user.setAddress(newUser.getAddress());
         }
+        if (newUser.getCompany() != null && !newUser.getCompany().isEmpty()) {
+            user.setCompany(newUser.getCompany());
+        }
+        if (newUser.getJob() != null && !newUser.getJob().isEmpty()) {
+            user.setJob(newUser.getJob());
+        }
         if (newUser.getPassword() != null && !newUser.getPassword().isEmpty()) {
             user.setPassword(newUser.getPassword());
         }

@@ -1,4 +1,7 @@
-<app-form-profile-edit [tuyauDeUsers]="user"></app-form-profile-edit>
+@if(showUpdateProfile){
+
+<app-form-profile-edit [tuyauDeUsers]="user"  (profileUpdate)="onProfileUpdate()"></app-form-profile-edit>
+}
 <div nz-row>
     <div nz-col nzSpan="24">
         <div
@@ -10,12 +13,12 @@
             @if (user) {
             <div class="profil-col" nz-col nzSpan="12">
             <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
-                  style="font-size: 40px; float: right; color: rgba(0,0,0,0.50)"></span>
+                  class="profil-edit" (click)="showUpdateProfile = !showUpdateProfile"></span>
                 <div class="profil" [style.background-image]="'url(' + user.profile + ')'"></div>
                 <h2>{{ user.name }} {{ user.firstName }}</h2>
                     <h3>Assistante administrative</h3>
                     <h2>Société</h2>
-                    <h3>Avengers</h3>
+                    <h3>{{ user.company }}</h3>
 
                 </div>
             }

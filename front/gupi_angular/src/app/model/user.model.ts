@@ -8,6 +8,8 @@ export class UserModel {
         public age: number,
         public password: string,
         public profile: string,
+        public company: string,
+        public job: string,
         public directory: number,
         public file: number,
         public role: string
