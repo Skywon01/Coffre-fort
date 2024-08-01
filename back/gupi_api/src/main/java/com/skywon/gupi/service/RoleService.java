@@ -12,7 +12,7 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     /**
-     * add or find a role
+     * Ajouter un role
      *
      * @param  nom du role
      * @return     Le role

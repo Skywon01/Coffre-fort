@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -39,7 +41,13 @@ public class FileService {
     @Value("${file.path}")
     private String path;
 
-    public String uploadFile(MultipartFile file, Integer directoryId)  {
+    /**
+     * On gère le dépôt d'un fichier dans un dossier de l'utilisateur en cours
+     * @param file
+     * @param directoryId
+     * @return
+     */
+    public String uploadFile(MultipartFile file, Integer directoryId) {
         Directory directory = directoryRepository.findById(directoryId).orElseThrow(() -> new RuntimeException("Directory not found"));
 
         String uniqueID = UUID.randomUUID().toString();
@@ -72,6 +80,16 @@ public class FileService {
         }
     }
 
+    /**
+     * Méthode pour envoyer un fichier à un utilisateur depuis une liste,
+     * on gère la création d'un dossier par défaut, l'envoi de la notification
+     *
+     * @param file
+     * @param userId
+     * @param senderName
+     * @param senderFirstName
+     * @return
+     */
     public String uploadFileToUserFolder(MultipartFile file, Integer userId, String senderName, String senderFirstName) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Optional<Directory> optionalDirectory = directoryRepository.findByUserAndName(user, "Documents envoyés");
@@ -110,7 +128,6 @@ public class FileService {
             fileRepository.save(uploadedFile);
 
             UserNotification userNotification = new UserNotification();
-            // Il faut prendre l'utilisateur en cours et non pas l'utilisateur ciblé pour le nom de l'expéditeur
             userNotification.setSenderName(senderName);
             userNotification.setSenderFirstName(senderFirstName);
             userNotification.setFileName(file.getOriginalFilename());
@@ -133,9 +150,24 @@ public class FileService {
         return fileRepository.findById(id).orElse(null);
     }
 
-    public void deleteFile(Integer id) {
+    public void deleteFile(Integer id) throws IOException {
+        // Récupérer le fichier depuis la base de données
+        com.skywon.gupi.entity.File file = fileRepository.findById(id).orElseThrow(() -> new FileNotFoundException("File not found"));
+
+        // Supprimer le fichier physique
+        File physicalFile = new File(file.getFile_path());
+        if (physicalFile.exists()) {
+            if (!physicalFile.delete()) {
+                throw new IOException("Unable to delete the file: " + file.getFile_path());
+            }
+        } else {
+            throw new FileNotFoundException("File not found on the server");
+        }
+
+        // Supprimer le fichier de la base de données
         fileRepository.deleteById(id);
     }
+
 
     public List<com.skywon.gupi.entity.File> getFilesByDirectoryId(Integer directory_id) {
         return fileRepository.findByDirectory_Id(directory_id);

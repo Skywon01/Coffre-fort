@@ -62,7 +62,7 @@ public class DirectoryController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDirectory(@PathVariable Integer id) {
+    public void deleteDirectory(@PathVariable Integer id) throws Exception {
         directoryService.deleteDirectory(id);
     }
 

@@ -49,17 +49,8 @@ export class DirectoryService {
         return this.http.get(`${apiRoot}/directories/${id}`, httpoptions)
     }
 
-    retrieveDirectoryById(directory_id: number): Observable<any> {
-        return this.http.get(`${apiRoot}/directories/${directory_id}/`, httpoptions);
-    }
 
-    registerDirectory(directory: any): Observable<any> {
-        return this.http.post(`${apiRoot}/directories/`, directory, httpoptions)
-    }
 
-    // getUserDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
-    //     return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}`, {headers: this.apiService.getAuthHeaders()});
-    // }
 
     createDirectory(name: { user_id: number; name: string }): Observable<any> {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
@@ -78,16 +69,7 @@ export class DirectoryService {
         return this.http.post<any>(`${apiRoot}/file/upload`, formData);
     }
 
-    getFilesByDirectoryId(directory_id: number): Observable<any> {
-        return this.http.get<any>(`${apiRoot}/file/directory/${directory_id}`);
-    }
 
-    downloadFile(fileId: number): Observable<HttpResponse<Blob>> {
-        return this.http.get(`${apiRoot}/file/download/${fileId}`, {
-            responseType: 'blob',
-            observe: 'response'
-        });
-    }
 
     /**
      * Requêtes pour séparer les parents des enfants lors de l'affichage
@@ -111,5 +93,11 @@ export class DirectoryService {
         formData.append('senderFirstName', senderFirstName);
         return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text'});
     }
+
+    deleteDirectory(id: number): Observable<void> {
+        return this.http.delete<void>(`${apiRoot}/directories/${id}`);
+    }
+
+
 
 }

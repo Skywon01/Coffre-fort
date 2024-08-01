@@ -28,7 +28,23 @@ public class DirectoryService {
         return directoryRepository.save(directory);
     }
 
-    public void deleteDirectory(Integer id) {
+    /**
+     * Méthode pour supprimer un répertoire, vérifie s'il ne contient ni dossier enfant, ni fichier avant la suppression
+     * @param id
+     * @throws Exception
+     */
+    public void deleteDirectory(Integer id) throws Exception {
+        Directory directory = directoryRepository.findById(id).orElseThrow(() -> new Exception("Répertoire non trouvé"));
+
+        // Vérifie si le répertoire contient des fichiers
+        if (!directory.getFiles().isEmpty()) {
+            throw new Exception("Le répertoire contient des fichiers et ne peut pas être supprimé.");
+        }
+
+        if (!directory.getChildren().isEmpty()) {
+            throw new Exception("Le répertoire contient des sous-dossiers et ne peut pas être supprimé.");
+        }
+
         directoryRepository.deleteById(id);
     }
 }

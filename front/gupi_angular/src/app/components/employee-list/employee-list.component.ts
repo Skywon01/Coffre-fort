@@ -29,7 +29,7 @@ import {UploadFileUserComponent} from "../upload-file-user/upload-file-user.comp
 })
 export class EmployeeListComponent {
     @Input() tuyauDeUsers!: UserModel[]
-    currentUserName: any;
+
     constructor(private msg: NzMessageService) {}
     handleChange({ file, fileList }: NzUploadChangeParam): void {
         const status = file.status;

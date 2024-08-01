@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,7 +63,6 @@ public class FileController {
     }
 
 
-
     @GetMapping("/directory/{directoryId}")
     public List<com.skywon.gupi.entity.File> getFilesByDirectoryId(@PathVariable Integer directoryId) {
         return fileService.getFilesByDirectoryId(directoryId);
@@ -79,6 +80,46 @@ public class FileController {
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Integer id) {
+        // Récupération des informations du fichier depuis le service
+        com.skywon.gupi.entity.File fileEntity = fileService.getFileById(id);
+        if (fileEntity == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        try {
+            // Création de l'objet Path à partir du chemin enregistré
+            Path path = Paths.get(fileEntity.getFile_path());
+            Resource resource = new UrlResource(path.toUri());
+
+            if (!resource.exists()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            // Récupération du type de contenu depuis la base de données ou le déterminer si absent
+            String contentType = fileEntity.getFile_content_type();
+            if (contentType == null || contentType.isEmpty()) {
+                contentType = Files.probeContentType(path);
+            }
+
+            // Création des en-têtes pour le téléchargement du fichier
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(contentType));
+            headers.setContentDisposition(ContentDisposition.builder("attachment")
+                    .filename(fileEntity.getOriginal_file_name()).build());
+
+            // Retourner le fichier en tant que ressource
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
@@ -101,37 +142,14 @@ public class FileController {
         }
     }
 
-    @GetMapping("/download/{id}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable Integer id) {
-        com.skywon.gupi.entity.File file = fileService.getFileById(id);
-        if (file == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteFile(@PathVariable Integer id) {
         try {
-            Path path = Paths.get(file.getFile_path());
-            Resource resource = new UrlResource(path.toUri());
-
-            if (!resource.exists()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-
-            // Set content type based on file extension if not provided
-            String contentType = file.getFile_content_type();
-            if (contentType == null || contentType.isEmpty()) {
-                contentType = Files.probeContentType(path);
-            }
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(contentType));
-            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getOriginal_file_name()).build());
-
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(resource);
+            fileService.deleteFile(id);
+            return ResponseEntity.noContent().build(); // Réponse 204
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Réponse 500
         }
     }
 }

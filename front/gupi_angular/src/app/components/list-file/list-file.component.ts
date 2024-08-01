@@ -9,7 +9,7 @@ import {NzSkeletonComponent} from "ng-zorro-antd/skeleton";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzFlexDirective} from "ng-zorro-antd/flex";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
@@ -20,6 +20,11 @@ import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {DirectoryService} from "../../services/directory.service";
+import {NzTypographyComponent} from "ng-zorro-antd/typography";
+import {NzPopoverDirective} from "ng-zorro-antd/popover";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {FileModel} from "../../model/file.model";
+import {FileService} from "../../services/file.service";
 
 @Component({
     selector: 'app-list-file',
@@ -46,16 +51,22 @@ import {DirectoryService} from "../../services/directory.service";
         NzPopconfirmDirective,
         FormsModule,
         NzInputDirective,
-        NzThMeasureDirective
+        NzThMeasureDirective,
+        NgStyle,
+        NzTypographyComponent,
+        NzPopoverDirective
     ],
     templateUrl: './list-file.component.html',
     styleUrl: './list-file.component.css'
 })
 export class ListFileComponent implements OnInit {
     @Input() directoryId!: number;
-    files: any[] = [];
+    files: FileModel[] = [];
 
-    constructor(private directoryService: DirectoryService,) {
+    constructor(
+        private fileService: FileService,
+        private message: NzMessageService
+    ) {
     }
 
     ngOnInit() {
@@ -63,19 +74,18 @@ export class ListFileComponent implements OnInit {
     }
 
     loadFiles() {
-        this.directoryService.getFilesByDirectoryId(this.directoryId).subscribe(files => {
+        this.fileService.getFilesByDirectoryId(this.directoryId).subscribe(files => {
+            console.log('Loaded files:', files); // Vérifie ici les données
             this.files = files;
         }, error => {
             console.error('Error loading files:', error);
         });
     }
 
-    download(fileId: number): void {
-        this.directoryService.downloadFile(fileId).subscribe(response => {
+    download(fileId: number, fileName: string): void {
+        this.fileService.downloadFile(fileId).subscribe(response => {
             if (response.body) {
                 const blob = new Blob([response.body], {type: response.headers.get('Content-Type') || 'application/octet-stream'});
-                const contentDisposition = response.headers.get('Content-Disposition');
-                const fileName = this.getFileNameFromContentDisposition(contentDisposition);
 
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -88,27 +98,21 @@ export class ListFileComponent implements OnInit {
             } else {
                 console.error('No file content found in response.');
             }
+        }, error => {
+            console.error('Error downloading file:', error);
         });
     }
 
-
-    private getFileNameFromContentDisposition(contentDisposition: string | null): string {
-        if (!contentDisposition) {
-            return 'downloaded-file';
-        }
-
-        const startIndex = contentDisposition.indexOf('filename="');
-        if (startIndex === -1) {
-            return 'downloaded-file';
-        }
-
-        const endIndex = contentDisposition.indexOf('"', startIndex + 10); // +10 pour sauter "filename="
-        if (endIndex === -1) {
-            return 'downloaded-file';
-        }
-
-        const fileName = contentDisposition.substring(startIndex + 10, endIndex);
-        return fileName.trim();
+    deleteFile(id: number): void {
+        this.fileService.deleteFile(id).subscribe(
+            () => {
+                this.message.success('Fichier supprimé avec succès');
+                this.files = this.files.filter(file => file.id !== id);
+            },
+            error => {
+                console.error('Error during file deletion:', error); // Vérifie l'erreur retournée
+                this.message.error(error.error.message || 'Erreur lors de la suppression du fichier');
+            }
+        );
     }
-
 }

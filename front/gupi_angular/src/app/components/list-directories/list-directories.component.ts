@@ -14,6 +14,7 @@ import {ApiService} from "../../services/api.service";
 import {FormCreateDirectoryComponent} from "../form-create-directory/form-create-directory.component";
 import {UploadFileComponent} from "../upload-file/upload-file.component";
 import {DirectoryService} from "../../services/directory.service";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-list-directories',
@@ -46,7 +47,7 @@ export class ListDirectoriesComponent implements OnInit {
     newChildDirectoryName: string = '';
     @Output() directoryAdded = new EventEmitter<DirectoryModel>();
 
-    constructor(private authService: AuthService, private directoryService: DirectoryService, protected apiService: ApiService) {
+    constructor(private authService: AuthService, private directoryService: DirectoryService, protected apiService: ApiService, private message: NzMessageService) {
     }
 
     toggleDirectory(directoryId: number) {
@@ -139,5 +140,18 @@ export class ListDirectoriesComponent implements OnInit {
                 listFilesComponent.loadFiles();
             }
         }
+    }
+
+    deleteDirectory(id: number): void {
+        this.directoryService.deleteDirectory(id).subscribe(
+            () => {
+                this.message.success('Répertoire supprimé avec succès');
+                // Logique pour mettre à jour la liste des répertoires localement
+                this.tuyauDeDirectory = this.tuyauDeDirectory.filter(dir => dir.id !== id);
+            },
+            error => {
+                this.message.error(error.error.message || 'Erreur lors de la suppression du répertoire');
+            }
+        );
     }
 }

@@ -17,10 +17,19 @@ public class UserNotificationService {
         return userNotificationRepository.findByUserIdAndActiveTrue(userId);
     }
 
+    /**
+     * Méthode pour compter les notifications
+     * @param userId
+     * @return
+     */
     public long getActiveNotificationsCount(Integer userId) {
         return userNotificationRepository.countByUserIdAndActiveTrue(userId);
     }
 
+    /**
+     * Méthode utilisée pour désactiver les notifications
+     * @param userId
+     */
     public void markNotificationsAsInactive(Integer userId) {
         List<UserNotification> notifications = userNotificationRepository.findByUserIdAndActiveTrue(userId);
         notifications.forEach(notification -> notification.setActive(false));
