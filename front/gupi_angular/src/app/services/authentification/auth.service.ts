@@ -1,14 +1,20 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable, tap} from "rxjs";
 import {Injectable} from "@angular/core";
+import {UserModel} from "../../model/user.model";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
+    private currentUserSubject: BehaviorSubject<UserModel | null>;
+    public currentUser$: Observable<UserModel | null>;
     private apiUrl = 'http://localhost:8080/api'; // URL de ton backend
 
     constructor(private http: HttpClient) {
+        this.currentUserSubject = new BehaviorSubject<UserModel | null>(this.getUserFromSession());
+        this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
     login(email: string | undefined, password: string | undefined): Observable<any> {
@@ -21,6 +27,33 @@ export class AuthService {
                     sessionStorage.setItem('roles', JSON.stringify(response.roles));
                 }
             }));
+    }
+
+    refreshUserProfile(): Observable<UserModel> {
+        const userId = this.getCurrentUserId(); // Méthode pour obtenir l'ID de l'utilisateur connecté
+        return this.http.get<UserModel>(`${this.apiUrl}/users/${userId}`).pipe(
+            tap(user => {
+                this.updateUserInSession(user);
+            })
+        );
+    }
+    private getUserFromSession(): UserModel | null {
+        const userStr = sessionStorage.getItem('user');
+        return userStr ? JSON.parse(userStr) : null;
+    }
+
+    
+    private getCurrentUserId(): number {
+        const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+        return user.id;
+    }
+
+    private updateUserInSession(user: UserModel): void {
+        sessionStorage.setItem('user', JSON.stringify(user));
+        if (user.role) {
+            sessionStorage.setItem('roles', JSON.stringify(user.role));
+        }
+        this.currentUserSubject.next(user);
     }
 
     getUser(): any {

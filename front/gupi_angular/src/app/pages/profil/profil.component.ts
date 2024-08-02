@@ -48,8 +48,17 @@ export class ProfilComponent implements OnInit {
     }
 
     onProfileUpdate() {
-        this.authService.getUser();
-    }
+        this.authService.refreshUserProfile().subscribe(
+          (updatedUser) => {
+            this.user = updatedUser;
+            // Optionnel : Mettre à jour les appareils si nécessaire
+            this.loadUserDevices(this.user.id);
+          },
+          (error) => {
+            console.error('Erreur lors de la mise à jour du profil:', error);
+          }
+        );
+      }
     loadUserDevices(userId: number): void {
         this.deviceService.getDevicesByUserId(userId).subscribe((devices: DeviceModel[]) => {
             this.devices = devices;

@@ -43,6 +43,9 @@ export class AppComponent implements OnInit{
         public authService: AuthService,
         public apiService: ApiService
     ) {
+        this.authService.currentUser$.subscribe(user => {
+            this.user = user;
+        });
     }
 
     async ngOnInit() {
@@ -57,7 +60,7 @@ export class AppComponent implements OnInit{
 
         })
 
-        this.user = this.authService.getUser();
+        this.authService.refreshUserProfile().subscribe();
         // this.roles = this.authService.getRoles();
         // console.log('User:', this.user);
         // console.log('Roles:', this.roles);
