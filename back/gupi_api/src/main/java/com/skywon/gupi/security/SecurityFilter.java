@@ -29,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         String urlRequest = request.getRequestURI();
 
-        if (urlRequest.startsWith("/api/open/")) {
+        if (urlRequest.startsWith("/api/")) {
             filterChain.doFilter(request, response);
             return;
         }

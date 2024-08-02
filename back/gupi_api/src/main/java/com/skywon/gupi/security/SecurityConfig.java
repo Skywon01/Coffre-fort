@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -44,12 +45,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
-        // 403
         return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("api/**").permitAll()
-                        .requestMatchers("/api/dashboard/**").hasAnyAuthority("ADMIN")
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/**").permitAll()
+//                        .requestMatchers("/api/**").hasAnyAuthority("user")
                         .anyRequest().permitAll()
                 )
                 .cors(Customizer.withDefaults())

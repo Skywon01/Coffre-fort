@@ -10,6 +10,7 @@ export class UserModel {
         public profile: string,
         public company: string,
         public job: string,
+        public token: string,
         public directory: number,
         public file: number,
         public role: string

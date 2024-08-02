@@ -42,7 +42,7 @@ export class AuthService {
         return userStr ? JSON.parse(userStr) : null;
     }
 
-    
+
     private getCurrentUserId(): number {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
         return user.id;

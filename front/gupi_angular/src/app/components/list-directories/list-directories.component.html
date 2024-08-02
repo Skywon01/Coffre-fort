@@ -1,17 +1,20 @@
-@if(this.apiService.isAuthorized("USER")){
-<button nz-button nzType="primary" nzShape="round" class="add-folder" (click)="showCreateDirectoryForm = !showCreateDirectoryForm">
-    Ajouter un dossier
-</button>
+@if (this.apiService.isAuthorized("USER")) {
+    <button nz-button nzType="primary" nzShape="round" class="add-folder"
+            (click)="showCreateDirectoryForm = !showCreateDirectoryForm">
+        Ajouter un dossier
+    </button>
 
 }
 <br/>
 <br/>
-<app-form-create-directory *ngIf="showCreateDirectoryForm" (directoryCreated)="onDirectoryCreated()"></app-form-create-directory>
+<app-form-create-directory *ngIf="showCreateDirectoryForm"
+                           (directoryCreated)="onDirectoryCreated()"></app-form-create-directory>
 
 <nz-table>
     <tbody>
     <ng-container *ngFor="let directory of tuyauDeDirectory">
-        <ng-template [ngTemplateOutlet]="directoryTemplate" [ngTemplateOutletContext]="{ $implicit: directory }"></ng-template>
+        <ng-template [ngTemplateOutlet]="directoryTemplate"
+                     [ngTemplateOutletContext]="{ $implicit: directory }"></ng-template>
     </ng-container>
     </tbody>
 </nz-table>
@@ -27,7 +30,9 @@
                     <div> {{ directory.children?.length }} enfants</div>
                 </div>
             </div>
-            <div class="block-point" nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="topRight" nzPopoverTrigger="click">⋮</div>
+            <div class="block-point" nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="topRight"
+                 nzPopoverTrigger="click">⋮
+            </div>
         </td>
     </tr>
     <tr *ngIf="openedDirectories.has(directory.id)">
@@ -36,7 +41,8 @@
             <app-list-file [directoryId]="directory.id"></app-list-file>
             <ng-container *ngIf="directory.children?.length">
                 <ng-container *ngFor="let child of directory.children">
-                    <ng-template [ngTemplateOutlet]="directoryTemplate" [ngTemplateOutletContext]="{ $implicit: child }"></ng-template>
+                    <ng-template [ngTemplateOutlet]="directoryTemplate"
+                                 [ngTemplateOutletContext]="{ $implicit: child }"></ng-template>
                 </ng-container>
             </ng-container>
 
@@ -47,11 +53,13 @@
     <ng-template #contentTemplate>
         <div>
             <a (click)="toggleCreateChildDirectoryForm(directory.id)">Ajouter un sous-dossier</a><br>
-<!--            <a (click)="renameDirectory(directory.id)">Renommer</a> <br>-->
+            <!--            <a (click)="renameDirectory(directory.id)">Renommer</a> <br>-->
             <a (click)="deleteDirectory(directory.id)" style="color: red;">Supprimer</a> <br>
             <div *ngIf="showCreateChildDirectoryForm.get(directory.id)">
                 <input type="text" [(ngModel)]="newChildDirectoryName" placeholder="Nom du sous-dossier"/>
-                <button nz-button nzType="primary" (click)="addChildDirectory(directory.id, newChildDirectoryName)">Créer</button>
+                <button nz-button nzType="primary" (click)="addChildDirectory(directory.id, newChildDirectoryName)">
+                    Créer
+                </button>
             </div>
         </div>
     </ng-template>
