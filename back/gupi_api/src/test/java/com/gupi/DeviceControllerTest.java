@@ -1,12 +1,15 @@
 package com.gupi;
 
+import com.skywon.gupi.GupiApplication;
 import com.skywon.gupi.controller.DeviceController;
 
 import com.skywon.gupi.entity.Device;
 import com.skywon.gupi.service.DeviceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,7 +21,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(DeviceController.class)
+@SpringBootTest(classes = GupiApplication.class)
+@AutoConfigureMockMvc
 public class DeviceControllerTest {
 
     @Autowired
