@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
-import {NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
+import {NgClass, NgForOf, NgIf, NgStyle, NgTemplateOutlet} from "@angular/common";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
@@ -33,7 +33,9 @@ import {NzMessageService} from "ng-zorro-antd/message";
         NgIf,
         FormCreateDirectoryComponent,
         UploadFileComponent,
-        NgTemplateOutlet
+        NgTemplateOutlet,
+        NgStyle,
+        NgClass
     ],
     templateUrl: './list-directories.component.html',
     styleUrl: './list-directories.component.css'
@@ -153,5 +155,8 @@ export class ListDirectoriesComponent implements OnInit {
                 this.message.error(error.error.message || 'Erreur lors de la suppression du répertoire');
             }
         );
+    }
+    isEven(index: number): boolean {
+        return index % 2 === 0;
     }
 }
