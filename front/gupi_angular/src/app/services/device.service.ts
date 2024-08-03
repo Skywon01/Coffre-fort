@@ -47,7 +47,7 @@ export class DeviceService {
         const temp: DeviceModel[] = []
 
         rawdata.map((el) => {
-            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code, el.user_id)
+            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code,el.category, el.user_id)
             temp.push(tempObj);
         });
         // console.log('Data formatté: ', temp)
@@ -56,5 +56,9 @@ export class DeviceService {
 
     getDevicesByUserId(userId: number): Observable<DeviceModel[]> {
         return this.http.get<DeviceModel[]>(`${apiRoot}/device/user/${userId}`);
+    }
+
+    updateDevice(id: number, device: any): Observable<DeviceModel> {
+        return this.http.put<DeviceModel>(`${apiRoot}/device/${id}`, device, httpoptions);
     }
 }

@@ -70,7 +70,7 @@ export class AddDeviceComponent implements OnInit{
                 user: { id: this.form.get('user_id')?.value }
             };
             this.deviceService.registerDevice(formData).subscribe(device => {
-                console.log('Données envoyées :', formData);
+                // console.log('Données envoyées :', formData);
                 this.deviceAdded.emit(device);
                 this.form.reset();
             });

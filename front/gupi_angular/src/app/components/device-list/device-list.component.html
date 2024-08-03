@@ -4,21 +4,28 @@
         <th>Nom</th>
         <th>Prix</th>
         <th>QR Code</th>
+        <th>Utilisateur</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
+        @for (device of tuyauDeDevices; track device.id){
+
     <ng-container>
-
-        @for (device of tuyauDeDevices; track device.id) {
-            <tr>
-                <td><span nz-icon nzType="tablet" nzTheme="fill" style="color:#00000050; font-size: 50px;"></span>{{ device.name }}</td>
-                <td>{{ device.price | currency: 'EUR' : 'symbol' : '2.2-2' : 'fr' }}</td>
-                <td>{{ device.qr_code }}</td>
-            </tr>
-
-
-        }
+        <tr>
+            <td><span nz-icon nzType="tablet" nzTheme="fill" style="color:#00000050; font-size: 50px;"></span>{{ device.name }}</td>
+            <td>{{ device.price | currency: 'EUR' : 'symbol' : '2.2-2' : 'fr' }}</td>
+            <td>{{ device.qr_code }}</td>
+            <td>
+                <nz-select [(ngModel)]="device.user_id" nzPlaceHolder="Sélectionnez un utilisateur">
+                    <nz-option *ngFor="let user of users" [nzLabel]="user.name" [nzValue]="user.id"></nz-option>
+                </nz-select>
+            </td>
+            <td>
+                <button nz-button nzType="primary" (click)="updateDeviceUser(device)">Mettre à jour</button>
+            </td>
+        </tr>
     </ng-container>
-
+        }
     </tbody>
 </nz-table>
