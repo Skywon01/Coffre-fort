@@ -39,8 +39,8 @@ export class UserService {
         return this.http.get(`${apiRoot}/users/`, httpoptions)
     }
 
-    retrieveOneUser(id: string): Observable<any> {
-        return this.http.get(`${apiRoot}/users/${id}`, httpoptions)
+    retrieveOneUser(id: string): Observable<UserModel> {
+        return this.http.get<UserModel>(`${apiRoot}/users/${id}`, httpoptions);
     }
 
     retrieveUserById(user_id: number): Observable<any> {
