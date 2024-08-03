@@ -28,8 +28,8 @@ export class DeviceService {
         return this.http.get(`${apiRoot}/device/${device_id}`, httpoptions);
     }
 
-    registerDevice(device: any): Observable<any> {
-        return this.http.post(`${apiRoot}/device`, device, httpoptions)
+    registerDevice(device: DeviceModel): Observable<DeviceModel> {
+        return this.http.post<DeviceModel>(`${apiRoot}/device`, device, httpoptions)
     }
 
 
@@ -47,7 +47,7 @@ export class DeviceService {
         const temp: DeviceModel[] = []
 
         rawdata.map((el) => {
-            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code)
+            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code, el.user_id)
             temp.push(tempObj);
         });
         // console.log('Data formatté: ', temp)

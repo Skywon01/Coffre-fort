@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -20,6 +20,8 @@ import {NgForOf} from "@angular/common";
 import {DeviceModel} from "../../model/device.model";
 import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
 import {DeviceService} from "../../services/device.service";
+import {UserModel} from "../../model/user.model";
+import {UserService} from "../../services/user.service";
 
 @Component({
     selector: 'app-add-device',
@@ -44,33 +46,34 @@ import {DeviceService} from "../../services/device.service";
     templateUrl: './add-device.component.html',
     styleUrl: './add-device.component.css'
 })
-export class AddDeviceComponent {
+export class AddDeviceComponent implements OnInit{
     @Output() deviceAdded: EventEmitter<DeviceModel> = new EventEmitter<DeviceModel>();
     // numbers: number[];
+    @Input() users!: UserModel[];
     form: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required]),
         price: new FormControl('', [Validators.required]),
         category: new FormControl('', [Validators.required]),
         qr_code: new FormControl(''),
-        possessor: new FormControl('')
+        user_id: new FormControl('')
     });
 
-    constructor(private deviceService: DeviceService,) {
+    constructor(private deviceService: DeviceService, private userService: UserService) {
         // numbers n'est plus utilisé pour le moment
         // this.numbers = Array.from({length: 250000}, (_, i) => i + 1);
     }
 
     submitDevice() {
         if (this.form.valid) {
-            const formData: DeviceModel = this.form.value;
-            // console.log('Données du formulaire à envoyer :', formData);
+            const formData = {
+                ...this.form.value,
+                user: { id: this.form.get('user_id')?.value }
+            };
             this.deviceService.registerDevice(formData).subscribe(device => {
-                // .emit permet d'envoyer l'évènement, ici on envoie l'objet "device"
+                console.log('Données envoyées :', formData);
                 this.deviceAdded.emit(device);
-                // .reset permet de vider le formulaire une fois soumis
                 this.form.reset();
             });
-
         } else {
             Object.values(this.form.controls).forEach(control => {
                 if (control.invalid) {
@@ -78,7 +81,12 @@ export class AddDeviceComponent {
                     control.updateValueAndValidity({onlySelf: true});
                 }
             });
-
         }
+    }
+
+    ngOnInit(): void {
+        this.userService.getUsers().subscribe(users => {
+            this.users = users;
+        });
     }
 }

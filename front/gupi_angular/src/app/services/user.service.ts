@@ -56,5 +56,8 @@ export class UserService {
     }
 
 
+    getUsers() {
+        return this.http.get<UserModel[]>(`${apiRoot}/users/`, httpoptions)
+    }
 }
 
