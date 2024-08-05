@@ -12,6 +12,7 @@ import {AuthService} from "./authentification/auth.service";
     providedIn: 'root',
 })
 export class DirectoryService {
+
     constructor(
         private userService: UserService,
         private http: HttpClient,
@@ -54,19 +55,19 @@ export class DirectoryService {
 
     createDirectory(name: { user_id: number; name: string }): Observable<any> {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
-        return this.http.post(`${apiRoot}/directories`, {name, user_id: user.id});
+        return this.http.post(`${apiRoot}/directories`, {name, user_id: user.id}, httpoptions);
     }
 
     createChildDirectory(parent_id: number, name: string): Observable<DirectoryModel> {
-        const url = `/api/directories/${parent_id}/children`;
-        return this.http.post<DirectoryModel>(`${apiRoot}/directories/${parent_id}/children`, {name});
+        const url = `${apiRoot}/directories/${parent_id}/children`;
+        return this.http.post<DirectoryModel>(`${apiRoot}/directories/${parent_id}/children`, {name}, httpoptions);
     }
 
     uploadFile(file: File, directoryId: number): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file);
         formData.append('directoryId', directoryId.toString());
-        return this.http.post<any>(`${apiRoot}/file/upload`, formData);
+        return this.http.post<any>(`${apiRoot}/file/upload`, formData, httpoptions);
     }
 
 
@@ -77,11 +78,11 @@ export class DirectoryService {
      * @param user_id
      */
     getUserParentDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
-        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/parents`);
+        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/parents`, httpoptions);
     }
 
     getUserChildDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
-        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/children`);
+        return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/children`, httpoptions);
     }
 
 
@@ -91,11 +92,11 @@ export class DirectoryService {
         formData.append('userId', user_id.toString());
         formData.append('senderName', senderName);
         formData.append('senderFirstName', senderFirstName);
-        return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text'});
+        return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text', withCredentials: true});
     }
 
     deleteDirectory(id: number): Observable<void> {
-        return this.http.delete<void>(`${apiRoot}/directories/${id}`);
+        return this.http.delete<void>(`${apiRoot}/directories/${id}`, httpoptions);
     }
 
 

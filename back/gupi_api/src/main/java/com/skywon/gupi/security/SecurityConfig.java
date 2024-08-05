@@ -48,8 +48,10 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**").permitAll()
-//                        .requestMatchers("/api/**").hasAnyAuthority("user")
+                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/**").hasAnyAuthority("ADMIN", "USER")
+
+
                         .anyRequest().permitAll()
                 )
                 .cors(Customizer.withDefaults())
@@ -67,7 +69,7 @@ public class SecurityConfig {
         config.addAllowedHeader("Content-Disposition");
         config.addAllowedHeader("Authorization");
         config.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        config.addAllowedOrigin("http://localhost:4200");
         config.setAllowCredentials(true); // This is important since we are using session cookies
         source.registerCorsConfiguration("/**", config);
         return source;

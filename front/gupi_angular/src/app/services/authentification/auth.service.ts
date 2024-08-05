@@ -3,6 +3,7 @@ import {Observable, tap} from "rxjs";
 import {Injectable} from "@angular/core";
 import {UserModel} from "../../model/user.model";
 import {BehaviorSubject} from "rxjs";
+import {apiRoot, httpoptions} from "../api.service";
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,6 @@ import {BehaviorSubject} from "rxjs";
 export class AuthService {
     private currentUserSubject: BehaviorSubject<UserModel | null>;
     public currentUser$: Observable<UserModel | null>;
-    private apiUrl = 'http://localhost:8080/api'; // URL de ton backend
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<UserModel | null>(this.getUserFromSession());
@@ -18,7 +18,7 @@ export class AuthService {
     }
 
     login(email: string | undefined, password: string | undefined): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/login`, {email, password}, {withCredentials: true})
+        return this.http.post<any>(`${apiRoot}/login`, {email, password}, {withCredentials: true})
             .pipe(tap(response => {
                 if (response) {
                     // console.log("Response User: ", response.user);
@@ -31,7 +31,7 @@ export class AuthService {
 
     refreshUserProfile(): Observable<UserModel> {
         const userId = this.getCurrentUserId(); // Méthode pour obtenir l'ID de l'utilisateur connecté
-        return this.http.get<UserModel>(`${this.apiUrl}/users/${userId}`).pipe(
+        return this.http.get<UserModel>(`${apiRoot}/users/${userId}`, httpoptions).pipe(
             tap(user => {
                 this.updateUserInSession(user);
             })

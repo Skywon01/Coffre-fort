@@ -10,7 +10,6 @@ import {DeviceModel} from "../model/device.model";
 })
 export class DeviceService {
 
-
     constructor(
         private http: HttpClient,
     ) {
@@ -55,7 +54,7 @@ export class DeviceService {
     }
 
     getDevicesByUserId(userId: number): Observable<DeviceModel[]> {
-        return this.http.get<DeviceModel[]>(`${apiRoot}/device/user/${userId}`);
+        return this.http.get<DeviceModel[]>(`${apiRoot}/device/user/${userId}`, httpoptions);
     }
 
     updateDevice(id: number, device: any): Observable<DeviceModel> {

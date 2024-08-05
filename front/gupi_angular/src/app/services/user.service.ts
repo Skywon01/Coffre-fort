@@ -2,18 +2,27 @@ import {Injectable} from "@angular/core";
 import {apiRoot, ApiService, httpoptions} from "./api.service";
 import {lastValueFrom, Observable} from "rxjs";
 import {UserModel} from "../model/user.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AuthService} from "./authentification/auth.service";
 
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
+
     constructor(
-        private http: HttpClient,
+        private http: HttpClient, private authService: AuthService,
     ) {
     }
 
+    public getAuthHeaders(): HttpHeaders {
+        const token = this.authService.getUser();
+        return new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        });
+    }
     async getUserAll() {
         let res = await lastValueFrom(this.retrieveAllUsers())
         return this.formatData(res)
@@ -34,9 +43,9 @@ export class UserService {
         // console.log('Data user: ', temp)
         return temp
     }
-
     retrieveAllUsers(): Observable<any> {
-        return this.http.get(`${apiRoot}/users/`, httpoptions)
+
+        return this.http.get(`${apiRoot}/users`,  httpoptions )
     }
 
     retrieveOneUser(id: string): Observable<UserModel> {
@@ -57,7 +66,7 @@ export class UserService {
 
 
     getUsers() {
-        return this.http.get<UserModel[]>(`${apiRoot}/users/`, httpoptions)
+        return this.http.get<UserModel[]>(`${apiRoot}/users`, httpoptions)
     }
 }
 

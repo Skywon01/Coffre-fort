@@ -8,25 +8,26 @@ import {NotificationModel} from "../model/userNotification.model";
     providedIn: 'root'
 })
 export class UsernotificationService {
+
     public notificationAdded = new EventEmitter<void>();
 
     constructor(private http: HttpClient) {
     }
 
     getNotifications(userId: number): Observable<NotificationModel[]> {
-        return this.http.get<NotificationModel[]>(`${apiRoot}/notifications/user/${userId}`);
+        return this.http.get<NotificationModel[]>(`${apiRoot}/notifications/user/${userId}`, httpoptions);
     }
 
     getActiveNotificationsCount(userId: number): Observable<number> {
-        return this.http.get<number>(`${apiRoot}/notifications/active/count/${userId}`);
+        return this.http.get<number>(`${apiRoot}/notifications/active/count/${userId}`, httpoptions);
     }
 
     markNotificationsAsInactive(userId: number): Observable<void> {
-        return this.http.post<void>(`${apiRoot}/notifications/markAsInactive/${userId}`, {});
+        return this.http.post<void>(`${apiRoot}/notifications/markAsInactive/${userId}`, {userId}, httpoptions);
     }
 
     addNotification(notification: NotificationModel): Observable<NotificationModel> {
-        return this.http.post<NotificationModel>(`${apiRoot}/notifications`, notification);
+        return this.http.post<NotificationModel>(`${apiRoot}/notifications`, notification, httpoptions);
     }
 
     notifyNotificationAdded() {

@@ -29,10 +29,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         String urlRequest = request.getRequestURI();
 
-        if (urlRequest.startsWith("/api/")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+//        if (urlRequest.startsWith("/api/")) {
+//            filterChain.doFilter(request, response);
+//
+//        }
 
         try {
             // Extraire le token du cookie

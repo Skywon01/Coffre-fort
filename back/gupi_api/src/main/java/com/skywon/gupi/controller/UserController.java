@@ -25,7 +25,7 @@ public class UserController {
      * Récupérer tous les utilisateurs
      * @return
      */
-    @GetMapping("/")
+    @GetMapping("")
     public List<User> allUsers() {
         return this.userService.getAll();
     }
