@@ -11,6 +11,7 @@ import {DeviceListComponent} from "../../components/device-list/device-list.comp
 import {DeviceModel} from "../../model/device.model";
 import {DeviceService} from "../../services/device.service";
 import {FormProfileEditComponent} from "../../components/form-profile-edit/form-profile-edit.component";
+import {ListDeviceOwnedComponent} from "../../components/list-device-owned/list-device-owned.component";
 
 
 @Component({
@@ -25,7 +26,8 @@ import {FormProfileEditComponent} from "../../components/form-profile-edit/form-
         NzColDirective,
         NgIf,
         DeviceListComponent,
-        FormProfileEditComponent
+        FormProfileEditComponent,
+        ListDeviceOwnedComponent
     ],
     templateUrl: './profil.component.html',
     styleUrl: './profil.component.css'

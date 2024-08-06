@@ -55,4 +55,13 @@ public class DeviceService {
     public List<Device> getDevicesByUserId(Integer userId) {
         return deviceRepository.findByUserId(userId);
     }
+
+    public Device unsetDevice(Integer id) throws Exception {
+        Device device = this.deviceRepository.findById(id).orElseThrow(() -> new Exception("Appareil non trouvé"));
+
+            device.setUser(null);
+        return deviceRepository.save(device);
+
+
+    }
 }

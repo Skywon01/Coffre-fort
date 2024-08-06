@@ -9,39 +9,46 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("api/device")
 public class DeviceController {
 
     @Autowired
     private DeviceService deviceService;
 
-    @GetMapping("api/device")
+    @GetMapping("")
     public List<Device> getDevices() {
         return  this.deviceService.getAllDevice();
     }
 
-    @PostMapping("api/device")
+    @PostMapping("")
     public Device addDevice(@RequestBody Device device) {
         return this.deviceService.save(device);
     }
 
-    @GetMapping("api/device/{id}")
+    @GetMapping("/{id}")
     public Device getDevice(@PathVariable Integer id) {
         return this.deviceService.getDeviceById(id);
     }
 
-    @PutMapping("api/device/{id}")
+    @PutMapping("/{id}")
     public Device updateDevice(@PathVariable Integer id, @RequestBody Device device) throws Exception {
         return this.deviceService.updateDevice(id, device);
     }
 
-    @DeleteMapping("api/device/{id}")
+    @DeleteMapping("/{id}")
     public void deleteDevice(@PathVariable Integer id) throws Exception {
         this.deviceService.deleteDevice(id);
     }
 
-    @GetMapping("api/device/user/{userId}")
+    @GetMapping("/user/{userId}")
     public List<Device> getDevicesByUserId(@PathVariable Integer userId) {
         return this.deviceService.getDevicesByUserId(userId);
+    }
+
+    @PutMapping("/unset/{id}")
+    public Device unsetDevice(@PathVariable Integer id) throws Exception {
+        this.deviceService.getDeviceById(id);
+        return  this.deviceService.unsetDevice(id);
     }
 
 }

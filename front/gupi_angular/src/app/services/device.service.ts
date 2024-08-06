@@ -60,4 +60,12 @@ export class DeviceService {
     updateDevice(id: number, device: any): Observable<DeviceModel> {
         return this.http.put<DeviceModel>(`${apiRoot}/device/${id}`, device, httpoptions);
     }
+
+    unsetDevice(device_id: number): Observable<DeviceModel> {
+        return this.http.put<DeviceModel>(`${apiRoot}/device/unset/${device_id}`,{},  httpoptions);
+    }
+
+    deleteDevice(device_id: number): Observable<any> {
+        return this.http.delete(`${apiRoot}/device/${device_id}`, httpoptions);
+    }
 }
