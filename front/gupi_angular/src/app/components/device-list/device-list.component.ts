@@ -52,6 +52,10 @@ export class DeviceListComponent implements OnInit {
             this.users = users;
             this.userMap = new Map(users.map(user => [user.id, user.name]));
         });
+
+        this.deviceService.getDevices().subscribe(devices => {
+            this.tuyauDeDevices = devices;
+        });
     }
 
     updateDeviceUser(device: DeviceModel): void {

@@ -46,7 +46,7 @@ export class DeviceService {
         const temp: DeviceModel[] = []
 
         rawdata.map((el) => {
-            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code,el.category, el.user_id)
+            let tempObj: DeviceModel = new DeviceModel(el.id, el.name, el.price, el.qr_code,el.category, el.user_id, el.user)
             temp.push(tempObj);
         });
         // console.log('Data formatté: ', temp)
@@ -67,5 +67,9 @@ export class DeviceService {
 
     deleteDevice(device_id: number): Observable<any> {
         return this.http.delete(`${apiRoot}/device/${device_id}`, httpoptions);
+    }
+
+    getDevices() {
+        return this.http.get<DeviceModel[]>(`${apiRoot}/devices`, httpoptions)
     }
 }

@@ -4,7 +4,8 @@
         <th>Nom</th>
         <th>Prix</th>
         <th>QR Code</th>
-        <th>Utilisateur</th>
+        <th>Attribution</th>
+        <th>Utilisateurs</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -23,6 +24,7 @@
                         nzLevel="H"
                         [nzSize]="80"
                     ></nz-qrcode></td>
+                    <td>{{ device.user ? device.user.firstName + ' ' + device.user.name : 'Non assigné' }}</td>
                     <td>
                         <nz-select [(ngModel)]="device.user_id" nzPlaceHolder="Sélectionnez un utilisateur">
                             <nz-option *ngFor="let user of users" [nzLabel]="user.name" [nzValue]="user.id"></nz-option>
