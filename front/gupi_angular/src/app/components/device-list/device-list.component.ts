@@ -14,6 +14,7 @@ import {UserModel} from "../../model/user.model";
 import {UserService} from "../../services/user.service";
 import {DeviceService} from "../../services/device.service";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {NzQRCodeComponent} from "ng-zorro-antd/qr-code";
 
 
 @Component({
@@ -32,7 +33,8 @@ import {NzMessageService} from "ng-zorro-antd/message";
         NzUploadComponent,
         CurrencyPipe,
         NzSelectComponent,
-        NzOptionComponent
+        NzOptionComponent,
+        NzQRCodeComponent
     ],
     templateUrl: './device-list.component.html',
     styleUrl: './device-list.component.css'

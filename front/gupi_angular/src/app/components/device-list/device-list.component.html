@@ -17,7 +17,12 @@
                               style="color:#00000050; font-size: 50px;"></span>{{ device.name }}
                     </td>
                     <td>{{ device.price | currency: 'EUR' : 'symbol' : '2.2-2' : 'fr' }}</td>
-                    <td>{{ device.qr_code }}</td>
+                    <td><nz-qrcode
+                        nzValue="Nom de l'appareil: {{ device.name }}
+                         Prix de l'appareil: {{ device.price | currency: 'EUR' : 'symbol' : '2.2-2' : 'fr' }}"
+                        nzLevel="H"
+                        [nzSize]="80"
+                    ></nz-qrcode></td>
                     <td>
                         <nz-select [(ngModel)]="device.user_id" nzPlaceHolder="Sélectionnez un utilisateur">
                             <nz-option *ngFor="let user of users" [nzLabel]="user.name" [nzValue]="user.id"></nz-option>
@@ -26,7 +31,7 @@
                     <td>
                         <button nz-button nzType="primary" (click)="updateDeviceUser(device)">Mettre à jour</button>
                         <a nz-popconfirm
-                           nzPopconfirmTitle="Êtes-vous sûr de vouloir retirer cet appareil ?"
+                           nzPopconfirmTitle="Êtes-vous sûr de vouloir supprimer cet appareil ?"
                            (nzOnConfirm)="deleteDevice(device.id)"
                            nzOkText="Oui"
                            nzCancelText="Non">

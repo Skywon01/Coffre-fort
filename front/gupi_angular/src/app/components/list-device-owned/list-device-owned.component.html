@@ -16,7 +16,12 @@
                               style="color:#00000050; font-size: 50px;"></span>{{ device.name }}
                     </td>
                     <td>{{ device.price | currency: 'EUR' : 'symbol' : '2.2-2' : 'fr' }}</td>
-                    <td>{{ device.qr_code }}</td>
+                    <td><nz-qrcode
+                        nzValue="Nom de l'appareil: {{ device.name }}
+                         Prix de l'appareil: {{ device.price | currency: 'EUR' : 'symbol' : '2.2-2' : 'fr' }}"
+                        nzLevel="H"
+                        [nzSize]="80"
+                    ></nz-qrcode></td>
                     <td><a nz-popconfirm
                            nzPopconfirmTitle="Êtes-vous sûr de vouloir retirer cet appareil ?"
                            (nzOnConfirm)="unsetDevice(device.id)"
