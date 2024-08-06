@@ -11,9 +11,10 @@ import {
     SingleEmployeeDisplayerComponent
 } from "../../components/single-employee-displayer/single-employee-displayer.component";
 import {LoginComponent} from "../login/login.component";
+import {AuthGuard} from "../../services/authentification/auth.guard";
 
 export const WELCOME_ROUTES: Routes = [
-    {path: '', component: WelcomeComponent, title: "Bienvenue sur GUPI"},
+    {path: '', component: WelcomeComponent, title: "Bienvenue sur GUPI", canActivate: [AuthGuard]},
     {path: '', redirectTo:'/login', pathMatch: 'full'},
     {
         path: 'login',

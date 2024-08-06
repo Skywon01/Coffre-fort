@@ -1,13 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzPopoverDirective} from "ng-zorro-antd/popover";
-import {NavigationEnd, Router, RouterLink} from "@angular/router";
-import {NzBadgeComponent} from "ng-zorro-antd/badge";
-import {NzAvatarComponent} from "ng-zorro-antd/avatar";
-import {UsernotificationService} from "../../services/usernotification.service";
-import {UserService} from "../../services/user.service";
-import {AuthService} from "../../services/authentification/auth.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { NzIconDirective } from "ng-zorro-antd/icon";
+import { NzButtonComponent } from "ng-zorro-antd/button";
+import { NzPopoverDirective } from "ng-zorro-antd/popover";
+import { NavigationEnd, Router, RouterLink } from "@angular/router";
+import { NzBadgeComponent } from "ng-zorro-antd/badge";
+import { NzAvatarComponent } from "ng-zorro-antd/avatar";
+import { UsernotificationService } from "../../services/usernotification.service";
+import { AuthService } from "../../services/authentification/auth.service";
 
 @Component({
     selector: 'app-user-icon',
@@ -21,9 +20,9 @@ import {AuthService} from "../../services/authentification/auth.service";
         NzAvatarComponent
     ],
     templateUrl: './user-icon.component.html',
-    styleUrl: './user-icon.component.css'
+    styleUrls: ['./user-icon.component.css']
 })
-export class UserIconComponent implements OnInit{
+export class UserIconComponent implements OnInit {
     visible: boolean = false;
     activeCount: number = 0;
     @Input() userId!: number;
@@ -85,5 +84,6 @@ export class UserIconComponent implements OnInit{
     logout(): void {
         sessionStorage.removeItem('roles');
         sessionStorage.removeItem('user');
+        window.location.reload();
     }
 }

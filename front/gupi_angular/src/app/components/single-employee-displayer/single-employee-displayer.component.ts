@@ -3,13 +3,14 @@ import {UserModel} from "../../model/user.model";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../services/api.service";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
     selector: 'app-single-employee-displayer',
     standalone: true,
     imports: [
-        NgIf
+        NgIf,
+        NgOptimizedImage
     ],
     templateUrl: './single-employee-displayer.component.html',
     styleUrl: './single-employee-displayer.component.css'

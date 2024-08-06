@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 import {UserModel} from "../../model/user.model";
 import {BehaviorSubject} from "rxjs";
 import {apiRoot, httpoptions} from "../api.service";
+import {Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
     private currentUserSubject: BehaviorSubject<UserModel | null>;
     public currentUser$: Observable<UserModel | null>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.currentUserSubject = new BehaviorSubject<UserModel | null>(this.getUserFromSession());
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
@@ -25,6 +26,8 @@ export class AuthService {
                     // console.log("Response Roles: ", response.roles);
                     sessionStorage.setItem('user', JSON.stringify(response.user));
                     sessionStorage.setItem('roles', JSON.stringify(response.roles));
+                    this.currentUserSubject.next(response.user);
+                    this.router.navigate(['/']);
                 }
             }));
     }
