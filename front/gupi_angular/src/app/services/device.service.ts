@@ -70,6 +70,6 @@ export class DeviceService {
     }
 
     getDevices() {
-        return this.http.get<DeviceModel[]>(`${apiRoot}/devices`, httpoptions)
+        return this.http.get<DeviceModel[]>(`${apiRoot}/device`, httpoptions)
     }
 }
