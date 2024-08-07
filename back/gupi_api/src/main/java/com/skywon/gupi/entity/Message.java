@@ -1,10 +1,12 @@
 package com.skywon.gupi.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -18,12 +20,12 @@ public class Message {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private User sender;
+    @JoinColumn(name = "senderId")
+    private User senderId;
 
     @ManyToOne
-    @JoinColumn(name = "recipient_id")
-    private User recipient;
+    @JoinColumn(name = "recipientId")
+    private User recipientId;
 
     private LocalDateTime timestamp;
 }

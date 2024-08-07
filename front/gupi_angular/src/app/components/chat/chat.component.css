@@ -139,14 +139,34 @@ Chat Title
     }
 }
 
+.message-personal {
+    justify-content: flex-end;
+    color: red; /* Couleur pour l'expéditeur */
+}
 
+.message-personal .avatar {
+    order: 2;
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.message-received {
+    color: blue; /* Couleur pour le destinataire */
+}
 /*--------------------
 Messages
 --------------------*/
+*::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 12px;
+    border: 16px outset #ffffff;
+}
 .messages {
     flex: 1 1 auto;
     color: rgba(255, 255, 255, .5);
-    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #555555 #ffffff;
     position: relative;
     width: 100%;
 
