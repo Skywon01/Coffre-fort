@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 public class UserDto {
 
+    private Integer id;
     private String name;
     private String firstName;
     private String address;
@@ -24,6 +25,7 @@ public class UserDto {
      */
     public User getUser(){
         User user = new User();
+        user.setId(id);
         user.setName(name);
         user.setFirstName(firstName);
         user.setAddress(address);

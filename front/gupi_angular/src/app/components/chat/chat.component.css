@@ -139,20 +139,20 @@ Chat Title
     }
 }
 
-.message-personal {
-    justify-content: flex-end;
-    color: red; /* Couleur pour l'expéditeur */
-}
+/*.message-personal {*/
+/*    justify-content: flex-end;*/
+/*    color: red; !* Couleur pour l'expéditeur *!*/
+/*}*/
 
-.message-personal .avatar {
-    order: 2;
-    margin-left: 10px;
-    margin-right: 0;
-}
+/*.message-personal .avatar {*/
+/*    order: 2;*/
+/*    margin-left: 10px;*/
+/*    margin-right: 0;*/
+/*}*/
 
-.message-received {
-    color: blue; /* Couleur pour le destinataire */
-}
+/*.message-received {*/
+/*    color: blue; !* Couleur pour le destinataire *!*/
+/*}*/
 /*--------------------
 Messages
 --------------------*/

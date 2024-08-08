@@ -25,6 +25,7 @@ export class MessageService {
     }
 
     getMessagesBetweenUsers(senderId: number, recipientId: number): Observable<MessageDTO[]> {
-        return this.http.get<MessageDTO[]>(`${apiRoot}/messages/between/${senderId}/${recipientId}`, httpoptions);
+        return this.http.get<MessageDTO[]>(`${apiRoot}/messages/conversation/${senderId}/${recipientId}`, httpoptions);
     }
+
 }

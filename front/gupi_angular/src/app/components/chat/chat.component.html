@@ -6,19 +6,22 @@
         <figure class="avatar">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" />
         </figure>
-    </div>
     <div class="user-list">
         <nz-select [(ngModel)]="recipient" (ngModelChange)="selectRecipient($event)" placeholder="Sélectionnez un utilisateur">
             <nz-option *ngFor="let user of users" [nzValue]="user" [nzLabel]="user.name"></nz-option>
         </nz-select>
     </div>
+    </div>
     <div class="messages">
         <div class="messages-content">
-            <div *ngFor="let message of messages" class="message" [ngClass]="{'message-personal': message.senderId === currentUser.id, 'message-received': message.senderId !== currentUser.id}">
+            <div *ngFor="let message of messages" class="message" [ngClass]="{'message-personal': message.senderId.id === currentUser.id, 'message-received': message.senderId.id !== currentUser.id}">
                 <figure class="avatar">
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg">
                 </figure>
-                {{ message.content }}
+                <div>
+                    <strong>{{ message.senderName }}:</strong>
+                    {{ message.content }}
+                </div>
                 <div class="timestamp">{{ message.timestamp | date:'short' }}</div>
             </div>
         </div>

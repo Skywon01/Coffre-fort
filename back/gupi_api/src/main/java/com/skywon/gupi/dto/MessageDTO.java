@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class MessageDTO {
     private Integer id;
     private String content;
-    private Integer senderId;
-    private Integer recipientId;
+    private UserDto senderId; // Utiliser un objet UserDTO
+    private UserDto recipientId; // Utiliser un objet UserDTO
     private LocalDateTime timestamp;
 
 }
