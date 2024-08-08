@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessageService} from '../../services/message.service';
 import {UserModel} from "../../model/user.model";
 import {AuthService} from "../../services/authentification/auth.service";
@@ -54,11 +54,6 @@ export class ChatComponent implements OnInit {
         }
     }
 
-    loadUsers(): void {
-        this.userService.getUsers().subscribe(users => {
-            this.users = users;
-        });
-    }
 
     loadUsersAndMessages(): void {
         this.userService.getUsers().subscribe(users => {
@@ -98,12 +93,13 @@ export class ChatComponent implements OnInit {
             const newMessage: MessageDTO = {
                 id: null,
                 content: this.newMessageContent,
-                senderId: {id: this.currentUser.id}, // Créer un objet avec l'ID
-                recipientId: {id: this.recipient.id}, // Créer un objet avec l'ID
+                senderId: { id: this.currentUser.id }, // Utiliser un objet avec l'ID
+                recipientId: { id: this.recipient.id }, // Utiliser un objet avec l'ID
                 timestamp: new Date()
             };
             this.messageService.createMessage(newMessage).subscribe(message => {
                 message.senderName = this.currentUser.name; // Associer le nom de l'expéditeur au nouveau message
+                message.recipientName = this.recipient.name; // Associer le nom du destinataire au nouveau message
                 this.messages.push(message);
                 this.messages = this.messages.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
                 this.newMessageContent = '';
