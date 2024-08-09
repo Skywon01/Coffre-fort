@@ -14,10 +14,7 @@ import {AuthService} from "./authentification/auth.service";
 export class DirectoryService {
 
     constructor(
-        private userService: UserService,
         private http: HttpClient,
-        private authService: AuthService,
-        private apiService: ApiService
     ) {
     }
 
@@ -51,8 +48,6 @@ export class DirectoryService {
     }
 
 
-
-
     createDirectory(name: { user_id: number; name: string }): Observable<any> {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
         return this.http.post(`${apiRoot}/directories`, {name, user_id: user.id}, httpoptions);
@@ -69,7 +64,6 @@ export class DirectoryService {
         formData.append('directoryId', directoryId.toString());
         return this.http.post<any>(`${apiRoot}/file/upload`, formData, httpoptions);
     }
-
 
 
     /**
@@ -92,13 +86,13 @@ export class DirectoryService {
         formData.append('userId', user_id.toString());
         formData.append('senderName', senderName);
         formData.append('senderFirstName', senderFirstName);
-        return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {responseType: 'text', withCredentials: true});
+        return this.http.post(`${apiRoot}/file/upload-to-user-folder/${user_id}`, formData, {
+            responseType: 'text',
+            withCredentials: true
+        });
     }
 
     deleteDirectory(id: number): Observable<void> {
         return this.http.delete<void>(`${apiRoot}/directories/${id}`, httpoptions);
     }
-
-
-
 }

@@ -18,6 +18,11 @@
 .user-list{
     width: 280px;
 }
+.close:hover{
+    cursor: pointer;
+
+}
+
 
 /*--------------------
 Mixins
