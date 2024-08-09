@@ -18,6 +18,11 @@ export class AuthService {
         this.currentUser$ = this.currentUserSubject.asObservable();
     }
 
+    /**
+     * Permet de connecter un utilisateur
+     * @param email
+     * @param password
+     */
     login(email: string | undefined, password: string | undefined): Observable<any> {
         return this.http.post<any>(`${apiRoot}/login`, {email, password}, {withCredentials: true})
             .pipe(tap(response => {
@@ -27,7 +32,7 @@ export class AuthService {
                     sessionStorage.setItem('user', JSON.stringify(response.user));
                     sessionStorage.setItem('roles', JSON.stringify(response.roles));
                     this.currentUserSubject.next(response.user);
-                    this.router.navigate(['/']);
+                    // this.router.navigate(['/']);
                 }
             }));
     }
@@ -51,6 +56,11 @@ export class AuthService {
         return user.id;
     }
 
+    /**
+     * Met à jour l'utilisateur connecté en actualisant les informations dans la session lors d'une modification
+     * @param user
+     * @private
+     */
     private updateUserInSession(user: UserModel): void {
         sessionStorage.setItem('user', JSON.stringify(user));
         if (user.role) {
@@ -69,12 +79,12 @@ export class AuthService {
         return roles ? JSON.parse(roles) : [];
     }
 
+    /**
+     * Vérifie si l'utilisateur est connecté ou non.
+     * Redirige vers login ou accueil
+     */
     isAuthenticated(): boolean {
         return !!this.getUser();
     }
 
-    // hasRole(role: string){
-    //     const roles = this.getRoles();
-    //     console.log("Bonjour");
-    // }
 }

@@ -53,6 +53,9 @@ export class UserIconComponent implements OnInit {
         });
     }
 
+    /**
+     * Compte les notifications actives
+     */
     loadActiveNotificationsCount(): void {
         if (this.userId !== undefined) {
             this.userNotificationService.getActiveNotificationsCount(this.userId).subscribe(count => {
@@ -63,6 +66,9 @@ export class UserIconComponent implements OnInit {
         }
     }
 
+    /**
+     * Désactive les notifications lues
+     */
     markNotificationsAsInactive(): void {
         if (this.userId !== undefined) {
             this.userNotificationService.markNotificationsAsInactive(this.userId).subscribe(() => {

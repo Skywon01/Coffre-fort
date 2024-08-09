@@ -15,6 +15,12 @@ export class PageService {
     title: string = '';
     text: string = '';
 
+    /**
+     * Affiche les informations de la page en fonction du composant
+     * @param icon
+     * @param title
+     * @param text
+     */
     setComponentType(icon: string, title: string, text: string) {
         this.icon = icon;
         this.title = title;
