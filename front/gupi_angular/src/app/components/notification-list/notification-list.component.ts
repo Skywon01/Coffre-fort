@@ -8,6 +8,9 @@ import {UsernotificationService} from "../../services/usernotification.service";
 import {NotificationModel} from "../../model/userNotification.model"
 import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/authentification/auth.service";
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr-FR');
 
 @Component({
     selector: 'app-notification-list',
