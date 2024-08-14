@@ -6,7 +6,6 @@ import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.MessageRepository;
 import com.skywon.gupi.repository.UserRepository;
 import com.skywon.gupi.service.MessageService;
-import com.skywon.gupi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

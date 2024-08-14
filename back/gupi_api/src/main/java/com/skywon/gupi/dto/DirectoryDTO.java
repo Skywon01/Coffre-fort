@@ -9,7 +9,6 @@ public class DirectoryDTO {
     private String name;
     private Integer parent_id;
 
-    // constructeur, getters, setters
 
     public DirectoryDTO(Directory directory) {
         this.id = directory.getId();

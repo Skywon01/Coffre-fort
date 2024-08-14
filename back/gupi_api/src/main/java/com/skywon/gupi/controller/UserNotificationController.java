@@ -1,12 +1,9 @@
 package com.skywon.gupi.controller;
 
-import com.skywon.gupi.entity.Directory;
-import com.skywon.gupi.entity.User;
 import com.skywon.gupi.entity.UserNotification;
 import com.skywon.gupi.repository.UserNotificationRepository;
 import com.skywon.gupi.service.UserNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
