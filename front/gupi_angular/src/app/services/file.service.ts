@@ -1,7 +1,5 @@
-import {UserService} from "./user.service";
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {AuthService} from "./authentification/auth.service";
-import {apiRoot, ApiService, httpoptions} from "./api.service";
+import {apiRoot, httpoptions} from "./api.service";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {FileModel} from "../model/file.model";

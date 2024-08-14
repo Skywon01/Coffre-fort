@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzTableComponent, NzThMeasureDirective} from "ng-zorro-antd/table";
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import {CurrencyPipe, DatePipe, NgForOf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";

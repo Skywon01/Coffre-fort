@@ -14,5 +14,6 @@ export class UserModel {
         public directory: number,
         public file: number,
         public role: string
-    ) {  }
+    ) {
+    }
 }

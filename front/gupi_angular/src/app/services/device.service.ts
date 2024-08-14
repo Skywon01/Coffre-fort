@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {apiRoot, ApiService, httpoptions} from "./api.service";
+import {apiRoot, httpoptions} from "./api.service";
 import {lastValueFrom, Observable} from "rxjs";
-import {UserModel} from "../model/user.model";
 import {DeviceModel} from "../model/device.model";
 
 @Injectable({

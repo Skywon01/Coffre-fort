@@ -19,7 +19,6 @@ import {NzTreeComponent} from "ng-zorro-antd/tree";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
-import {DirectoryService} from "../../services/directory.service";
 import {NzTypographyComponent} from "ng-zorro-antd/typography";
 import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {NzMessageService} from "ng-zorro-antd/message";

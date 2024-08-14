@@ -10,7 +10,6 @@ import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixD
 import {NgForOf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {DirectoryModel} from "../../model/directory.model";
 
 @Component({
   selector: 'app-form-profile-edit',

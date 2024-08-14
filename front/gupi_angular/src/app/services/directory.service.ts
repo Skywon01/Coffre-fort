@@ -1,12 +1,8 @@
 import {Injectable} from "@angular/core";
-import {apiRoot, ApiService, httpoptions} from "./api.service";
+import {apiRoot, httpoptions} from "./api.service";
 import {lastValueFrom, Observable} from "rxjs";
-import {} from "../model/user.model";
 import {DirectoryModel} from "../model/directory.model";
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {UserService} from "./user.service";
-import {AuthService} from "./authentification/auth.service";
-
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',

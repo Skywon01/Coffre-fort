@@ -4,7 +4,6 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {DirectoryService} from "../../services/directory.service";
 import {AuthService} from "../../services/authentification/auth.service";
 import {UserModel} from "../../model/user.model";
-import {NotificationModel} from "../../model/userNotification.model";
 import {UsernotificationService} from "../../services/usernotification.service";
 
 @Component({

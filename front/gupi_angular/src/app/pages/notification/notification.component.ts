@@ -3,7 +3,6 @@ import {PageService} from "../../services/page/page.component";
 import {NotificationListComponent} from "../../components/notification-list/notification-list.component";
 import {UserService} from "../../services/user.service";
 
-import {UserModel} from "../../model/user.model";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../services/authentification/auth.service";
 

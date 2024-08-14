@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../../model/user.model";
-import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../services/api.service";
 import {DirectoryModel} from "../../model/directory.model";
@@ -24,20 +22,20 @@ export class SingleDirectoryDisplayerComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            this.directory_id = params['id'];
-            this.loadDirectoryDetails();
-        });
+        // this.route.params.subscribe(params => {
+        //     this.directory_id = params['id'];
+        //     this.loadDirectoryDetails();
+        // });
     }
 
-    loadDirectoryDetails() {
-        this.apiService.retrieveDirectoryById(this.directory_id).subscribe(
-            (data) => {
-                this.directory = data;
-            },
-            (error) => {
-                console.error('Erreur de récupération:', error);
-            }
-        );
-    }
+    // loadDirectoryDetails() {
+    //     this.apiService.retrieveDirectoryById(this.directory_id).subscribe(
+    //         (data) => {
+    //             this.directory = data;
+    //         },
+    //         (error) => {
+    //             console.error('Erreur de récupération:', error);
+    //         }
+    //     );
+    // }
 }

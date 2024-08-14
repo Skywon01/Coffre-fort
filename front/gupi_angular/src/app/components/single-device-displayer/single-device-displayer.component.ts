@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {DeviceModel} from "../../model/device.model";
-import {NzMessageService} from "ng-zorro-antd/message";
 import {DeviceService} from "../../services/device.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../services/api.service";

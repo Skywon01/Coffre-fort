@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {DirectoryService} from "../../services/directory.service";
-import {ApiService} from "../../services/api.service";
 
 @Component({
     selector: 'app-upload-file',

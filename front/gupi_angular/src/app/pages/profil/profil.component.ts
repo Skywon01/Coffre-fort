@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NzButtonComponent, NzButtonShape, NzButtonSize} from "ng-zorro-antd/button";
+import {NzButtonComponent, NzButtonShape} from "ng-zorro-antd/button";
 import {NzQRCodeComponent} from "ng-zorro-antd/qr-code";
 import {PageService} from "../../services/page/page.component";
 import {NzIconDirective} from "ng-zorro-antd/icon";

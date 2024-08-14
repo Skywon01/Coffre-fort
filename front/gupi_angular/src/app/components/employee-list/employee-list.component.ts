@@ -6,7 +6,6 @@ import {SingleEmployeeDisplayerComponent} from "../single-employee-displayer/sin
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzUploadChangeParam, NzUploadComponent} from "ng-zorro-antd/upload";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import {UploadFileComponent} from "../upload-file/upload-file.component";
 import {UploadFileUserComponent} from "../upload-file-user/upload-file-user.component";
 
 @Component({

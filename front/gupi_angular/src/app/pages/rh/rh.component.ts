@@ -7,9 +7,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserModel} from "../../model/user.model";
-import {
-    SingleEmployeeDisplayerComponent
-} from "../../components/single-employee-displayer/single-employee-displayer.component";
+import {SingleEmployeeDisplayerComponent} from "../../components/single-employee-displayer/single-employee-displayer.component";
 
 @Component({
     selector: 'app-rh',

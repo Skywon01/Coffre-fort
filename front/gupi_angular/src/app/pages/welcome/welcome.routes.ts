@@ -7,9 +7,7 @@ import {NotificationComponent} from "../notification/notification.component";
 import {DeviceComponent} from "../device/device.component";
 import {ProfilComponent} from "../profil/profil.component";
 import {ProfilUpdateComponent} from "../../components/profil-update/profil-update.component";
-import {
-    SingleEmployeeDisplayerComponent
-} from "../../components/single-employee-displayer/single-employee-displayer.component";
+import {SingleEmployeeDisplayerComponent} from "../../components/single-employee-displayer/single-employee-displayer.component";
 import {LoginComponent} from "../login/login.component";
 import {AuthGuard} from "../../services/authentification/auth.guard";
 

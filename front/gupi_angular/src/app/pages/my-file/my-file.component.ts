@@ -3,11 +3,8 @@ import {PageService} from "../../services/page/page.component";
 import {ListFileComponent} from "../../components/list-file/list-file.component";
 import {ListDirectoriesComponent} from "../../components/list-directories/list-directories.component";
 import {ActivatedRoute} from "@angular/router";
-import {UserService} from "../../services/user.service";
 import {DirectoryService} from "../../services/directory.service";
-import {DeviceModel} from "../../model/device.model";
 import {DirectoryModel} from "../../model/directory.model";
-import {UserModel} from "../../model/user.model";
 
 @Component({
   selector: 'app-my-file',
