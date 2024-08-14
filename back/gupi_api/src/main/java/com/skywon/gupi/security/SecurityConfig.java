@@ -52,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers("/register").hasAnyAuthority("ADMIN")
                         .requestMatchers("/api/file/upload-to-user-folder/").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api").hasAnyAuthority("GOD")
 
 
                         .anyRequest().permitAll()
