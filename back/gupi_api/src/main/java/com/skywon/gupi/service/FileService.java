@@ -150,6 +150,11 @@ public class FileService {
         return fileRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Supprime un fichier
+     * @param id
+     * @throws IOException
+     */
     public void deleteFile(Integer id) throws IOException {
         // Récupérer le fichier depuis la base de données
         com.skywon.gupi.entity.File file = fileRepository.findById(id).orElseThrow(() -> new FileNotFoundException("File not found"));
@@ -168,7 +173,11 @@ public class FileService {
         fileRepository.deleteById(id);
     }
 
-
+    /**
+     * Récupère la liste de fichiers dans un répertoire
+     * @param directory_id
+     * @return
+     */
     public List<com.skywon.gupi.entity.File> getFilesByDirectoryId(Integer directory_id) {
         return fileRepository.findByDirectory_Id(directory_id);
     }

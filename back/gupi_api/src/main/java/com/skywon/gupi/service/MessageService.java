@@ -22,6 +22,11 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
+    /**
+     * Crée un message
+     * @param message
+     * @return
+     */
     public Message createMessage(Message message) {
         message.setTimestamp(LocalDateTime.now());
         return messageRepository.save(message);
