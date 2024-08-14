@@ -50,6 +50,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers("/register").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api/file/upload-to-user-folder/").hasAnyAuthority("ADMIN")
 
 
                         .anyRequest().permitAll()
