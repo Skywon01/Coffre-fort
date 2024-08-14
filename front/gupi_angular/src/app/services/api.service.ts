@@ -5,9 +5,9 @@ import {DirectoryModel} from "../model/directory.model";
 import {AuthService} from "./authentification/auth.service";
 
 /**
- * Nom de domaine de l'api GUPI
+ * Nom de domaine de l'api GUPI en environnement de développement local
  */
-export const apiRoot = "http://localhost:8080/api" //url de test dans un premier temps
+export const apiRoot = "http://localhost:8080/api"
 
 /**
  * Ici on commence la communication Http
@@ -44,6 +44,10 @@ export class ApiService {
         });
     }
 
+    /**
+     * Filtre l'affichage des éléments de la page en fonction des rôles de l'utilisateur
+     * @param requiredRole
+     */
     public isAuthorized(requiredRole: string): boolean {
         const userRoles = this.authService.getRoles();
         // console.log("Rôles récupérés:", userRoles);

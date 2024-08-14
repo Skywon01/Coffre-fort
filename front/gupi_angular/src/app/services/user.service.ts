@@ -16,6 +16,9 @@ export class UserService {
     ) {
     }
 
+    /**
+     * Récupère les informations contenues dans le header
+     */
     public getAuthHeaders(): HttpHeaders {
         const token = this.authService.getUser();
         return new HttpHeaders({
@@ -52,19 +55,34 @@ export class UserService {
         return this.http.get<UserModel>(`${apiRoot}/users/${id}`, httpoptions);
     }
 
+    /**
+     * Récupère un utilisateur unique
+     * @param user_id
+     */
     retrieveUserById(user_id: number): Observable<any> {
         return this.http.get(`${apiRoot}/users/${user_id}`, httpoptions);
     }
 
+    /**
+     * Inscrit un utilisateur
+     * @param user
+     */
     registerUser(user: any): Observable<any> {
         return this.http.post(`${apiRoot}/register`, user, httpoptions)
     }
 
+    /**
+     * Met à jour un utilisateur
+     * @param id
+     * @param user
+     */
     updateUser(id: number, user: any): Observable<any> {
         return this.http.put<UserModel>(`${apiRoot}/users/${id}`, user, httpoptions);
     }
 
-
+    /**
+     * Récupère tous les utilisateurs
+     */
     getUsers() {
         return this.http.get<UserModel[]>(`${apiRoot}/users`, httpoptions)
     }

@@ -53,22 +53,42 @@ export class DeviceService {
         return temp
     }
 
+    /**
+     * Récupère les appareils d'un utilisateur
+     * @param userId
+     */
     getDevicesByUserId(userId: number): Observable<DeviceModel[]> {
         return this.http.get<DeviceModel[]>(`${apiRoot}/device/user/${userId}`, httpoptions);
     }
 
+    /**
+     * Met à jour un appareil
+     * @param id
+     * @param device
+     */
     updateDevice(id: number, device: any): Observable<DeviceModel> {
         return this.http.put<DeviceModel>(`${apiRoot}/device/${id}`, device, httpoptions);
     }
 
+    /**
+     * Retire la lien d'un appareil à un utilisateur
+     * @param device_id
+     */
     unsetDevice(device_id: number): Observable<DeviceModel> {
         return this.http.put<DeviceModel>(`${apiRoot}/device/unset/${device_id}`,{},  httpoptions);
     }
 
+    /**
+     * Supprime un appareil
+     * @param device_id
+     */
     deleteDevice(device_id: number): Observable<any> {
         return this.http.delete(`${apiRoot}/device/${device_id}`, httpoptions);
     }
 
+    /**
+     * Récupère les appareils
+     */
     getDevices() {
         return this.http.get<DeviceModel[]>(`${apiRoot}/device`, httpoptions)
     }

@@ -75,11 +75,21 @@ export class DirectoryService {
         return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/parents`, httpoptions);
     }
 
+    /**
+     * Récupère les dossiers enfants
+     * @param user_id
+     */
     getUserChildDirectories(user_id: number | undefined): Observable<DirectoryModel[]> {
         return this.http.get<DirectoryModel[]>(`${apiRoot}/directories/user/${user_id}/children`, httpoptions);
     }
 
-
+    /**
+     * Envoie un fichier dans le répertoire "fichiers envoyés" d'un utilisateur
+     * @param file
+     * @param user_id
+     * @param senderName
+     * @param senderFirstName
+     */
     uploadFileToUserFolder(file: File, user_id: number, senderName: string, senderFirstName: string): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file);
@@ -92,6 +102,10 @@ export class DirectoryService {
         });
     }
 
+    /**
+     * Supprime un répertoire/dossier
+     * @param id
+     */
     deleteDirectory(id: number): Observable<void> {
         return this.http.delete<void>(`${apiRoot}/directories/${id}`, httpoptions);
     }

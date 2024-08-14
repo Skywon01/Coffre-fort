@@ -14,11 +14,18 @@ export class FileService {
     constructor(private http: HttpClient) {}
 
 
-
+    /**
+     * Récupère les fichiers contenus dans un dossier
+     * @param directory_id
+     */
     getFilesByDirectoryId(directory_id: number): Observable<FileModel[]> {
         return this.http.get<FileModel[]>(`${apiRoot}/file/directory/${directory_id}`, httpoptions);
     }
 
+    /**
+     * Télécharge un fichier
+     * @param fileId
+     */
     downloadFile(fileId: number): Observable<HttpResponse<Blob>> {
         return this.http.get(`${apiRoot}/file/download/${fileId}`, {
             responseType: 'blob',
@@ -28,6 +35,10 @@ export class FileService {
         });
     }
 
+    /**
+     * Supprime un fichier
+     * @param id
+     */
     deleteFile(id: number): Observable<void> {
         return this.http.delete<void>(`${apiRoot}/file/${id}`, httpoptions);
     }

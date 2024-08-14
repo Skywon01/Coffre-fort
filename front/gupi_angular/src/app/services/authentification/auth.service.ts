@@ -37,6 +37,9 @@ export class AuthService {
             }));
     }
 
+    /**
+     * Actualise le profil de l'utilisateur
+     */
     refreshUserProfile(): Observable<UserModel> {
         const userId = this.getCurrentUserId(); // Méthode pour obtenir l'ID de l'utilisateur connecté
         return this.http.get<UserModel>(`${apiRoot}/users/${userId}`, httpoptions).pipe(
@@ -50,7 +53,10 @@ export class AuthService {
         return userStr ? JSON.parse(userStr) : null;
     }
 
-
+    /**
+     * Récupère l'id de l'utilisateur connecté en session
+     * @private
+     */
     private getCurrentUserId(): number {
         const user = JSON.parse(sessionStorage.getItem('user') || '{}');
         return user.id;
@@ -69,11 +75,17 @@ export class AuthService {
         this.currentUserSubject.next(user);
     }
 
+    /**
+     * Récupère les informations de l'utilisateur connecté en session
+     */
     getUser(): any {
         const user = sessionStorage.getItem('user');
         return user ? JSON.parse(user) : null;
     }
 
+    /**
+     * Récupère les rôles de l'utilisateur connecté en session
+     */
     getRoles(): { id: number, name: string, authority: string }[] {
         const roles = sessionStorage.getItem('roles');
         return roles ? JSON.parse(roles) : [];

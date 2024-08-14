@@ -7,9 +7,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {BreadcrumbComponent} from "./components/breadcrumb/breadcrumb.component";
 import {UserIconComponent} from "./components/user-icon/user-icon.component";
 import {NzColDirective} from "ng-zorro-antd/grid";
-import {
-    SingleEmployeeDisplayerComponent
-} from "./components/single-employee-displayer/single-employee-displayer.component";
+import {SingleEmployeeDisplayerComponent} from "./components/single-employee-displayer/single-employee-displayer.component";
 import {UserModel} from "./model/user.model";
 import {UserService} from "./services/user.service";
 import {EmployeeListComponent} from "./components/employee-list/employee-list.component";
