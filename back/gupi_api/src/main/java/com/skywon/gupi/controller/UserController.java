@@ -2,11 +2,19 @@ package com.skywon.gupi.controller;
 
 import com.skywon.gupi.entity.User;
 import com.skywon.gupi.repository.UserRepository;
+import com.skywon.gupi.service.EmailService;
 import com.skywon.gupi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static com.skywon.gupi.manager.JwtTokenManager.generateToken;
 
 @RestController
 @RequestMapping("api/users")
@@ -17,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     /**
      * Récupérer tous les utilisateurs
@@ -75,5 +86,38 @@ public class UserController {
         }else throw new RuntimeException("User not found");
     }
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
+        User user = userService.findByEmail(request.get("email"));
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email non trouvé");
+        }
 
+        sendResetEmail(user);
+        return ResponseEntity.ok("Email de réinitialisation envoyé");
+    }
+
+
+    public void sendResetEmail(User user) {
+        String resetToken = generateToken();
+        user.setResetToken(resetToken);
+        user.setTokenExpiration(LocalDateTime.now().plusMinutes(15));  // Expire après 15 minutes
+        userRepository.save(user);
+        String resetUrl = "/reset-password?resetToken=" + user.getResetToken();
+        emailService.sendEmail(user.getEmail(), "Réinitialisation du mot de passe", "Cliquez sur le lien pour réinitialiser votre mot de passe: " + resetUrl);
+    }
+
+    private String generateToken() {
+        return UUID.randomUUID().toString();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestParam String resetToken, @RequestBody Map<String, String> request) {
+        try {
+            userService.resetPassword(resetToken, request.get("newPassword"));
+            return ResponseEntity.ok("Mot de passe réinitialisé avec succès");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }

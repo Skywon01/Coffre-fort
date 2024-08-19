@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,8 @@ public class User implements UserDetails {
     private String job;
     private String token;
     private boolean active;
+    private String resetToken;
+    private LocalDateTime tokenExpiration;
 
 
     //@Temporal(TemporalType.TIMESTAMP)

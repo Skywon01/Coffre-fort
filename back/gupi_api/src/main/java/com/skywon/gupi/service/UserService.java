@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -47,7 +48,6 @@ public class UserService implements UserDetailsService {
 
     public User createUser(User user){
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
         user.setPassword(encryptedPassword);
         return this.userRepository.save(user);
     }
@@ -95,7 +95,7 @@ public class UserService implements UserDetailsService {
             user.setJob(newUser.getJob());
         }
         if (newUser.getPassword() != null && !newUser.getPassword().isEmpty()) {
-            user.setPassword(newUser.getPassword());
+            user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         }
         return userRepository.save(user);
 
@@ -124,5 +124,17 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public void resetPassword(String token, String newPassword) throws Exception {
+        User user = userRepository.findByResetToken(token);
+        if (user == null || user.getTokenExpiration().isBefore(LocalDateTime.now())) {
+            throw new Exception("Token invalide ou expiré");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetToken(null);
+        user.setTokenExpiration(null);
+        userRepository.save(user);
     }
 }
