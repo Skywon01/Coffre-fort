@@ -16,7 +16,16 @@
         </nz-form-control>
     </nz-form-item>
     <div class="login-form-margin" nz-row>
-        <a class="login-form-forgot">Mot de passe oublié ?</a>
+        <a class="login-form-forgot" (click)="forgot = !forgot">Mot de passe oublié ?</a>
+        @if(forgot){
+            <app-form-forgot-password></app-form-forgot-password>
+        }
     </div>
+    @if(!forgot){
+
     <button [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>Je me connecte</button>
+    }
+    @if(forgot){
+        <a (click)="forgot = !forgot">Annuler</a>
+    }
 </form>

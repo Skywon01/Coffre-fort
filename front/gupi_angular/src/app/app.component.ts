@@ -20,12 +20,12 @@ import {LoginComponent} from "./pages/login/login.component";
 import {ApiService} from "./services/api.service";
 import {Observable} from "rxjs";
 import {NzSpinComponent} from "ng-zorro-antd/spin";
-
+import { NzMessageModule} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent, NzCardComponent, NzInputGroupComponent, NzInputDirective, NzFlexDirective, ChatComponent, LoginComponent, NgOptimizedImage, NzSpinComponent],
+    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, BreadcrumbComponent, UserIconComponent, NzColDirective, RouterLinkActive, SingleEmployeeDisplayerComponent, EmployeeListComponent, NzCardComponent, NzInputGroupComponent, NzInputDirective, NzFlexDirective, ChatComponent, LoginComponent, NgOptimizedImage, NzSpinComponent, NzMessageModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

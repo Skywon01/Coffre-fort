@@ -13,6 +13,7 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {AuthService} from "../../services/authentification/auth.service";
 import {Router} from "@angular/router";
+import {FormForgotPasswordComponent} from "../form-forgot-password/form-forgot-password.component";
 
 @Component({
     selector: 'app-login-form',
@@ -28,12 +29,14 @@ import {Router} from "@angular/router";
         NzCheckboxComponent,
         NzButtonComponent,
         NzFormDirective,
-        NzFormLabelComponent
+        NzFormLabelComponent,
+        FormForgotPasswordComponent
     ],
     templateUrl: './login-form.component.html',
     styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
+    forgot : boolean = false;
     validateForm: FormGroup<{
         userName: FormControl<string>;
         password: FormControl<string>;

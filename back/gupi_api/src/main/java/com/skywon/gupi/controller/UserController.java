@@ -31,6 +31,7 @@ public class UserController {
 
     /**
      * Récupérer tous les utilisateurs
+     *
      * @return
      */
     @GetMapping("")
@@ -40,6 +41,7 @@ public class UserController {
 
     /**
      * Récupérer un seul utilisateur
+     *
      * @param id
      * @return
      */
@@ -51,6 +53,7 @@ public class UserController {
     /**
      * Enregistrer un utilisateur,
      * on passe par la méthode createUser de UserService
+     *
      * @param user
      * @return
      */
@@ -76,6 +79,7 @@ public class UserController {
 
     /**
      * Suppression de l'utilisateur
+     *
      * @param id
      */
     @DeleteMapping("/{id}")
@@ -83,27 +87,29 @@ public class UserController {
         if (userRepository.existsById(id)) {
             this.userService.deleteById(id);
 
-        }else throw new RuntimeException("User not found");
+        } else throw new RuntimeException("User not found");
     }
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
-        User user = userService.findByEmail(request.get("email"));
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email non trouvé");
+        try {
+            String email = request.get("email");
+            User user = userService.findByEmail(email);
+            if (user != null) {
+                sendResetEmail(user);
+            }
+        } catch (Exception ignored) {
+
         }
-
-        sendResetEmail(user);
-        return ResponseEntity.ok("Email de réinitialisation envoyé");
+        return ResponseEntity.ok("Email envoyé.");
     }
-
 
     public void sendResetEmail(User user) {
         String resetToken = generateToken();
         user.setResetToken(resetToken);
         user.setTokenExpiration(LocalDateTime.now().plusMinutes(15));  // Expire après 15 minutes
         userRepository.save(user);
-        String resetUrl = "/reset-password?resetToken=" + user.getResetToken();
+        String resetUrl = "http://localhost:4200/api/users/reset-password?resetToken=" + user.getResetToken();
         emailService.sendEmail(user.getEmail(), "Réinitialisation du mot de passe", "Cliquez sur le lien pour réinitialiser votre mot de passe: " + resetUrl);
     }
 
