@@ -68,21 +68,24 @@ export class AddUserFormComponent {
     password?: string;
     confirmPassword?: string;
     numbers: number[];
-    form: FormGroup = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        firstName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        address: new FormControl(''),
-        age: new FormControl(''),
-        password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)]),
-        confirmPassword: new FormControl('', [Validators.required]),
-        role_id: new FormControl(''),
-
-    }, { validators: passwordMatchValidator });
-
+    form: FormGroup;
 
     constructor(private userService: UserService, private message: NzMessageService) {
-        this.numbers = Array.from({length: 99}, (_, i) => i + 1);
+        this.numbers = Array.from({ length: 99 }, (_, i) => i + 1);
+        this.form = new FormGroup({
+            name: new FormControl('', [Validators.required]),
+            firstName: new FormControl('', [Validators.required]),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            address: new FormControl(''),
+            age: new FormControl(''),
+            password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)]),
+            confirmPassword: new FormControl('', [Validators.required, this.passwordMatchValidator.bind(this)]),
+            role_id: new FormControl(''),
+        }, { validators: passwordMatchValidator });
+
+        this.form.get('password')?.valueChanges.subscribe(() => {
+            this.form.get('confirmPassword')?.updateValueAndValidity();
+        });
     }
 
     onSubmit() {
@@ -103,5 +106,15 @@ export class AddUserFormComponent {
                 }
             });
         }
+    }
+
+    passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+        if (!this.form) {
+            return null;
+        }
+        const password = this.form.get('password')?.value;
+        const confirmPassword = control.value;
+
+        return password === confirmPassword ? null : { passwordMismatch: true };
     }
 }

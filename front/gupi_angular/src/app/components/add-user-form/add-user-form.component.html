@@ -27,7 +27,7 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24">Adresse</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <nz-form-control [nzSm]="14" [nzXs]="24">
             <input nz-input id="adresse" formControlName="address"/>
         </nz-form-control>
     </nz-form-item>
@@ -44,14 +44,13 @@
                 />
             </nz-input-group>
             <ng-template #suffixTemplate>
-      <span
-          (click)="passwordVisible = !passwordVisible"
-          [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-          nz-icon
-      ></span>
+        <span
+            (click)="passwordVisible = !passwordVisible"
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            nz-icon
+        ></span>
             </ng-template>
         </nz-form-control>
-
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Confirmer</nz-form-label>
@@ -66,14 +65,13 @@
                 />
             </nz-input-group>
             <ng-template #confirmSuffixTemplate>
-                <span
-                    (click)="passwordVisible = !passwordVisible"
-                    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                    nz-icon
-                ></span>
+        <span
+            (click)="passwordVisible = !passwordVisible"
+            [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            nz-icon
+        ></span>
             </ng-template>
         </nz-form-control>
-<nz-alert *ngIf="!passwordsMatch" nzType="error" nzMessage="Les mots de passe ne correspondent pas"></nz-alert>
     </nz-form-item>
     <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
@@ -81,4 +79,3 @@
         </nz-form-control>
     </nz-form-item>
 </form>
-
