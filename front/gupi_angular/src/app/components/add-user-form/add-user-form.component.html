@@ -73,6 +73,7 @@
                 ></span>
             </ng-template>
         </nz-form-control>
+<nz-alert *ngIf="!passwordsMatch" nzType="error" nzMessage="Les mots de passe ne correspondent pas"></nz-alert>
     </nz-form-item>
     <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
@@ -80,3 +81,4 @@
         </nz-form-control>
     </nz-form-item>
 </form>
+

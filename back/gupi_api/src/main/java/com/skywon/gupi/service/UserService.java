@@ -46,7 +46,13 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public User createUser(User user){
+    public User createUser(User user) throws Exception {
+        String password = user.getPassword();
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+        if (!password.matches(passwordRegex)) {
+            throw new Exception("Le mot de passe ne respecte pas les règles de sécurité.");
+        }
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         return this.userRepository.save(user);

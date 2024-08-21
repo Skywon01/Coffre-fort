@@ -58,7 +58,7 @@ public class UserController {
      * @return
      */
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public User save(@RequestBody User user) {
+    public User save(@RequestBody User user) throws Exception {
         return this.userService.createUser(user);
 
 
