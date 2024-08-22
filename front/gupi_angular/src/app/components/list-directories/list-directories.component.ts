@@ -76,11 +76,19 @@ export class ListDirectoriesComponent implements OnInit {
             this.loadUserDirectories(this.user_id);
         }
     }
+    private prioritizeDirectory(directories: DirectoryModel[]): DirectoryModel[] {
+        const index = directories.findIndex(dir => dir.name === "Documents envoyés");
+        if (index > -1) {
+            const [sentDocuments] = directories.splice(index, 1);
+            directories.unshift(sentDocuments);
+        }
+        return directories;
+    }
 
     loadUserDirectories(userId: number | undefined): void {
         this.directoryService.getUserParentDirectories(userId).subscribe(parentDirectories => {
             this.directoryService.getUserChildDirectories(userId).subscribe(childDirectories => {
-                this.tuyauDeDirectory = this.buildHierarchy(parentDirectories, childDirectories);
+                this.tuyauDeDirectory = this.prioritizeDirectory(this.buildHierarchy(parentDirectories, childDirectories));
             });
         });
     }
