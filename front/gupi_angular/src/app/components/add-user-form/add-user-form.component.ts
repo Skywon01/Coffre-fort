@@ -23,6 +23,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {UserService} from "../../services/user.service";
 import {NzAlertComponent} from "ng-zorro-antd/alert";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
 
 export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
@@ -53,7 +54,8 @@ export function passwordMatchValidator(control: AbstractControl): ValidationErro
         NzIconDirective,
         FormsModule,
         NzAlertComponent,
-        NgIf
+        NgIf,
+        NzInputNumberComponent
     ],
     templateUrl: './add-user-form.component.html',
     styleUrl: './add-user-form.component.css'
