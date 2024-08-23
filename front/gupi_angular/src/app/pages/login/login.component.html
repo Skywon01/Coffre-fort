@@ -5,11 +5,25 @@
         <h1 class="login-title">Bienvenue sur GUPI</h1>
         <h2 class="login-title">Veuillez vous connecter</h2>
         <app-login-form></app-login-form>
-        <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Instructions</span></button>
-        <nz-modal [(nzVisible)]="isVisible" nzTitle="Comment utiliser GUPI" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-            <ng-container *nzModalContent>
+        <a (click)="showModal()">Comment utiliser l'application</a>
+
+        <nz-modal
+            [(nzVisible)]="isVisible"
+            [nzTitle]="modalTitle"
+            [nzContent]="modalContent"
+            [nzFooter]="modalFooter"
+            (nzOnCancel)="handleCancel()"
+        >
+            <ng-template #modalTitle>Instructions</ng-template>
+
+            <ng-template #modalContent>
                 <app-instructions></app-instructions>
-            </ng-container>
+            </ng-template>
+
+            <ng-template #modalFooter>
+                <button nz-button nzType="default" (click)="handleCancel()">Fermer</button>
+
+            </ng-template>
         </nz-modal>
     </div>
 
