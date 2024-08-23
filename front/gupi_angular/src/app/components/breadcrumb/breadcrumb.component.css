@@ -10,8 +10,17 @@ nz-breadcrumb {
     justify-content: flex-start;
     align-items: flex-end;
     margin: 0;
+    @media  (width <= 768px){
+        text-align: center;
+    }
 }
 
 .nz-icon {
     font-size: 30px;
+}
+@media (width <=768px) {
+
+.breadcrumb-text-mobile{
+    display: none;
+}
 }
