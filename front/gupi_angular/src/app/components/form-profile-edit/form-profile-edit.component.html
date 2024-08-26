@@ -19,10 +19,8 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24">Age</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24">
-            <select formControlName="age" id="age" type="number">
-
-            </select>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Age compris entre 18 et 99 ans">
+            <nz-input-number [nzMax]="99" [nzMin]="18" formControlName="age" id="age" type="number"/>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -43,7 +41,6 @@
             <input nz-input id="job" formControlName="job"/>
         </nz-form-control>
     </nz-form-item>
-
     <nz-form-item nz-row class="register-area">
         <nz-form-control [nzSpan]="14" [nzOffset]="6">
             <button nz-button nzType="primary">Mettre à jour le profil</button>

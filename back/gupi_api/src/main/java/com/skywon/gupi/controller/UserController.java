@@ -5,10 +5,17 @@ import com.skywon.gupi.repository.UserRepository;
 import com.skywon.gupi.service.EmailService;
 import com.skywon.gupi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -126,4 +133,37 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @PostMapping("/{id}/profile-image")
+    public ResponseEntity<?> uploadProfileImage(@PathVariable Integer id, @RequestParam("image") MultipartFile image) {
+        try {
+            User updatedUser = userService.updateProfileImage(id, image);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/profile-image/{userId}")
+    public ResponseEntity<Resource> getProfileImage(@PathVariable Integer userId) {
+        try {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+            String filename = user.getProfile();
+            Path filePath = Paths.get(filename);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)  // ou MediaType.IMAGE_PNG selon le type d'image
+                        .body(resource);
+            } else {
+                throw new RuntimeException("Impossible de lire le fichier : " + filename);
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Erreur : " + e.getMessage());
+        }
+    }
+
 }

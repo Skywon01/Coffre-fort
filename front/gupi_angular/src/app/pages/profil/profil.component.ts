@@ -12,6 +12,9 @@ import {DeviceModel} from "../../model/device.model";
 import {DeviceService} from "../../services/device.service";
 import {FormProfileEditComponent} from "../../components/form-profile-edit/form-profile-edit.component";
 import {ListDeviceOwnedComponent} from "../../components/list-device-owned/list-device-owned.component";
+import {UploadProfilePictureComponent} from "../../components/upload-profile-picture/upload-profile-picture.component";
+import {apiRoot} from "../../services/api.service";
+import {ProfileImageService} from "../../services/profileImage.service";
 
 
 @Component({
@@ -27,7 +30,8 @@ import {ListDeviceOwnedComponent} from "../../components/list-device-owned/list-
         NgIf,
         DeviceListComponent,
         FormProfileEditComponent,
-        ListDeviceOwnedComponent
+        ListDeviceOwnedComponent,
+        UploadProfilePictureComponent
     ],
     templateUrl: './profil.component.html',
     styleUrl: './profil.component.css'
@@ -37,8 +41,9 @@ export class ProfilComponent implements OnInit {
     devices: DeviceModel[] = [];
     shape: NzButtonShape = 'round'
     showUpdateProfile: boolean = false;
+    profileImageUrl: string | null = null;
 
-    constructor(private pageService: PageService, protected authService: AuthService, private deviceService: DeviceService,) {
+    constructor(private pageService: PageService, protected authService: AuthService, private deviceService: DeviceService, private profileImageService: ProfileImageService) {
         this.pageService.setComponentType('profile', 'Mon profil', 'Veuillez trouver vos informations personnelles');
     }
 
@@ -46,6 +51,11 @@ export class ProfilComponent implements OnInit {
         this.user = this.authService.getUser();
         if (this.user) {
             this.loadUserDevices(this.user.id);
+        this.profileImageService.profileImageUpdated.subscribe(imageUrl => {
+            console.log('Réception de l\'événement avec l\'URL de l\'image :', imageUrl);
+            this.profileImageUrl = imageUrl;
+        });
+        this.loadProfileImage();
         }
     }
 
@@ -65,6 +75,11 @@ export class ProfilComponent implements OnInit {
         this.deviceService.getDevicesByUserId(userId).subscribe((devices: DeviceModel[]) => {
             this.devices = devices;
         });
+    }
+
+    loadProfileImage(): void {
+        const userId = this.authService.getUser().id;
+        this.profileImageUrl = `${apiRoot}/users/profile-image/${userId}`;
     }
 
     public justifySegment: NzJustify[] = [

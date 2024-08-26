@@ -1,0 +1,4 @@
+<div class="upload-profile-picture">
+    <input type="file" (change)="onFileSelected($event)">
+    <button (click)="onUpload()" [disabled]="!selectedFile">Télécharger la photo de profil</button>
+</div>

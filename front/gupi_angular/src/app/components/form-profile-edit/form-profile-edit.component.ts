@@ -10,6 +10,8 @@ import {NzInputDirective, NzInputGroupComponent, NzInputGroupWhitSuffixOrPrefixD
 import {NgForOf} from "@angular/common";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzInputNumberComponent} from "ng-zorro-antd/input-number";
+import {NzUploadComponent, NzUploadFile} from "ng-zorro-antd/upload";
 
 @Component({
   selector: 'app-form-profile-edit',
@@ -27,7 +29,9 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
         NzInputGroupComponent,
         NzIconDirective,
         NzRowDirective,
-        NzButtonComponent
+        NzButtonComponent,
+        NzInputNumberComponent,
+        NzUploadComponent
     ],
   templateUrl: './form-profile-edit.component.html',
   styleUrl: './form-profile-edit.component.css'
@@ -53,6 +57,7 @@ export class FormProfileEditComponent implements OnInit{
             age: new FormControl(''),
             company: new FormControl(''),
             job: new FormControl(''),
+            photo: new FormControl(''),
             password: new FormControl('', []),
             confirmPassword: new FormControl('', []),
             role_id: new FormControl('')
@@ -77,6 +82,7 @@ export class FormProfileEditComponent implements OnInit{
                 age: user.age,
                 company: user.company,
                 job: user.job,
+                photo: user.profile
             });
         });
     }
@@ -108,6 +114,12 @@ export class FormProfileEditComponent implements OnInit{
                     control.updateValueAndValidity({ onlySelf: true });
                 }
             });
+        }
+    }
+    handleChange(info: { file: NzUploadFile }): void {
+        if (info.file.status === 'done') {
+            // Met à jour l'URL de la photo dans le formulaire
+            this.form.patchValue({ photo: info.file.response.url });
         }
     }
 }

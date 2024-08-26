@@ -8,9 +8,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -142,5 +149,26 @@ public class UserService implements UserDetailsService {
         user.setResetToken(null);
         user.setTokenExpiration(null);
         userRepository.save(user);
+    }
+
+    public User updateProfileImage(Integer id, MultipartFile file) throws Exception {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new Exception("Utilisateur non trouvé"));
+
+        String imagePath = saveImage(file);  // Sauvegarde l'image et récupère son chemin
+        user.setProfile(imagePath);
+
+        return userRepository.save(user);
+    }
+
+    private String saveImage(MultipartFile file) throws IOException {
+        String uploadDir = "uploads/profile_pictures/";
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        Path filePath = Paths.get(uploadDir + fileName);
+
+        Files.createDirectories(filePath.getParent());
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return filePath.toString();  // Retourne le chemin complet de l'image
     }
 }
