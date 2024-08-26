@@ -2,10 +2,10 @@
 
     <app-form-profile-edit [tuyauDeUsers]="user" (profileUpdate)="onProfileUpdate()"></app-form-profile-edit>
 }
-<app-upload-profile-picture></app-upload-profile-picture>
+
 <div class="profile-container">
 
-    <div nz-row >
+    <div nz-row>
         <div>
             <div
                 [nzAlign]="alignSegment[selectedLAlignment]"
@@ -17,7 +17,10 @@
                     <div class="profil-col">
             <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
                   class="profil-edit" (click)="showUpdateProfile = !showUpdateProfile"></span>
-                        <div class="profil" [style.background-image]="'url(' + profileImageUrl + ')'"></div>
+                        <div>
+                            <div class="profil" [style.background-image]="'url(' + profileImageUrl + ')'"></div>
+                            <app-upload-profile-picture></app-upload-profile-picture>
+                        </div>
                         <h2>{{ user.name }} {{ user.firstName }}</h2>
                         <h3>Assistante administrative</h3>
                         <h2>Société</h2>

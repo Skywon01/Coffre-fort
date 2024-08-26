@@ -1,4 +1,8 @@
+<span nz-icon nzType="plus-circle" nzTheme="outline" (click)="fileInput.click()"></span>
+
 <div class="upload-profile-picture">
-    <input type="file" (change)="onFileSelected($event)">
-    <button (click)="onUpload()" [disabled]="!selectedFile">Télécharger la photo de profil</button>
+    <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+    @if (selectedFile){
+    <button (click)="onUpload()" [disabled]="!selectedFile">Mettre à jour</button>
+    }
 </div>

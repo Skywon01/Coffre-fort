@@ -3,11 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../services/authentification/auth.service";
 import {apiRoot, httpoptions} from "../../services/api.service";
 import {ProfileImageService} from "../../services/profileImage.service";
+import {NzIconDirective} from "ng-zorro-antd/icon";
 
 @Component({
   selector: 'app-upload-profile-picture',
   standalone: true,
-  imports: [],
+    imports: [
+        NzIconDirective
+    ],
   templateUrl: './upload-profile-picture.component.html',
   styleUrl: './upload-profile-picture.component.css'
 })
