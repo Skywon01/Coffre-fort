@@ -2,9 +2,13 @@ package com.skywon.gupi.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -23,12 +27,24 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     private String name;
+
+    @NotBlank
     private String firstName;
+
     private Integer age;
+
     private String address;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 8)
     private String password;
+
     private String profile;
     private String company;
     private String job;
@@ -37,12 +53,9 @@ public class User implements UserDetails {
     private String resetToken;
     private LocalDateTime tokenExpiration;
 
-
-    //@Temporal(TemporalType.TIMESTAMP)
-    //@Column(name = "date_creation", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_creation", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date dateCreation;
-    // datetime 2024-05-16 11:42:11:00
-    // timestamp 1715852566
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("user-directory")
@@ -50,7 +63,6 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

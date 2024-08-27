@@ -39,16 +39,17 @@ public class UserService implements UserDetailsService {
      * @return
      */
     public User byId(Integer id) {
-        return this.userRepository.findById(id).orElse(new User());
+        User user = this.userRepository.findById(id).orElse(new User());
+        user.setPassword(null);  // Ne retourne pas le mot de passe
+        user.setResetToken(null);  // Ne retourne pas le reset token
+        return user;
     }
-
 
     /**
      * Méthode pour sauvegarder un utilisateur
      * @param user
      * @return
      */
-
     public User save(User user){
         return userRepository.save(user);
     }
@@ -72,7 +73,6 @@ public class UserService implements UserDetailsService {
     public void deleteById(Integer id) {
         this.userRepository.deleteById(id);
     }
-
 
     /**
      * Méthode qui permet de mettre à jour le profil
@@ -111,8 +111,6 @@ public class UserService implements UserDetailsService {
             user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         }
         return userRepository.save(user);
-
-
     }
 
     public User findByEmail(String email){

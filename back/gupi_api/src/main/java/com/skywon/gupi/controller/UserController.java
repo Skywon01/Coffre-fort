@@ -54,7 +54,10 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public User getUser(@PathVariable Integer id) {
-        return this.userService.byId(id);
+        User user = this.userService.byId(id);
+        user.setPassword(null);  // Ne retourne pas le mot de passe
+        user.setResetToken(null);  // Ne retourne pas le reset token
+        return user;
     }
 
     /**
@@ -67,8 +70,6 @@ public class UserController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     public User save(@RequestBody User user) throws Exception {
         return this.userService.createUser(user);
-
-
     }
 
     /**
@@ -93,8 +94,9 @@ public class UserController {
     public void deleteUser(@PathVariable Integer id) {
         if (userRepository.existsById(id)) {
             this.userService.deleteById(id);
-
-        } else throw new RuntimeException("User not found");
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
 
     @PostMapping("/forgot-password")
@@ -106,7 +108,6 @@ public class UserController {
                 sendResetEmail(user);
             }
         } catch (Exception ignored) {
-
         }
         return ResponseEntity.ok("Email envoyé.");
     }
@@ -165,5 +166,4 @@ public class UserController {
             throw new RuntimeException("Erreur : " + e.getMessage());
         }
     }
-
 }
