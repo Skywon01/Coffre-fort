@@ -1,12 +1,12 @@
-.profile-container{
-    width: 75vw;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
+*{
+    color: #5E5E5E;
 }
 .profil-container-items {
     margin-bottom: 1em;
+}
+.profil-page{
+    display: flex;
+    justify-content: center;
 }
 
 .profil-col{
@@ -16,7 +16,7 @@
     margin-bottom: 14px;
     width: 60vw;
     @media (width <=768px){
-        /*width: 100vw;*/
+
     }
 }
 
@@ -24,10 +24,20 @@
     margin-right: 24px;
     width: 150px;
     height: 150px;
+    /* Url par défaut à voir comment l'implémenter */
     /*background-image: url(../../../assets/media/images/profil/img.png);*/
     background-size: cover;
     border-radius: 50%;
     border: 3px solid #ffffff;
+}
+.profil-col-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.profil-pic-container{
+    display: flex;
+    flex-direction: column;
 }
 
 .qr-code{
@@ -48,7 +58,6 @@
 
 .profil-edit{
     font-size: 40px;
-    float: right;
     color: rgba(0,0,0,0.50);
         &:hover{
             cursor: pointer;
@@ -75,9 +84,6 @@
     height: 150px;
 }
 
-div{
-    margin: auto;
-}
 .profile-container-child{
     width: 80vw;
 }

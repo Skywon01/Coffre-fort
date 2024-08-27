@@ -2,6 +2,7 @@
 
     <app-form-profile-edit [tuyauDeUsers]="user" (profileUpdate)="onProfileUpdate()"></app-form-profile-edit>
 }
+<div class="profil-page">
 
 <div class="profile-container">
 
@@ -15,11 +16,13 @@
             >
                 @if (user) {
                     <div class="profil-col">
-            <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit"
-                  class="profil-edit" (click)="showUpdateProfile = !showUpdateProfile"></span>
-                        <div>
-                            <div class="profil" [style.background-image]="'url(' + profileImageUrl + ')'"></div>
-                            <app-upload-profile-picture></app-upload-profile-picture>
+                        <div class="profil-col-container">
+
+                            <div class="profil-pic-container">
+                                <div class="profil" [style.background-image]="'url(' + profileImageUrl + ')'"></div>
+                                <app-upload-profile-picture></app-upload-profile-picture>
+                            </div>
+                            <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit" class="profil-edit" (click)="showUpdateProfile = !showUpdateProfile"></span>
                         </div>
                         <h2>{{ user.name }} {{ user.firstName }}</h2>
                         <h3>Assistante administrative</h3>
@@ -72,4 +75,5 @@
 
         </div>
     </div>
+</div>
 </div>

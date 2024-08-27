@@ -162,7 +162,7 @@ public class UserService implements UserDetailsService {
     }
 
     private String saveImage(MultipartFile file) throws IOException {
-        String uploadDir = "uploads/profile_pictures/";
+        String uploadDir = "../../uploads/profile_pictures/";
         String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
         Path filePath = Paths.get(uploadDir + fileName);
 
