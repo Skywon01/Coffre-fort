@@ -105,4 +105,8 @@ export class DirectoryService {
     deleteDirectory(id: number): Observable<void> {
         return this.http.delete<void>(`${apiRoot}/directories/${id}`, httpoptions);
     }
+
+    renameDirectory(id: number, newName: string): Observable<void>{
+        return this.http.put<void>(`${apiRoot}/directories/${id}`, { name: newName }, httpoptions)
+    }
 }

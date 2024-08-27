@@ -9,10 +9,12 @@ import com.skywon.gupi.repository.UserRepository;
 import com.skywon.gupi.service.DirectoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -80,5 +82,25 @@ public class DirectoryController {
                 .filter(directory -> directory.getParent() != null)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(directories);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Directory> updateDirectory(@PathVariable Integer id, @RequestBody Map<String, String> updateData) {
+        Directory directory = directoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Directory not found"));
+
+        String newName = updateData.get("name");
+        if (newName == null || newName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le nom ne peut pas être vide");
+        }
+
+        // Condition pour empêcher le renommage de "Documents envoyés"
+        if (directory.getName().equals("Documents envoyés")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(directory);
+        }
+
+        directory.setName(newName);
+        return ResponseEntity.ok(directoryRepository.save(directory));
     }
 }

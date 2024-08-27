@@ -58,3 +58,8 @@ tr:nth-child(even){
 .odd-row {
     background-color: #FFFFFF;
 }
+
+.directory-name-edit{
+    display: flex;
+    align-items: baseline;
+}

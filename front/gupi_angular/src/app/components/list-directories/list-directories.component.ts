@@ -48,6 +48,8 @@ export class ListDirectoriesComponent implements OnInit {
     showCreateChildDirectoryForm: Map<number, boolean> = new Map();
     newChildDirectoryName: string = '';
     @Output() directoryAdded = new EventEmitter<DirectoryModel>();
+    directoryToEdit: number | null = null;
+    newDirectoryName: string = '';
 
     constructor(private authService: AuthService, private directoryService: DirectoryService, protected apiService: ApiService, private message: NzMessageService) {
     }
@@ -76,6 +78,7 @@ export class ListDirectoriesComponent implements OnInit {
             this.loadUserDirectories(this.user_id);
         }
     }
+
     private prioritizeDirectory(directories: DirectoryModel[]): DirectoryModel[] {
         const index = directories.findIndex(dir => dir.name === "Documents envoyés");
         if (index > -1) {
@@ -113,8 +116,6 @@ export class ListDirectoriesComponent implements OnInit {
         return parents;
     }
 
-
-
     addChildDirectory(parentId: number, name: string): void {
         this.directoryService.createChildDirectory(parentId, name).subscribe(newChildDirectory => {
             const parentDirectory = this.tuyauDeDirectory.find(dir => dir.id === parentId);
@@ -129,8 +130,6 @@ export class ListDirectoriesComponent implements OnInit {
             this.directoryAdded.emit(parentDirectory);
         });
     }
-
-
 
     loadDirectories() {
         const user = this.authService.getUser();
@@ -164,7 +163,53 @@ export class ListDirectoriesComponent implements OnInit {
             }
         );
     }
+
+    renameDirectory(directoryId: number): void {
+        const newName = prompt('Entrez le nouveau nom du dossier :');
+        if (newName) {
+            const directoryToRename = this.tuyauDeDirectory.find(dir => dir.id === directoryId);
+            if (directoryToRename && directoryToRename.name !== newName) {
+                this.directoryService.renameDirectory(directoryId, newName).subscribe(
+                    () => {
+                        directoryToRename.name = newName;
+                        this.message.success('Dossier renommé avec succès');
+                    },
+                    error => {
+                        this.message.error(error.error.message || 'Erreur lors du renommage');
+                    }
+                );
+            }
+        }
+    }
     isEven(index: number): boolean {
         return index % 2 === 0;
+    }
+
+    editDirectoryName(directoryId: number): void {
+        this.directoryToEdit = directoryId;
+        const directory = this.tuyauDeDirectory.find(dir => dir.id === directoryId);
+        this.newDirectoryName = directory ? directory.name : '';
+    }
+
+    saveDirectoryName(directoryId: number): void {
+        if (this.newDirectoryName) {
+            this.directoryService.renameDirectory(directoryId, this.newDirectoryName).subscribe(
+                () => {
+                    const directory = this.tuyauDeDirectory.find(dir => dir.id === directoryId);
+                    if (directory) {
+                        directory.name = this.newDirectoryName;
+                    }
+                    this.directoryToEdit = null;
+                    this.message.success('Nom du dossier mis à jour avec succès');
+                },
+                error => {
+                    this.message.error(error.error.message || 'Erreur lors du renommage');
+                }
+            );
+        }
+    }
+
+    cancelEdit(): void {
+        this.directoryToEdit = null;
     }
 }
