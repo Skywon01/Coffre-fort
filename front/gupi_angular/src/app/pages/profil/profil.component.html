@@ -24,10 +24,11 @@
                             </div>
                             <span [nzJustify]="justifySegment[1]" nz-flex nz-icon nzTheme="fill" nzType="edit" class="profil-edit" (click)="showUpdateProfile = !showUpdateProfile"></span>
                         </div>
-                        <h2>{{ user.name }} {{ user.firstName }}</h2>
-                        <h3>Assistante administrative</h3>
+                        <h3>{{ user.name }} {{ user.firstName }}</h3>
                         <h2>Société</h2>
-                        <h3>{{ user.company }}</h3>
+                        <h2>{{ user.company }}</h2>
+                        <h3>Poste</h3>
+                        <h2> {{ user.job }} </h2>
 
                     </div>
                 }
@@ -47,7 +48,7 @@
 
                 <div class="profil-col">
                     <h2>Informations</h2>
-                    <h3>Assistante administrative</h3>
+                    <h3>TBD</h3>
 
                 </div>
             </div>

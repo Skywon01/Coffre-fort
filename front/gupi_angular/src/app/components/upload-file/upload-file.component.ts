@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {DirectoryService} from "../../services/directory.service";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-upload-file',
@@ -14,9 +15,10 @@ import {DirectoryService} from "../../services/directory.service";
 export class UploadFileComponent {
     @Input() directoryId!: number;
     @Output() fileUploaded = new EventEmitter<void>();
-    selectedFile!: File;
+    selectedFile!: null;
+    @ViewChild('fileInput') fileInput: any;
 
-    constructor(private directoryService: DirectoryService) {
+    constructor(private directoryService: DirectoryService, private message: NzMessageService) {
     }
 
     onFileSelected(event: any) {
@@ -26,11 +28,20 @@ export class UploadFileComponent {
     onSubmit() {
         if (this.selectedFile) {
             this.directoryService.uploadFile(this.selectedFile, this.directoryId).subscribe(response => {
-                console.log('File uploaded:', response);
+                // console.log('File uploaded:', response);
+
+                // Emit event to refresh file list
                 this.fileUploaded.emit();
+
+                // Show success message
+                this.message.success('Fichier déposé avec succès !');
+
+                // Reset file input
+                this.selectedFile = null;
+                // this.fileInput.nativeElement.value = '';
             }, error => {
-                console.error('Error uploading file:', error);
+                // console.error('Error uploading file:', error);
+                this.message.error('Fichier déposé avec succès');
             });
         }
-    }
-}
+}}

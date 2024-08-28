@@ -1,5 +1,7 @@
 <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <label for="file">Cliquer ou glisser un fichier</label><br>
     <input type="file" id="file" (change)="onFileSelected($event)"><br>
+    @if(selectedFile){
     <button type="submit">Déposer</button>
+    }
 </form>

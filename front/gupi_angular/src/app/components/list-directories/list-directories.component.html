@@ -42,7 +42,10 @@
         </div>
     </div>
     <div *ngIf="openedDirectories.has(directory.id)">
+        @if(directory.name !== 'Documents envoyés'){
+
         <app-upload-file [directoryId]="directory.id" (fileUploaded)="onFileUploaded()"></app-upload-file>
+        }
         <app-list-file [directoryId]="directory.id"></app-list-file>
         <ng-container *ngIf="directory.children?.length">
             <ng-container *ngFor="let child of directory.children; let j = index">

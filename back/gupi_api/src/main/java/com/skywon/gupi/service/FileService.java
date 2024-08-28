@@ -9,6 +9,8 @@ import com.skywon.gupi.repository.UserNotificationRepository;
 import com.skywon.gupi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FileService {
@@ -47,7 +46,7 @@ public class FileService {
      * @param directoryId
      * @return
      */
-    public String uploadFile(MultipartFile file, Integer directoryId) {
+    public ResponseEntity<String> uploadFile(MultipartFile file, Integer directoryId) {
         Directory directory = directoryRepository.findById(directoryId).orElseThrow(() -> new RuntimeException("Directory not found"));
 
         String uniqueID = UUID.randomUUID().toString();
@@ -73,10 +72,14 @@ public class FileService {
             uploadedFile.setDirectory(directory);
             fileRepository.save(uploadedFile);
 
-            return "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.";
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(Collections.singletonMap("message", "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.").toString());
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
-            return "Erreur lors du téléchargement du fichier.";
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
@@ -135,7 +138,7 @@ public class FileService {
             userNotification.setUser(directory.getUser());
             userNotification.setActive(true);
             userNotificationRepository.save(userNotification);
-            return "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.";
+            return ("Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.");
         } catch (Exception ex) {
             ex.printStackTrace();
             return "Erreur lors du téléchargement du fichier.";

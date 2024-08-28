@@ -43,9 +43,9 @@ public class FileController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam MultipartFile file, @RequestParam Integer directoryId) {
-        String response = fileService.uploadFile(file, directoryId);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<ResponseEntity<String>> upload(@RequestParam MultipartFile file, @RequestParam Integer directoryId) throws Exception{
+        ResponseEntity<String> responseBody = fileService.uploadFile(file, directoryId);
+        return ResponseEntity.ok(responseBody);
     }
 
     @PostMapping("/upload-to-user-folder/{userId}")
