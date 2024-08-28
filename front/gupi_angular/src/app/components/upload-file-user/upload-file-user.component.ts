@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {DirectoryService} from "../../services/directory.service";
@@ -23,6 +23,8 @@ export class UploadFileUserComponent {
     @Input() senderName!: any;
     @Input() senderFirstName!: any;
     @Input() userId!: number;
+    @ViewChild('fileInput') fileInput: any;
+
 
     constructor(private directoryService: DirectoryService, private msg: NzMessageService, private authService: AuthService,private userNotificationService: UsernotificationService) {}
 
@@ -39,6 +41,7 @@ export class UploadFileUserComponent {
                 this.msg.success('Fichier téléchargé avec succès.');
                 this.userNotificationService.notifyNotificationAdded();
                 this.fileUploaded.emit();
+                this.fileInput.nativeElement.value = '';
             }, error => {
                 // console.error('Error uploading file:', error);
                 this.msg.error('Erreur lors du téléchargement du fichier.');

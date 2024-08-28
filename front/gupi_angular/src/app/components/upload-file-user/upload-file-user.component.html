@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-upload">
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-upload" #fileInput>
     <input type="file" id="file" (change)="onFileSelected($event)">
     @if(selectedFile){
 
