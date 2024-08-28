@@ -149,6 +149,11 @@ export class ListDirectoriesComponent implements OnInit {
                 listFilesComponent.loadFiles();
             }
         }
+
+            this.loadUserDirectories(this.user_id);
+
+
+
     }
 
     deleteDirectory(id: number): void {

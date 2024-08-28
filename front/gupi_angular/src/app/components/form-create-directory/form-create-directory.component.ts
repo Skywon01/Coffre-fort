@@ -38,7 +38,7 @@ export class FormCreateDirectoryComponent {
         if (this.createDirectoryForm.valid) {
             const directoryName = this.createDirectoryForm.value.name;
             this.directoryService.createDirectory(directoryName).subscribe(response => {
-                console.log('Directory created:', response);
+                // console.log('Directory created:', response);
                 this.directoryCreated.emit(response);
                 this.createDirectoryForm.reset();
             }, error => {

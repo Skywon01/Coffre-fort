@@ -23,7 +23,7 @@ export class UploadProfilePictureComponent implements OnInit {
     ngOnInit() {
         this.loadProfileImage();
         this.profileImageService.profileImageUpdated.subscribe(imageUrl => {
-            console.log('Réception de l\'événement avec l\'URL de l\'image :', imageUrl);
+            // console.log('Réception de l\'événement avec l\'URL de l\'image :', imageUrl);
             this.profileImageUrl = imageUrl;
         });
     }
@@ -43,13 +43,13 @@ export class UploadProfilePictureComponent implements OnInit {
         this.http.post(`${apiRoot}/users/${this.authService.getUser().id}/profile-image`, formData, httpoptions)
             .subscribe(
                 (response: any) => {
-                    console.log('Upload réussi', response);
+                    // console.log('Upload réussi', response);
                     const imageUrl = `${apiRoot}/users/profile-image/${this.authService.getUser().id}`;
                     this.profileImageService.emitProfileImageUpdate(imageUrl);
                     window.location.reload();
                 },
                 (error) => {
-                    console.error('Erreur lors de l\'upload', error);
+                    // console.error('Erreur lors de l\'upload', error);
                 }
             );
     }

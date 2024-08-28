@@ -98,7 +98,7 @@ export class FormProfileEditComponent implements OnInit{
 
             this.userService.updateUser(this.user.id, formData).subscribe(
                 () => {
-                    console.log(formData)
+                    // console.log(formData)
                     this.notification.success('Succès', 'Informations mises à jour avec succès.');
                     this.profileUpdate.emit();
                 },

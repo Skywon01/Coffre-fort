@@ -52,7 +52,7 @@ export class ProfilComponent implements OnInit {
         if (this.user) {
             this.loadUserDevices(this.user.id);
         this.profileImageService.profileImageUpdated.subscribe(imageUrl => {
-            console.log('Réception de l\'événement avec l\'URL de l\'image :', imageUrl);
+            // console.log('Réception de l\'événement avec l\'URL de l\'image :', imageUrl);
             this.profileImageUrl = imageUrl;
         });
         this.loadProfileImage();

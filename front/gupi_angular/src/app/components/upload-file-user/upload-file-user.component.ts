@@ -40,7 +40,7 @@ export class UploadFileUserComponent {
                 this.userNotificationService.notifyNotificationAdded();
                 this.fileUploaded.emit();
             }, error => {
-                console.error('Error uploading file:', error);
+                // console.error('Error uploading file:', error);
                 this.msg.error('Erreur lors du téléchargement du fichier.');
             });
         }

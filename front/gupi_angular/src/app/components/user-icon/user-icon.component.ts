@@ -84,7 +84,7 @@ export class UserIconComponent implements OnInit {
     }
 
     change(value: boolean): void {
-        console.log(value);
+        // console.log(value);
     }
 
     logout(): void {

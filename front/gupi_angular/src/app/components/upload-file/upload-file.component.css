@@ -49,3 +49,6 @@ input[type=file] {
     background: #eee;
     border-color: #111;
 }
+.form-upload{
+    display: inline-flex;
+}

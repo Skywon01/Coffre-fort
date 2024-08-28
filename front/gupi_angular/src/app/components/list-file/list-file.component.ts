@@ -74,7 +74,7 @@ export class ListFileComponent implements OnInit {
 
     loadFiles() {
         this.fileService.getFilesByDirectoryId(this.directoryId).subscribe(files => {
-            console.log('Loaded files:', files); // Vérifie ici les données
+            // console.log('Loaded files:', files); // Vérifie ici les données
             this.files = files;
         }, error => {
             console.error('Error loading files:', error);

@@ -1,6 +1,8 @@
-<form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-upload">
     <input type="file" id="file" (change)="onFileSelected($event)">
     @if(selectedFile){
-    <button type="submit">Upload</button>
+
+    <button type="submit">Envoyer</button>
+
     }
 </form>

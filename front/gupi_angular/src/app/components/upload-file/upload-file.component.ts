@@ -38,7 +38,7 @@ export class UploadFileComponent {
 
                 // Reset file input
                 this.selectedFile = null;
-                // this.fileInput.nativeElement.value = '';
+                this.fileInput.nativeElement.value = '';
             }, error => {
                 // console.error('Error uploading file:', error);
                 this.message.error('Fichier déposé avec succès');
