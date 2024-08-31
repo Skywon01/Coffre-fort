@@ -18,6 +18,9 @@ import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -38,7 +41,7 @@ public class FileService {
     private UserNotificationRepository userNotificationRepository;
 
     @Value("${file.path}")
-    private String path;
+    private String relativePath;
 
     /**
      * On gère le dépôt d'un fichier dans un dossier de l'utilisateur en cours
@@ -46,7 +49,7 @@ public class FileService {
      * @param directoryId
      * @return
      */
-    public ResponseEntity<String> uploadFile(MultipartFile file, Integer directoryId) {
+    public ResponseEntity<String> uploadFile(MultipartFile file, Integer directoryId) throws IOException {
         Directory directory = directoryRepository.findById(directoryId).orElseThrow(() -> new RuntimeException("Directory not found"));
 
         String uniqueID = UUID.randomUUID().toString();
@@ -54,29 +57,27 @@ public class FileService {
         String fileName = uniqueID + file.getOriginalFilename().substring(positionDernierPoint);
 
         SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/");
-        File directoryPath = new File(path + sdf);
-        if (!directoryPath.exists() || !directoryPath.isDirectory()) {
-            directoryPath.mkdirs();
+        Path directoryPath = Paths.get(relativePath, sdf.format(new Date())).toAbsolutePath();
+        if (!Files.exists(directoryPath)) {
+            Files.createDirectories(directoryPath);
         }
 
         try {
-            file.transferTo(new File(directoryPath, fileName));
+            Path filePath = directoryPath.resolve(fileName);
+            file.transferTo(filePath.toFile());
 
             com.skywon.gupi.entity.File uploadedFile = new com.skywon.gupi.entity.File();
             uploadedFile.setFile_name(fileName);
             uploadedFile.setOriginal_file_name(file.getOriginalFilename());
-            uploadedFile.setFile_content(uploadedFile.getFile_content());
             uploadedFile.setFile_content_type(file.getContentType());
             uploadedFile.setFile_extension(file.getOriginalFilename().substring(positionDernierPoint));
-            uploadedFile.setFile_path(directoryPath.getPath() + "/" + fileName);
+            uploadedFile.setFile_path(filePath.toString());
             uploadedFile.setDirectory(directory);
             fileRepository.save(uploadedFile);
 
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(Collections.singletonMap("message", "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.").toString());
-
-
         } catch (Exception ex) {
             ex.printStackTrace();
             return ResponseEntity.badRequest().body(ex.getMessage());
@@ -112,24 +113,27 @@ public class FileService {
         String fileName = uniqueID + file.getOriginalFilename().substring(positionDernierPoint);
 
         SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/");
-        File directoryPath = new File(path + sdf.format(new Date()));
-        if (!directoryPath.exists() || !directoryPath.isDirectory()) {
-            directoryPath.mkdirs();
-        }
+        Path directoryPath = Paths.get(relativePath, sdf.format(new Date())).toAbsolutePath();
 
         try {
-            file.transferTo(new File(directoryPath, fileName));
+            // Crée les répertoires si nécessaire
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
+            }
+
+            Path filePath = directoryPath.resolve(fileName);
+            file.transferTo(filePath.toFile());
 
             com.skywon.gupi.entity.File uploadedFile = new com.skywon.gupi.entity.File();
             uploadedFile.setFile_name(fileName);
             uploadedFile.setOriginal_file_name(file.getOriginalFilename());
-            uploadedFile.setFile_content(uploadedFile.getFile_content());
             uploadedFile.setFile_content_type(file.getContentType());
             uploadedFile.setFile_extension(file.getOriginalFilename().substring(positionDernierPoint));
-            uploadedFile.setFile_path(directoryPath.getPath() + "/" + fileName);
+            uploadedFile.setFile_path(filePath.toString());
             uploadedFile.setDirectory(directory);
             fileRepository.save(uploadedFile);
 
+            // Création de la notification utilisateur
             UserNotification userNotification = new UserNotification();
             userNotification.setSenderName(senderName);
             userNotification.setSenderFirstName(senderFirstName);
@@ -138,7 +142,8 @@ public class FileService {
             userNotification.setUser(directory.getUser());
             userNotification.setActive(true);
             userNotificationRepository.save(userNotification);
-            return ("Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.");
+
+            return "Le fichier: " + file.getOriginalFilename() + " a bien été téléchargé.";
         } catch (Exception ex) {
             ex.printStackTrace();
             return "Erreur lors du téléchargement du fichier.";

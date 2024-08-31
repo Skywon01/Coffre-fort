@@ -71,6 +71,7 @@ public class IdentificationController {
         // Ajouter le cookie à la réponse
         response.addCookie(jwtCookie);
 
+        // On envoie l'utilisateur
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("user", user);
         responseBody.put("roles", user.getRoles());

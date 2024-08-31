@@ -73,6 +73,7 @@ public class SecurityConfig {
         config.addAllowedHeader("Authorization");
         config.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"));
         config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("https://skywon01.github.io");
         config.setAllowCredentials(true); // This is important since we are using session cookies
         source.registerCorsConfiguration("/**", config);
         return source;

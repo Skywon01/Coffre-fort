@@ -28,7 +28,7 @@ public class FileController {
     private UserNotificationService userNotificationService;
 
     @Value("${file.path}")
-    private String path;
+    private String relativePath;
 
 
     @GetMapping
@@ -68,16 +68,18 @@ public class FileController {
 
     @GetMapping("/image/{annee}/{mois}/{fileName}")
     public ResponseEntity<?> displayImage(@PathVariable String fileName, @PathVariable String annee, @PathVariable String mois) {
-        File file = new File(path + "/" + annee + "/" + mois + "/" + fileName);
+        Path filePath = Paths.get(relativePath, annee, mois, fileName).toAbsolutePath();
+        File file = filePath.toFile();
+
         if (!file.exists()) {
-            return null;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Le fichier n'existe pas");
         }
         try {
-            byte[] imageData = Files.readAllBytes(file.toPath());
+            byte[] imageData = Files.readAllBytes(filePath);
             return ResponseEntity.ok().contentType(MediaType.valueOf("image/png")).body(imageData);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la lecture du fichier");
         }
     }
 
@@ -124,7 +126,8 @@ public class FileController {
     @DeleteMapping("/image/{annee}/{mois}/{fileName}")
     public ResponseEntity<?> deleteImage(@PathVariable String fileName, @PathVariable String annee, @PathVariable String mois) {
         try {
-            File file = new File(path + "/" + annee + "/" + mois + "/" + fileName);
+            Path filePath = Paths.get(relativePath, annee, mois, fileName).toAbsolutePath();
+            File file = filePath.toFile();
             if (file.exists()) {
                 if (file.delete()) {
                     return ResponseEntity.ok().body("Le fichier: " + fileName + " a bien été supprimé");
