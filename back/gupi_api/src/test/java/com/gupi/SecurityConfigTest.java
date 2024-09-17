@@ -1,5 +1,6 @@
-package com.skywon.gupi.security;
+package com.gupi;
 
+import com.skywon.gupi.security.SecurityFilter;
 import com.skywon.gupi.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,9 +8,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -18,8 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @Configuration
-@Profile("!test")
-public class SecurityConfig {
+@Profile("test")
+public class SecurityConfigTest {
 
     @Bean
     public SecurityFilter securityFilter(){
@@ -51,10 +52,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/api/register").hasAuthority("ADMIN")
                         .requestMatchers("/api/file/upload-to-user-folder/").hasAuthority("ADMIN")
                         .requestMatchers("/api/**").hasAnyAuthority("ADMIN", "USER")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(securityFilter(), UsernamePasswordAuthenticationFilter.class)

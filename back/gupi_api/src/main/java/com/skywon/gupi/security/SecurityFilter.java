@@ -26,37 +26,38 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String token = null;
 
-        String urlRequest = request.getRequestURI();
+        // Vérifier d'abord le header Authorization
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+        }
 
-//        if (urlRequest.startsWith("/api/")) {
-//            filterChain.doFilter(request, response);
-//
-//        }
-
-        try {
-            // Extraire le token du cookie
+        // Si pas de token dans le header, vérifier les cookies
+        if (token == null) {
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
-                Cookie jwtCookie = Arrays.stream(cookies)
-                        .filter(cookie -> "jwt".equals(cookie.getName()))
-                        .findFirst()
-                        .orElse(null);
-
-                if (jwtCookie != null) {
-                    String token = jwtCookie.getValue();
-                    token = JwtTokenManager.getUser(token);
-                    UserDetails user = userService.findByToken(token);
-
-                    if (user != null) {
-                        // On le passe aux controllers grâce au context
-                        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                for (Cookie cookie : cookies) {
+                    if ("jwt".equals(cookie.getName())) {
+                        token = cookie.getValue();
+                        break;
                     }
                 }
             }
-        } catch (Exception e) {
-            logger.info("Trying parse token but failed");
+        }
+
+        if (token != null) {
+            try {
+                String userToken = JwtTokenManager.getUser(token);
+                UserDetails user = userService.findByToken(userToken);
+                if (user != null) {
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            } catch (Exception e) {
+                logger.error("Error processing token", e);
+            }
         }
 
         filterChain.doFilter(request, response);
